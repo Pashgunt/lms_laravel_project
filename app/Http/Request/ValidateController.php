@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use http\Env\Request;
+
 class ValidateController
 {
     protected array $config;
@@ -12,10 +14,10 @@ class ValidateController
     }
 
     /** Метод проверки комплектности $_POST */
-    public function checkPosts (string $form): bool
+    public function checkPosts(string $form): bool
     {
         foreach ($this->config[$form] as $value) {
-            if(!isset($_POST[$value])) {
+            if (!isset($_POST[$value])) {
                 return false;
             }
         }
@@ -23,5 +25,12 @@ class ValidateController
         return true;
     }
 
+    public function checkPass(Request $request)
+    {
+        $validated = $request->valid([
+            'title' => 'required|unique:posts|max:16',
+            'password' => 'password:api'
+        ]);
+    }
 
 }
