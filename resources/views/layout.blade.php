@@ -18,7 +18,9 @@
     </div>
 </header>
 <section class="content">
-    <section class="content__wrapper _container"></section>
+    <section class="content__wrapper _container">
+        @yield('content')
+    </section>
 </section>
 <footer class="footer">
     <section class="footer__wrapper _container"></section>
