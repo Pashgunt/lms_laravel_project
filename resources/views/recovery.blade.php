@@ -1,4 +1,4 @@
-@include ('layout')
+@extends('layout')
 
 @section ('content')
     <section class="registration">
