@@ -25,6 +25,7 @@ class RegisterController extends Controller
     {
         $this->validateController->checkPass($request);
         $this->validateController->checkEmail($request);
+        $this->validateController->checkUsername($request);
         return view('layout');
     }
 }

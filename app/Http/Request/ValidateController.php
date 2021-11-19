@@ -30,17 +30,16 @@ class ValidateController
 
     public function checkPass(Request $request)
     {
-        $this->validate($request, ['password' => 'required|confirmed|min:6']);
+        $this->validate($request, ['password' => 'match:/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s]).{6,}/']);
     }
 
     public function checkEmail(Request $request)
     {
-        $this->validate($request, ['password' => [
-            'required', 'email:rfc',
-            function ($attribute, $value, $fail) {
-                if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
-                    $fail($attribute . ' is invalid.');
-                }
-            }],]);
+        $this->validate($request, ['email' => 'match:/^((([0-9A-Za-z]{1}[-0-9A-z\.]{1,}[0-9A-Za-z]{1})|([0-9А-Яа-я]{1}[-0-9А-я\.]{1,}[0-9А-Яа-я]{1}))@([-A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,})$/u']);
+    }
+
+    public function checkUsername(Request $request)
+    {
+        $this->validate($request, ['username' => 'match:/^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$/']);
     }
 }
