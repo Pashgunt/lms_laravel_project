@@ -19,7 +19,7 @@
 }
 
 .registration__label:not(:last-child) {
-    margin-bottom: 30px;
+    margin-bottom: 15px;
 }
 
 .registration__wrapper form input {
