@@ -1,5 +1,9 @@
 @extends('layout')
 
+@section('style')
+    <link rel="stylesheet" href="assets/css/reg.css">
+@endsection
+
 @section ('content')
     <section class="registration">
         <section class="registration__wrapper _container">

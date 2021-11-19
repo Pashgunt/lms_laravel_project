@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>LMS</title>
     <link rel="stylesheet" href="assets/css/app.css">
+    @yield ('style')
 </head>
 <body>
 <header class="header">
