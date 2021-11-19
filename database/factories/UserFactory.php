@@ -15,7 +15,6 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        var_dump('!!!!!!');
         return [
             'username' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
