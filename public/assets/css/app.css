@@ -57,3 +57,7 @@ a {
     text-decoration: none;
     color: inherit;
 }
+
+.content__wrapper{
+    height: calc(100vh - 120px);
+}
