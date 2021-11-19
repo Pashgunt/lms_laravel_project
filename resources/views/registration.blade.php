@@ -9,11 +9,11 @@
         <section class="registration__wrapper _container">
             <form action="/register" method="post">
                 @csrf
-                <span class="registration__title _title">Регистрация</span>
-                <label class="_title">Имя пользователя <br><input name="username" type="text"></label>
-                <label class="_title">Почта <br><input name="email" type="email"></label>
-                <label class="_title">Пароль <br><input name="password" type="password"></label>
-                <label class="_title">Подтверждение пароля <br><input name="rePassword" type="password"></label>
+                <div class="registration__title _title">Регистрация</div>
+                <label class="registration__label _title">Имя пользователя <br><input name="username" type="text"></label>
+                <label class="registration__label _title">Почта <br><input name="email" type="email"></label>
+                <label class="registration__label _title">Пароль <br><input name="password" type="password"></label>
+                <label class="registration__label _title">Подтверждение пароля <br><input name="rePassword" type="password"></label>
                 <input type="submit" value="Зарегестрироваться" name="register">
             </form>
         </section>
