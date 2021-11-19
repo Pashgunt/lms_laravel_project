@@ -10,7 +10,7 @@
 <body>
 <header class="header">
     <div class="header__wrapper _container">
-        <span class="header__title _title">LMS</span>
+        <a href="/" class="header__title _title">LMS</a>
         <div class="header__buttons">
             <a href="/login" class="header__registration">Авторизация</a>
             <a href="/register" class="header__registration"> Регистрация</a>
