@@ -18,6 +18,6 @@ Route::post('/', '\App\Http\Controllers\MainPageController@main');
 Route::get('/login', '\App\Http\Controllers\LoginController@main');
 Route::post('/login', '\App\Http\Controllers\LoginController@main');
 Route::get('/register', '\App\Http\Controllers\RegisterController@main');
-Route::post('/register', '\App\Http\Controllers\RegisterController@main');
+Route::post('/register', '\App\Http\Controllers\RegisterController@getReg');
 Route::get('/recovery', '\App\Http\Controllers\RecoveryController@main');
 Route::post('/recovery', '\App\Http\Controllers\RecoveryController@main');

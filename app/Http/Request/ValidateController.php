@@ -1,16 +1,19 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Request;
 
-use http\Env\Request;
+use Illuminate\Http\Request;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 
 class ValidateController
 {
     protected array $config;
 
+    use ValidatesRequests;
+
     public function __construct()
     {
-        $this->config = require_once '../../../config/check-posts.php';
+        $this->config = require '../config/check-posts.php';
     }
 
     /** Метод проверки комплектности $_POST */
@@ -27,10 +30,17 @@ class ValidateController
 
     public function checkPass(Request $request)
     {
-        $validated = $request->valid([
-            'title' => 'required|unique:posts|max:16',
-            'password' => 'password:api'
-        ]);
+        $this->validate($request, ['password' => 'required|confirmed|min:6']);
     }
 
+    public function checkEmail(Request $request)
+    {
+        $this->validate($request, ['password' => [
+            'required', 'email:rfc',
+            function ($attribute, $value, $fail) {
+                if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                    $fail($attribute . ' is invalid.');
+                }
+            }],]);
+    }
 }

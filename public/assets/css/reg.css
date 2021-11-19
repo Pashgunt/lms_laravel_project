@@ -50,3 +50,7 @@
     color: blue;
     letter-spacing: initial;
 }
+
+.alert-danger{
+    color: red;
+}
