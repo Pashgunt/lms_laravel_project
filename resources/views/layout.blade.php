@@ -5,15 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>LMS</title>
     <link rel="stylesheet" href="assets/css/app.css">
-
 </head>
 <body>
 <header class="header">
     <div class="header__wrapper _container">
         <span class="header__title _title">LMS</span>
         <div class="header__buttons">
-            <input type="submit" value="Регистрация" name="registration" class="header__registration">
-            <input type="submit" value="Авторизация" name="login" class="header__registration">
+            <a href="/login" class="header__registration">Авторизация</a>
+            <a href="/register" class="header__registration"> Регистрация</a>
         </div>
     </div>
 </header>

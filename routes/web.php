@@ -14,6 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', '\App\Http\Controllers\MainPageController@main');
-Route::get('/login', '\App\Http\Controllers\AuthController@main');
+Route::get('/login', '\App\Http\Controllers\LoginController@main');
 Route::get('/register', '\App\Http\Controllers\RegisterController@main');
 Route::get('/recovery', '\App\Http\Controllers\RecoveryController@main');
