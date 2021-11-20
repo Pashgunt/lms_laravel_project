@@ -20,7 +20,7 @@ class RecoveryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|regex:/^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$ /',
+            'email' => 'required|email',
         ];
     }
 
@@ -42,7 +42,7 @@ class RecoveryRequest extends FormRequest
     {
         return [
             'email.required' => 'Поле обязательно к заполнению',
-            'email.regex' => 'Проверьте введенные данные',
+            'email.email' => 'Проверьте введенные данные',
         ];
     }
 }

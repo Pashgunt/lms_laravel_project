@@ -20,16 +20,24 @@
                     <div class="alert-danger">{{ $message }}</div>
                     @enderror
                     <br><input name="email" type="email" value="{{ old('email') }}"></label>
+                <label class="registration__label _title">Датарождения
+                    @error('date_birth')
+                    <div class="alert-danger">{{ $message }}</div>
+                    @enderror
+                    <br><input name="date_birth" type="date" value="{{ old('date_birth') }}">
+                </label>
                 <label class="registration__label _title">Пароль
                     @error('password')
                     <div class="alert-danger">{{ $message }}</div>
                     @enderror
-                    <br><input name="password" type="password"></label>
+                    <br><input name="password" type="password">
+                </label>
                 <label class="registration__label _title">Подтверждение пароля
                     @error('rePassword')
                     <div class="alert-danger">{{ $message }}</div>
                     @enderror
-                    <br><input name="rePassword" type="password"></label>
+                    <br><input name="rePassword" type="password">
+                </label>
                 <input type="submit" value="Зарегестрироваться" name="register">
             </form>
         </section>

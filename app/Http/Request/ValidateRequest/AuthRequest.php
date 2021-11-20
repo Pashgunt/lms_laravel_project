@@ -20,8 +20,8 @@ class AuthRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'login' => 'required|regex:/^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$ /',
-            'password' => 'required|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/',
+            'login' => 'required|email',
+            'password' => 'required|min:6|max:30',
         ];
     }
 
@@ -45,8 +45,7 @@ class AuthRequest extends FormRequest
         return [
             'login.required' => 'Поле обязательно к заполнению',
             'password.required' => 'Поле обязательно к заполнению',
-            'login.regex' => 'Проверьте введенные данные',
-            'password.regex' => 'Проверьте введенные данные',
+            'login.email' => 'Проверьте введенные данные',
         ];
     }
 }

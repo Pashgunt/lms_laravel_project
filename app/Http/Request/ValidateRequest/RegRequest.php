@@ -17,14 +17,18 @@ class RegRequest extends FormRequest
      * required - обязательное к заполнению
      * regex - соответствует регулярному выражению
      * same - с каком полем должно совпадать
+     * email - соотвтетсвует формату email
+     * unique - уникальность, в качестве параметров указывается имя таблицы в БД
+     * date - соотвтетсвует формату date
      */
     public function rules(): array
     {
         return [
-            'email' => 'required|regex:/^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$ /',
-            'username' => 'required|regex:/^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$ /',
-            'password' => 'required|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/',
-            'rePassword' => 'required|same:password|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/',
+            'email' => 'required|email|unique:users',
+            'username' => 'required|unique:users|regex:/[a-z0-9]{4,}/i',
+            'password' => 'required|min:6|max:30',
+            'rePassword' => 'required|same:password',
+            'date_birth' => 'required|date'
         ];
     }
 
@@ -50,12 +54,14 @@ class RegRequest extends FormRequest
         return [
             'email.required' => 'Поле обязательно к заполнению',
             'username.required' => 'Поле обязательно к заполнению',
+            'username.unique' => 'Пользователь с таким Именем же зарегестрирован',
+            'username.regex' => 'Проверьте введенные вами данные',
             'password.required' => 'Поле обязательно к заполнению',
             'rePassword.required' => 'Поле обязательно к заполнению',
-            'email.regex' => 'Проверьте введенные данные',
-            'username.regex' => 'Проверьте введенные данные',
-            'password.regex' => 'Проверьте введенные данные',
-            'rePassword.regex' => 'Проверьте введенные данные',
+            'date_birth.required' => 'Поле обязательно к заполнению',
+            'date_birth.date' => 'Проверьте введенные вами данные',
+            'email.email' => 'Проверьте введенные данные',
+            'email.unique' => 'Пользователь с таким Email же зарегестрирован',
             'rePassword.same' => 'Поле должно совадать с Паролем',
         ];
     }
