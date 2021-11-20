@@ -2,8 +2,10 @@
 
 namespace App\Http\Request;
 
-use Illuminate\Http\Request;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use App\Http\Request\ValidateRequest\RegRequest;
+use App\Http\Request\ValidateRequest\AuthRequest;
+use App\Http\Request\ValidateRequest\RecoveryRequest;
 
 class ValidateController
 {
@@ -28,18 +30,26 @@ class ValidateController
         return true;
     }
 
-    public function checkPass(Request $request)
+    /**
+     * Метод для использования валидации на полях формы регистрации
+     * Все классы для валидаций находятся в папке ValidateRequest
+     * Подробнее в документацию на валидацию
+     */
+    public function checkReg(RegRequest $request)
     {
-        $this->validate($request, ['password' => 'match:/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s]).{6,}/']);
     }
 
-    public function checkEmail(Request $request)
+    /**
+     * Метод для использования валидации на полях формы регистрации
+     */
+    public function checkAuth(AuthRequest $request)
     {
-        $this->validate($request, ['email' => 'match:/^((([0-9A-Za-z]{1}[-0-9A-z\.]{1,}[0-9A-Za-z]{1})|([0-9А-Яа-я]{1}[-0-9А-я\.]{1,}[0-9А-Яа-я]{1}))@([-A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,})$/u']);
     }
 
-    public function checkUsername(Request $request)
+    /**
+     * Метод для использования валидации на полях формы регистрации
+     */
+    public function checkRecovery(RecoveryRequest $request)
     {
-        $this->validate($request, ['username' => 'match:/^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$/']);
     }
 }

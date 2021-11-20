@@ -7,11 +7,19 @@
 @section ('content')
     <section class="registration">
         <section class="registration__wrapper _container">
-            <form action="/" method="post">
+            <form action="/login" method="post">
                 @csrf
                 <div class="registration__title _title">Авторизация</div>
-                <label class="registration__label _title">Логин <br><input name="login" type="text"></label>
-                <label class="registration__label _title"> Пароль <a href="/recovery" class = "registration__recovery">Забыли пароль?</a><br>
+                <label class="registration__label _title">Логин
+                    @error('login')
+                    <div class="alert-danger">{{ $message }}</div>
+                    @enderror
+                    <br><input name="login" type="text" value="{{ old('login') }}"></label>
+                <label class="registration__label _title"> Пароль
+                    @error('password')
+                    <div class="alert-danger">{{ $message }}</div>
+                    @enderror
+                    <a href="/recovery" class = "registration__recovery">Забыли пароль?</a><br>
                     <input name="password" type="password">
                 </label>
                 <input type="submit" value="Авторизоваться" name="authUser">

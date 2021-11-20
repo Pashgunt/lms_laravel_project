@@ -14,12 +14,12 @@
                     @error('username')
                     <div class="alert-danger">{{ $message }}</div>
                     @enderror
-                    <br><input name="username" type="text"></label>
+                    <br><input name="username" type="text" value="{{ old('username') }}"></label>
                 <label class="registration__label _title">Почта
                     @error('email')
                     <div class="alert-danger">{{ $message }}</div>
                     @enderror
-                    <br><input name="email" type="email"></label>
+                    <br><input name="email" type="email" value="{{ old('email') }}"></label>
                 <label class="registration__label _title">Пароль
                     @error('password')
                     <div class="alert-danger">{{ $message }}</div>

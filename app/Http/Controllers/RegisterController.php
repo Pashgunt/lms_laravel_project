@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Request\ValidateController;
+use App\Http\Request\ValidateRequest\RegRequest;
 
 class RegisterController extends Controller
 {
-
-    public ValidateController $validateController;
 
     function __construct()
     {
@@ -21,11 +18,12 @@ class RegisterController extends Controller
         return view('registration');
     }
 
-    public function getReg(Request $request)
+    /**
+     * Метод для отправления данных при регситрации
+     * Прохождение валидации
+     */
+    public function getReg(RegRequest $request)
     {
-        $this->validateController->checkPass($request);
-        $this->validateController->checkEmail($request);
-        $this->validateController->checkUsername($request);
-        return view('layout');
+        $this->validateController->checkReg($request);
     }
 }

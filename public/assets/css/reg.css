@@ -52,5 +52,10 @@
 }
 
 .alert-danger{
+    font-size: 10px;
+    letter-spacing: initial;
+    text-transform: initial;
+    font-weight: lighter;
+    float: right;
     color: red;
 }
