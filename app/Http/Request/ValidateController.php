@@ -13,23 +13,6 @@ class ValidateController
 
     use ValidatesRequests;
 
-    public function __construct()
-    {
-        $this->config = require '../config/check-posts.php';
-    }
-
-    /** Метод проверки комплектности $_POST */
-    public function checkPosts(string $form): bool
-    {
-        foreach ($this->config[$form] as $value) {
-            if (!isset($_POST[$value])) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
     /**
      * Метод для использования валидации на полях формы регистрации
      * Все классы для валидаций находятся в папке ValidateRequest
