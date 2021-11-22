@@ -25,5 +25,7 @@
 <footer class="footer">
     <section class="footer__wrapper _container"></section>
 </footer>
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="assets/js/wysiwyg.js"></script>
 </body>
 </html>
