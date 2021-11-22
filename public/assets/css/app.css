@@ -49,7 +49,9 @@ body {
 }
 
 .footer__wrapper {
-    height: 70px;
+    padding: 25px;
+    text-align: center;
+
 }
 
 a {

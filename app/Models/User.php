@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -46,5 +47,38 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /** Получение списка пользователей через пагинацию */
+    public function getUsersList(int $page, int $count): object
+    {
+        return DB::table('users')->paginate($count, '*', '', $page);
+    }
 
+    /** Редактирование информации о пользователе */
+    public function editUserInfo(int $userId): bool
+    {
+        foreach ($_POST as $key => $value) {
+            $$key = $value;
+        }
+
+        $result = DB::table('users')
+            ->where('id', '=', "$userId")
+            ->update(['username' => $username, 'email' => $email, 'date_birth' => $birthDate]);
+
+        return $result;
+    }
+
+    /** Получение информации о юзере через ID */
+    public function getUserInfo(int $userId): object
+    {
+        return DB::table('users')
+            ->select('id', 'username', 'email', 'date_birth', 'role_id')
+            ->where('id', '=', $userId)
+            ->get();
+    }
+
+    /** Удаление юзера по ID */
+    public function deleteUser(int $userId): bool
+    {
+        return DB::table('users')->delete($userId);
+    }
 }

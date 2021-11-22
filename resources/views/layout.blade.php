@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>LMS</title>
-    <link rel="stylesheet" href="assets/css/app.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/css/app.css">
     @yield ('style')
 </head>
 <body>
@@ -23,7 +24,9 @@
     </section>
 </section>
 <footer class="footer">
-    <section class="footer__wrapper _container"></section>
+    <section class="footer__wrapper _container">
+        <a href="/users/list/1">Список пользователей</a>
+    </section>
 </footer>
 <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script src="assets/js/wysiwyg.js"></script>

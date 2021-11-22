@@ -62,3 +62,7 @@ Route::post('/confirm-password', [ConfirmablePasswordController::class, 'store']
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->middleware('auth')
                 ->name('logout');
+Route::get('/users/list/{page}', '\App\Http\Controllers\UsersListController@main');
+Route::post('/users/list/{page}', '\App\Http\Controllers\UsersListController@delete');
+Route::get('/users/info/{userId}', '\App\Http\Controllers\UsersListController@editPage');
+Route::post('/users/edit/{userId}', '\App\Http\Controllers\UsersListController@editInfo');
