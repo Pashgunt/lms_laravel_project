@@ -13,11 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', '\App\Http\Controllers\MainPageController@main');
-Route::post('/', '\App\Http\Controllers\MainPageController@main');
-Route::get('/login', '\App\Http\Controllers\LoginController@main')->name('login');
-Route::post('/login', '\App\Http\Controllers\LoginController@getAuthorization');
-Route::get('/register', '\App\Http\Controllers\RegisterController@main')->name('reg');
-Route::post('/register', '\App\Http\Controllers\RegisterController@getReg');
-Route::get('/recovery', '\App\Http\Controllers\RecoveryController@main');
-Route::post('/recovery', '\App\Http\Controllers\RecoveryController@getRecovery');
+Route::get('/', function () {
+    return view('layout');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
