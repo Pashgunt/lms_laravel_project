@@ -1,0 +1,19 @@
+.table-modify {
+    margin: 30px 0;
+}
+.pag-a {
+    padding: 0 5px;
+}
+.editUserInfo {
+    width: 90%;
+    text-align: center;
+    padding: 20px 0;
+    margin: 50px 0 0 0;
+}
+.editUserInfo input{
+    width: 250px;
+    margin: 20px 0;
+}
+.head {
+    margin: 20px 0;
+}
