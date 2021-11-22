@@ -15,3 +15,5 @@ php artisan migrate:rollback --step=5
 php artisan make:seeder UserSeeder
 #### Запуск сидера
 php artisan db:seed --class=UserSeeder
+### Создание Wysiwyg 
+У всех элементов textarea, где его необходимо реализовать, в качестве id указать basic-wysiwyg
