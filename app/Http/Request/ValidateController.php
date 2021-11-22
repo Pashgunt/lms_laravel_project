@@ -4,7 +4,6 @@ namespace App\Http\Request;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Http\Request\ValidateRequest\RegRequest;
-use App\Http\Request\ValidateRequest\AuthRequest;
 use App\Http\Request\ValidateRequest\RecoveryRequest;
 
 class ValidateController
@@ -19,13 +18,6 @@ class ValidateController
      * Подробнее в документацию на валидацию
      */
     public function checkReg(RegRequest $request)
-    {
-    }
-
-    /**
-     * Метод для использования валидации на полях формы регистрации
-     */
-    public function checkAuth(AuthRequest $request)
     {
     }
 

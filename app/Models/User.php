@@ -46,5 +46,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    //Проверка, назначена ли пользователю конкретная роль
+    public function hasRole(string $role): bool
+    {
+        $userRole = Role::find($this->role_id);
+        if (strtolower($userRole->role_name) === $role) {
+            return true;
+        }
 
+        return false;
+    }
 }
