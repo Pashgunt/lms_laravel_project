@@ -57,6 +57,7 @@ class RegisterController extends Controller
          * Если пользователь успешно зарегестрировался перенаправляем на страницу авторизации
          */
         if ($user) {
+            $request->session()->flash('message', 'Регистрация завершена успешно');
             return redirect()->to(route('login'));
         }
 

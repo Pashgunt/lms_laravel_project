@@ -9,6 +9,9 @@
         <section class="registration__wrapper _container">
             <form action="/login" method="post">
                 @csrf
+                @if(session()->has('message'))
+                    {{session()->get('message')}}
+                @endif
                 <div class="registration__title _title">Авторизация</div>
                 <label class="registration__label _title">Логин
                     @error('login')
@@ -19,7 +22,7 @@
                     @error('password')
                     <div class="alert-danger">{{ $message }}</div>
                     @enderror
-                    <a href="/recovery" class = "registration__recovery">Забыли пароль?</a><br>
+                    <a href="/recovery" class="registration__recovery">Забыли пароль?</a><br>
                     <input name="password" type="password">
                 </label>
                 <input type="submit" value="Авторизоваться" name="authUser">
