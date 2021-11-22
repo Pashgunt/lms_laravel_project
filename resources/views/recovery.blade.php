@@ -7,7 +7,12 @@
 @section ('content')
     <section class="registration">
         <section class="registration__wrapper _container">
-            <form action="/recovery" method="post">
+            <form action="{{ route('password.email') }}" method="post">
+                <!-- Session Status -->
+                <x-auth-session-status class="mb-4" :status="session('status')" />
+
+                <!-- Validation Errors -->
+                <x-auth-validation-errors class="mb-4" :errors="$errors" />
                 @csrf
                 <div class="registration__title _title">Восстановление пароля</div>
                 <label class="registration__label _title">Почта
