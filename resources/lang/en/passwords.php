@@ -1,22 +1,12 @@
 <?php
 
+/**
+ * Ошибки валидации : восстановления пароля
+ */
 return [
-
-    /*
-    |--------------------------------------------------------------------------
-    | Password Reset Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are the default lines which match reasons
-    | that are given by the password broker for a password update attempt
-    | has failed, such as for an invalid token or invalid new password.
-    |
-    */
-
-    'reset' => 'Your password has been reset!',
+    'reset' => 'Пароль успешно изменен',
     'sent' => 'Письмо с ссылкой на изменения пароля отправлено!',
-    'throttled' => 'Please wait before retrying.',
-    'token' => 'This password reset token is invalid.',
-    'user' => "We can't find a user with that email address.",
-
+    'throttled' => 'Слишком много попыток, повторите позже.',
+    'token' => 'Данная ссылка не действительна.',
+    'user' => "Ошибка ввода почты, проверьте правельность указанной почты.",
 ];
