@@ -14,14 +14,8 @@
                 @endif
                 <div class="registration__title _title">Авторизация</div>
                 <label class="registration__label _title">Электронная почта
-{{--                    @error('login')--}}
-{{--                    <div class="alert-danger">{{ $message }}</div>--}}
-{{--                    @enderror--}}
                     <br><input name="email" type="text" value="{{ old('login') }}"></label>
                 <label class="registration__label _title"> Пароль
-{{--                    @error('password')--}}
-{{--                    <div class="alert-danger">{{ $message }}</div>--}}
-{{--                    @enderror--}}
                     <a href="/recovery" class="registration__recovery">Забыли пароль?</a><br>
                     <input name="password" type="password">
                 </label>
