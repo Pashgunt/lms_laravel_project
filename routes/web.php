@@ -25,6 +25,11 @@ Route::get('/courses', function () {
     return view('index');
 })->middleware(['auth', 'role:admin|manager'])->name('courses');
 
+Route::get('/users/list/{page}', '\App\Http\Controllers\UsersListController@main');
+Route::post('/users/list/{page}', '\App\Http\Controllers\UsersListController@delete');
+Route::get('/users/edit/{userId}', '\App\Http\Controllers\UsersListController@editPage');
+Route::post('/users/edit/{userId}', '\App\Http\Controllers\UsersListController@editInfo');
+
 //(['auth', 'role:manager|admin'])->name('courses');
 
 require __DIR__.'/auth.php';

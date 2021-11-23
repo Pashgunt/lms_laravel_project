@@ -12,12 +12,21 @@
             @foreach ($userInfo as $user)
                 <label>
                     Логин - <input type="text" name="username" value="{{$user->username}}">
+                    @error('username')
+                    <div class="alert-danger">{{ $message }}</div>
+                    @enderror
                 </label><br>
                 <label>
                     Почта - <input type="text" name="email" value="{{$user->email}}">
+                    @error('email')
+                    <div class="alert-danger">{{ $message }}</div>
+                    @enderror
                 </label><br>
                 <label>
                     Дата рождения - <input type="text" name="date_birth" value="{{$user->date_birth}}">
+                    @error('date_birth')
+                    <div class="alert-danger">{{ $message }}</div>
+                    @enderror
                 </label><br>
                 <select name="role_id">
                     @foreach($roles as $role)

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Request\ValidateController;
-use App\Http\Request\ValidateRequest\RegRequest;
+use App\Http\Requests\ValidateController;
+use App\Http\Requests\ValidateRequest\RegRequest;
 use App\Models\Roles;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -69,16 +69,19 @@ class UsersListController
     }
 
     /** Обработка POST на редактирование информации о пользователе */
-    public function editInfo(RegRequest $request, int $userId): View
+    public function editInfo(int $userId): View
     {
-        $validate = new ValidateController();
-        $validate->checkReg($request);
-        $this->model->editUserInfo($request, $userId);
+        $this->model->editUserInfo($userId);
 
-        return $this->editPage($userId);
+        return view('forms/editUserInfo', [
+        'userId' => $userId,
+        'userInfo' => $this->model->getUserInfo($userId),
+        'roles' => (new Roles())->all()
+    ]);
     }
 
-    public function delete(Request $request, int $page): object
+    /** Удаление пользователя */
+    public function delete(Request $request, int $page): View
     {
         $userId = $request->input('userId');
         $this->model->deleteUser($userId);

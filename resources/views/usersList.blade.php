@@ -22,7 +22,7 @@
                     <td>{{$user->email}}</td>
                     <td>{{$user->date_birth}}</td>
                     <td>
-                        <a href="/users/info/{{$user->id}}" class="btn btn-primary">
+                        <a href="/users/edit/{{$user->id}}" class="btn btn-primary">
                             Информация
                         </a>
                     </td>
