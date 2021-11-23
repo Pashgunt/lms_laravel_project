@@ -17,8 +17,8 @@ class CreateCoursesTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->date('created_at');
-            $table->date('deleted_at')->unique();
-            $table->date('updated_at');
+            $table->date('deleted_at')->unique()->nullable();
+            $table->date('updated_at')->nullable();
             $table->string('author');
             $table->integer('censorship');
             $table->string('description');

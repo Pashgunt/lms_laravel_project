@@ -11,12 +11,9 @@ class Courses extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    public $timestamps = false;
-
     protected $fillable = [
         'name',
         'created_at',
-        'deleted_at',
         'updated_at',
         'author',
         'censorship',
