@@ -1,6 +1,6 @@
 <?php
 
-namespace App\LMS\Interfaces;
+namespace App\LMS\Abstracts;
 
 abstract class Repositories
 {
