@@ -4,12 +4,21 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ValidateRequest\RegRequest;
+use App\LMS\Repositories\UserRepository;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class RegisteredUserController extends Controller
 {
+
+    public UserRepository $userRepository;
+    public User $user;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->userRepository = new UserRepository();
+        $this->user = new User();
+    }
 
     public function create()
     {
@@ -18,14 +27,6 @@ class RegisteredUserController extends Controller
 
     public function store(RegRequest $request)
     {
-        /**
-         * Если пользователь уже существует и он вводит свои даынные
-         * То его перекидывает на его страницу
-         * Заменить login, но другой Router
-         */
-        if (Auth::check()) {
-            return redirect()->to(route('login'));
-        }
 
         /**
          *  Проверка валидации полей
@@ -36,13 +37,7 @@ class RegisteredUserController extends Controller
          * Занесение данных в таблицу с пользователями
          * Поля, которые будут заноситьсть должны совпадать с массивом fillable в модели User
          */
-        $user = User::create([
-            'username' => $request->input('username'),
-            'email' => $request->input('email'),
-            'password' => Hash::make($request->input('password')),
-            'date_birth' => $request->input('date_birth'),
-            'role_id' => 1,
-        ]);
+        $user = $this->userRepository->insertNewUser($this->user, $request);
 
         /**
          * Если пользователь успешно зарегестрировался перенаправляем на страницу авторизации
