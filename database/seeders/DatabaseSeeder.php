@@ -17,5 +17,7 @@ class DatabaseSeeder extends Seeder
         (new ManagerSeeder)->run();
         (new UserSeeder)->run();
         (new RoleSeeder)->run();
+        (new CoursesSeeder)->run();
+        (new ActivitiesSeeder)->run();
     }
 }
