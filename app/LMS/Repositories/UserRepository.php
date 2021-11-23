@@ -23,9 +23,9 @@ class UserRepository
     }
 
     /** Добавление пользователя */
-    public function insertNewUser($user, $request): bool
+    public function insertNewUser($request): User
     {
-        return $user::create([
+        return User::create([
             'username' => $request->input('username'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
