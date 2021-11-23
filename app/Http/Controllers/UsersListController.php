@@ -5,29 +5,29 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ValidateRequest\EditUserRequest;
 use App\LMS\Repositories\UserRepository;
 use App\Models\Role;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class UsersListController extends Controller
 {
-    protected User $model;
     protected UserRepository $repository;
 
-    public function __construct()
+    public function __construct(UserRepository $userRepository)
     {
         parent::__construct();
-        $this->model = new User;
-        $this->repository = new UserRepository();
+        $this->repository = $userRepository;
     }
 
     /** Отображение страницы со списком пользователей */
-    public function main(int $page): View
+    public function main($page): View
     {
+        if(!is_int($page)) {
+            $page = 1;
+        }
         /** Кол-во выводимых пользователей на страницу */
         $count = 4;
 
-        $maxPage = ceil(count($this->model->all()) / 4);
+        $maxPage = ceil(count($this->repository->all()) / 4);
 
         if ($page > $maxPage) {
             $page = $maxPage;
