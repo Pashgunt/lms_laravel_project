@@ -19,11 +19,17 @@ class UsersListController extends Controller
     }
 
     /** Отображение страницы со списком пользователей */
-    public function main($page): View
+    public function main(string $page): View
     {
+        try {
+            $page = $page * 1;
+        } catch (\Exception $e) {
+            $page = 1;
+        }
         if(!is_int($page)) {
             $page = 1;
         }
+
         /** Кол-во выводимых пользователей на страницу */
         $count = 4;
 

@@ -4,6 +4,7 @@ namespace App\LMS\Repositories;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -34,9 +35,9 @@ class UserRepository
     }
 
     /** Получение списка пользователей через пагинацию */
-    public function getUsersList(int $page, int $count): array
+    public function getUsersList(int $page, int $count): LengthAwarePaginator
     {
-        return $this->model->paginate($count, '*', '', $page)->all();
+        return $this->model->paginate($count, '*', '', $page);
     }
 
     /** Редактирование информации о пользователе */
