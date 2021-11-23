@@ -6,9 +6,16 @@ use Illuminate\Support\Facades\Hash;
 
 class UserRepository
 {
-    public function insertNewUser($user, $request)
+    protected $model;
+
+    public function __construct($model)
     {
-        return $user::create([
+        $this->model = $model;
+    }
+
+    public function insertNewUser($request)
+    {
+        return $this->model::create([
             'username' => $request->input('username'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),

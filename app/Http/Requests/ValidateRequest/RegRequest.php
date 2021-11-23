@@ -25,7 +25,7 @@ class RegRequest extends FormRequest
     {
         return [
             'email' => 'required|email|unique:users',
-            'username' => 'required|unique:users|regex:/[a-z0-9]{4,}/i|not_regex:/["]/',
+            'username' => 'required|unique:users|regex:/[a-z0-9]{4,}/i|not_regex:/["]/|not_regex:/(?=.*[!@#$%^&*])/',
             'password' => 'required|min:6|max:30',
             'rePassword' => 'required|same:password',
             'date_birth' => 'required|date'
