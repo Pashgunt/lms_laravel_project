@@ -32,6 +32,7 @@ Route::post('/users/list/{page}', '\App\Http\Controllers\UsersListController@del
 Route::get('/users/edit/{userId}', '\App\Http\Controllers\UsersListController@editPage');
 Route::post('/users/edit/{userId}', '\App\Http\Controllers\UsersListController@editInfo');
 
+Route::get('/login', [AuthenticatedSessionController::class, 'create'])->middleware('guest')->name('login');
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])->middleware('guest');
 Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth')->name('logout');
 
