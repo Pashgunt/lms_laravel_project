@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ValidateController;
 use App\Http\Requests\ValidateRequest\EditUserRequest;
-use App\Http\Requests\ValidateRequest\RegRequest;
-use App\Models\Roles;
+use App\LMS\Repositories\UserRepository;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -13,11 +12,13 @@ use Illuminate\View\View;
 class UsersListController extends Controller
 {
     protected User $model;
+    protected UserRepository $repository;
 
     public function __construct()
     {
         parent::__construct();
         $this->model = new User;
+        $this->repository = new UserRepository();
     }
 
     /** Отображение страницы со списком пользователей */
@@ -32,7 +33,7 @@ class UsersListController extends Controller
             $page = $maxPage;
         }
 
-        $usersList = $this->model->getUsersList($page, $count);
+        $usersList = $this->repository->getUsersList($page, $count);
 
         $pages = [
             'main_page' => $page
@@ -63,7 +64,7 @@ class UsersListController extends Controller
     /** Отображение страницы с формой редактирования информации о пользователе */
     public function editPage(int $userId): View
     {
-        $userInfo = $this->model->getUserInfo($userId);
+        $userInfo = $this->repository->getUserInfo($userId);
 
         if (count($userInfo) === 0) {
             return view('errors/userNotFound');
@@ -72,7 +73,7 @@ class UsersListController extends Controller
         return view('forms/editUserInfo', [
             'userId' => $userId,
             'userInfo' => $userInfo,
-            'roles' => (new Roles())->all()
+            'roles' => (new Role())->all()
         ]);
     }
 
@@ -80,12 +81,12 @@ class UsersListController extends Controller
     public function editInfo(EditUserRequest $request, int $userId): View
     {
         $this->validateController->checkEditUser($request);
-        $this->model->editUserInfo($request, $userId);
+        $this->repository->editUserInfo($request, $userId);
 
         return view('forms/editUserInfo', [
             'userId' => $userId,
-            'userInfo' => $this->model->getUserInfo($userId),
-            'roles' => (new Roles())->all()
+            'userInfo' => $this->repository->getUserInfo($userId),
+            'roles' => (new Role())->all()
         ]);
     }
 
@@ -93,7 +94,7 @@ class UsersListController extends Controller
     public function delete(Request $request, int $page): View
     {
         $userId = $request->input('userId');
-        $this->model->deleteUser($userId);
+        $this->repository->deleteUser($userId);
 
         return $this->main($page);
     }
