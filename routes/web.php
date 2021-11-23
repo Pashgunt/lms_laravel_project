@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
@@ -46,3 +47,4 @@ Route::get('/login', [AuthenticatedSessionController::class, 'create'])->middlew
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])->middleware('guest');
 Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth')->name('logout');
 
+Route::get('/video', [VideoController::class, 'play']);
