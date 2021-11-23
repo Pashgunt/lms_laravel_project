@@ -27,13 +27,10 @@ Route::resource('/courses', CourseController::class)->missing(function (Request 
 Route::get('/register', [RegisteredUserController::class, 'create'])->middleware('guest')->name('register');
 Route::post('/register', [RegisteredUserController::class, 'store'])->middleware('guest');
 
-Route::get('/login', [AuthenticatedSessionController::class, 'create'])->middleware('guest')->name('login');
-
 Route::get('/users/list/{page}', '\App\Http\Controllers\UsersListController@main');
 Route::post('/users/list/{page}', '\App\Http\Controllers\UsersListController@delete');
 Route::get('/users/edit/{userId}', '\App\Http\Controllers\UsersListController@editPage');
 Route::post('/users/edit/{userId}', '\App\Http\Controllers\UsersListController@editInfo');
-
 
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])->middleware('guest');
 Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth')->name('logout');
