@@ -4,6 +4,7 @@ namespace App\LMS\Repositories;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserRepository
@@ -58,6 +59,6 @@ class UserRepository
     /** Удаление юзера по ID */
     public function deleteUser(int $userId): bool
     {
-        return $this->model->delete($userId);
+        return DB::table('users')->delete($userId);
     }
 }
