@@ -5,6 +5,18 @@
 - composer install
 - переименовать файл .env.example в .env и произвести необходимые настройки
 
+Настройки почтового сервера:
+```
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.googlemail.com
+MAIL_PORT=465
+MAIL_USERNAME=lms.laravel
+MAIL_PASSWORD=GGYxEjLjRr9JL9v
+MAIL_ENCRYPTION=ssl
+MAIL_FROM_ADDRESS=lms.laravel@gmail.com
+MAIL_FROM_NAME="${APP_NAME}"
+```
+
 #### Создание новой миграции
 php artisan make:migration create_flights_table
 #### Запуск миграций

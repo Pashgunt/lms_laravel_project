@@ -3,19 +3,20 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Request\ValidateRequest\RecoveryRequest;
-use Illuminate\Http\Request;
+use App\Http\Requests\ValidateRequest\RecoveryRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Password;
+
 
 class PasswordResetLinkController extends Controller
 {
 
     public function create()
     {
-        return view('auth.forgot-password');
+        return view('recovery');
     }
 
-    public function store(RecoveryRequest $request)
+    public function store(RecoveryRequest $request): RedirectResponse
     {
         $this->validateController->checkRecovery($request);
 
