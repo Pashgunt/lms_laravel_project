@@ -17,7 +17,7 @@
                     Почта - <input type="text" name="email" value="{{$user->email}}">
                 </label><br>
                 <label>
-                    Дата рождения - <input type="text" name="birthDate" value="{{$user->date_birth}}">
+                    Дата рождения - <input type="text" name="date_birth" value="{{$user->date_birth}}">
                 </label><br>
                 <select name="role_id">
                     @foreach($roles as $role)

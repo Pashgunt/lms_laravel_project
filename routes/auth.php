@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\UsersListController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/register', [RegisteredUserController::class, 'create'])
@@ -62,7 +63,9 @@ Route::post('/confirm-password', [ConfirmablePasswordController::class, 'store']
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->middleware('auth')
                 ->name('logout');
+
 Route::get('/users/list/{page}', '\App\Http\Controllers\UsersListController@main');
 Route::post('/users/list/{page}', '\App\Http\Controllers\UsersListController@delete');
 Route::get('/users/info/{userId}', '\App\Http\Controllers\UsersListController@editPage');
-Route::post('/users/edit/{userId}', '\App\Http\Controllers\UsersListController@editInfo');
+
+Route::post('/users/edit/{userId}', [UsersListController::class, 'editInfo']);

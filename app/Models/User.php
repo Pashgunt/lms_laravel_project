@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Http\Request;
 
 class User extends Authenticatable
 {
@@ -48,23 +49,18 @@ class User extends Authenticatable
     ];
 
     /** Получение списка пользователей через пагинацию */
-    public function getUsersList(int $page, int $count): object
+    public function getUsersList(int $page, int $count): ?object
     {
         return DB::table('users')->paginate($count, '*', '', $page);
     }
 
     /** Редактирование информации о пользователе */
-    public function editUserInfo(int $userId): bool
+    public function editUserInfo(Request $request, int $userId): bool
     {
-        foreach ($_POST as $key => $value) {
-            $$key = $value;
-        }
-
-        $result = DB::table('users')
+        var_dump('Up!');
+        return DB::table('users')
             ->where('id', '=', "$userId")
-            ->update(['username' => $username, 'email' => $email, 'date_birth' => $birthDate]);
-
-        return $result;
+            ->update(['username' => $request->input('username'), 'email' => $request->input('email'), 'date_birth' => $request->input('date_birth')]);
     }
 
     /** Получение информации о юзере через ID */
