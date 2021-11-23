@@ -14,8 +14,7 @@ class CoursesFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'created_at' => $this->faker->date(),
-            'deleted_at' => $this->faker->date(),
-            'updated_at' => $this->faker->date(),
+            'updated_at' => null,
             'author' => $this->faker->name(),
             'censorship' => 18,
             'description' => $this->faker->text()

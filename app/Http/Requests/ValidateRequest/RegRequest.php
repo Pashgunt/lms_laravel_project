@@ -25,7 +25,7 @@ class RegRequest extends FormRequest
     {
         return [
             'email' => 'required|email|unique:users',
-            'username' => 'required|unique:users|regex:/[a-z0-9]{4,}/i',
+            'username' => 'required|unique:users|regex:/[a-z0-9]{4,}/i|not_regex:/["]/|not_regex:/(?=.*[!@#$%^&*])/',
             'password' => 'required|min:6|max:30',
             'rePassword' => 'required|same:password',
             'date_birth' => 'required|date'
@@ -54,6 +54,7 @@ class RegRequest extends FormRequest
         return [
             'email.required' => 'Поле обязательно к заполнению',
             'username.required' => 'Поле обязательно к заполнению',
+            'username.not_regex' => 'Уберите ковычки',
             'username.unique' => 'Пользователь с таким Именем же зарегестрирован',
             'username.regex' => 'Проверьте введенные вами данные',
             'password.required' => 'Поле обязательно к заполнению',
