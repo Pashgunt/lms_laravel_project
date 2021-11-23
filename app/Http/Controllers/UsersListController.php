@@ -3,18 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ValidateController;
+use App\Http\Requests\ValidateRequest\EditUserRequest;
 use App\Http\Requests\ValidateRequest\RegRequest;
 use App\Models\Roles;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class UsersListController
+class UsersListController extends Controller
 {
     protected User $model;
 
     public function __construct()
     {
+        parent::__construct();
         $this->model = new User;
     }
 
@@ -26,7 +28,7 @@ class UsersListController
 
         $maxPage = ceil(count($this->model->all()) / 4);
 
-        if($page > $maxPage) {
+        if ($page > $maxPage) {
             $page = $maxPage;
         }
 
@@ -61,23 +63,30 @@ class UsersListController
     /** Отображение страницы с формой редактирования информации о пользователе */
     public function editPage(int $userId): View
     {
+        $userInfo = $this->model->getUserInfo($userId);
+
+        if (count($userInfo) === 0) {
+            return view('errors/userNotFound');
+        }
+
+        return view('forms/editUserInfo', [
+            'userId' => $userId,
+            'userInfo' => $userInfo,
+            'roles' => (new Roles())->all()
+        ]);
+    }
+
+    /** Обработка POST на редактирование информации о пользователе */
+    public function editInfo(EditUserRequest $request, int $userId): View
+    {
+        $this->validateController->checkEditUser($request);
+        $this->model->editUserInfo($request, $userId);
+
         return view('forms/editUserInfo', [
             'userId' => $userId,
             'userInfo' => $this->model->getUserInfo($userId),
             'roles' => (new Roles())->all()
-            ]);
-    }
-
-    /** Обработка POST на редактирование информации о пользователе */
-    public function editInfo(int $userId): View
-    {
-        $this->model->editUserInfo($userId);
-
-        return view('forms/editUserInfo', [
-        'userId' => $userId,
-        'userInfo' => $this->model->getUserInfo($userId),
-        'roles' => (new Roles())->all()
-    ]);
+        ]);
     }
 
     /** Удаление пользователя */

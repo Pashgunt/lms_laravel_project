@@ -47,14 +47,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected Request $request;
-
-    public function __construct()
-    {
-        parent::__construct();
-        $this->request = new Request();
-    }
-
     /** Проверка, назначена ли пользователю конкретная роль */
     public function hasRole(string $role): bool
     {
@@ -73,11 +65,11 @@ class User extends Authenticatable
     }
 
     /** Редактирование информации о пользователе */
-    public function editUserInfo(int $userId): bool
+    public function editUserInfo(Request $request, int $userId): bool
     {
         return DB::table('users')
             ->where('id', '=', "$userId")
-            ->update(['username' => $this->request->input('username'), 'email' => $this->request->input('email'), 'date_birth' => $this->request->input('date_birth')]);
+            ->update(['username' => $request->input('username'), 'email' => $request->input('email'), 'date_birth' => $request->input('date_birth')]);
     }
 
     /** Получение информации о юзере через ID */

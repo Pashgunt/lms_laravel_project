@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Requests\ValidateRequest\EditUserRequest;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Http\Requests\ValidateRequest\RegRequest;
 use App\Http\Requests\ValidateRequest\RecoveryRequest;
@@ -27,4 +28,7 @@ class ValidateController
     public function checkRecovery(RecoveryRequest $request)
     {
     }
+
+    /** Метод валидации отредактированных данных юзера */
+    public function checkEditUser(EditUserRequest $request) {}
 }

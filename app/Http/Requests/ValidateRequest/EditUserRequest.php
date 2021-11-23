@@ -20,8 +20,8 @@ class EditUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email|unique:users',
-            'username' => 'required|unique:users|regex:/[a-z0-9]{4,}/i',
+            'email' => 'required|email',
+            'username' => 'required|regex:/[a-z0-9]{4,}/i',
             'date_birth' => 'required|date'
         ];
     }
@@ -46,12 +46,10 @@ class EditUserRequest extends FormRequest
         return [
             'email.required' => 'Поле обязательно к заполнению',
             'username.required' => 'Поле обязательно к заполнению',
-            'username.unique' => 'Пользователь с таким Именем же зарегестрирован',
             'username.regex' => 'Проверьте введенные вами данные',
             'date_birth.required' => 'Поле обязательно к заполнению',
             'date_birth.date' => 'Проверьте введенные вами данные',
-            'email.email' => 'Проверьте введенные данные',
-            'email.unique' => 'Пользователь с таким Email же зарегестрирован',
+            'email.email' => 'Проверьте введенные данные'
         ];
     }
 }
