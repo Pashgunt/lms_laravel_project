@@ -14,11 +14,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('layout');
-});
+    return view('index');
+})->middleware(['auth'])->name('index');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/users', function () {
+    return view('index');
+})->middleware(['auth', 'role:admin'])->name('users');
+
+Route::get('/courses', function () {
+    return view('index');
+})->middleware(['auth', 'role:admin|manager'])->name('courses');
+
+//(['auth', 'role:manager|admin'])->name('courses');
 
 require __DIR__.'/auth.php';

@@ -13,7 +13,11 @@
     <div class="header__wrapper _container">
         <a href="/" class="header__title _title">LMS</a>
         <div class="header__buttons">
+            <?php if (Illuminate\Support\Facades\Auth::check()) {?>
+            <a href="/logout" class="header__registration">Выйти</a>
+            <?php } else { ?>
             <a href="/login" class="header__registration">Авторизация</a>
+            <?php } ?>
             <a href="/register" class="header__registration"> Регистрация</a>
         </div>
     </div>
