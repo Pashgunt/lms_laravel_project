@@ -32,11 +32,10 @@
                         </a>
                     </td>
                     <td>
-                        <form action="" method="get">
-                            @csrf
-{{--                            <input type="hidden" name="detail" value="{{$course->id}}">--}}
-                            <input type="submit" name="deleteUser" value="Удалить" class="btn btn-danger">
-                        </form>
+                        <input type="submit" name="deleteUser" value="Удалить" class="btn btn-danger">
+                    </td>
+                    <td>
+                        <a type="submit" class="btn btn-warning" href="/courses/{{$course->id}}/edit">Редактировать</a>
                     </td>
                 </tr>
             @endforeach

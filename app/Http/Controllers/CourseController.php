@@ -50,7 +50,7 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Courses  $course
+     * @param  \App\Models\Course  $course
      * @return \Illuminate\Http\Response
      */
     public function show(Courses $course)
@@ -58,22 +58,22 @@ class CourseController extends Controller
         return view('courseDetail', ['course' => $course]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Courses  $course
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Courses $course)
+    public function edit(int $id)
     {
-        //
+        $course = $this->repository->getById($id);
+        return view('courseEdit', ['course' => $course]);
+    }
+
+    public function editCourse(Request $request)
+    {
+        return redirect()->to('/courses');
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Courses  $course
+     * @param  \App\Models\Course  $course
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Courses $course)
@@ -84,11 +84,10 @@ class CourseController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Courses  $course
-     * @return \Illuminate\Http\Response
      */
-    public function destroy(Courses $course)
+    public function destroy(int $id)
     {
-        //
+        $this->repository->delete($id);
+        return redirect()->to('/courses');
     }
 }
