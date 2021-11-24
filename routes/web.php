@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainPageController;
 use \App\Http\Controllers\CourseController;
+use App\Http\Controllers\Auth\PageRegisterUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +26,6 @@ Route::get('/', [MainPageController::class, 'main'])
     ->middleware(['auth'])
     ->name('index');
 
-
 Route::resource('/courses', CourseController::class)
     ->except(['destroy', 'edit'])
     ->middleware(['auth', 'role:admin|manager']);
@@ -39,7 +39,7 @@ Route::get('/courses/{id}/edit', [CourseController::class, 'edit'])
 Route::post('/courses/{id}/edit', [CourseController::class, 'editCourse'])
     ->middleware(['auth', 'role:admin|manager']);
 
-Route::get('/register', [RegisteredUserController::class, 'create'])
+Route::get('/register', [PageRegisterUserController::class, 'create'])
     ->middleware('guest')
     ->name('register');
 

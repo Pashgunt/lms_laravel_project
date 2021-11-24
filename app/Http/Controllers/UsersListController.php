@@ -16,7 +16,6 @@ class UsersListController extends Controller
 
     public function __construct(UserRepository $userRepository)
     {
-        parent::__construct();
         $this->repository = $userRepository;
     }
 
@@ -28,7 +27,7 @@ class UsersListController extends Controller
         } catch (\Exception $e) {
             $page = 1;
         }
-        if(!is_int($page)) {
+        if (!is_int($page)) {
             $page = 1;
         }
 
@@ -81,7 +80,8 @@ class UsersListController extends Controller
     /** Обработка POST на редактирование информации о пользователе */
     public function editInfo(EditUserRequest $request, User $user): View
     {
-        $this->validateController->checkEditUser($request);
+        $request->validated();
+
         $this->repository->editUserInfo($request, $user);
 
         return $this->editPage($this->repository->getById($user->id));
