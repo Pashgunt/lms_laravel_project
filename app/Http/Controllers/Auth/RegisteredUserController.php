@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ValidateRequest\RegRequest;
 use App\LMS\Repositories\UserRepository;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 
 class RegisteredUserController extends Controller
 {
