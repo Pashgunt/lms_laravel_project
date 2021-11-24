@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Courses;
 use Illuminate\Http\Request;
 use App\LMS\Repositories\CourseRepository;
-use Illuminate\View\View;
+use Illuminate\Contracts\View\View;
 
 class CourseController extends Controller
 {
@@ -20,7 +20,7 @@ class CourseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
         $coursesList = $this->repository->all();
         return view('coursesList', ['coursesList' => $coursesList]);
@@ -50,18 +50,18 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Course  $course
+     * @param  \App\Models\Courses  $course
      * @return \Illuminate\Http\Response
      */
     public function show(Courses $course)
     {
-        //
+        return view('courseDetail', ['course' => $course]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Course  $course
+     * @param  \App\Models\Courses  $course
      * @return \Illuminate\Http\Response
      */
     public function edit(Courses $course)
@@ -73,7 +73,7 @@ class CourseController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Course  $course
+     * @param  \App\Models\Courses  $course
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Courses $course)
@@ -84,10 +84,11 @@ class CourseController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param  \App\Models\Courses  $course
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id)
+    public function destroy(Courses $course)
     {
-        $this->repository->delete($id);
-        return redirect()->to('/courses');
+        //
     }
 }
