@@ -11,10 +11,9 @@ class RegisteredUserController extends Controller
 
     public UserRepository $userRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct()
     {
         parent::__construct();
-        $this->userRepository = $userRepository;
     }
 
     public function create()
@@ -24,6 +23,8 @@ class RegisteredUserController extends Controller
 
     public function store(RegRequest $request)
     {
+
+        $this->userRepository = new UserRepository();
 
         /**
          *  Проверка валидации полей
