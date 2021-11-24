@@ -25,7 +25,7 @@
             @foreach($coursesList as $course)
                 <tr>
                     <td>{{$course->name}}</td>
-                    <td>{{$course->author}}</td>
+                    <td>{{$course->author->username}}</td>
                     <td>{{$course->description}}</td>
                     <td>
                         <a href="/courses/{{$course->id}}" class="btn btn-primary">

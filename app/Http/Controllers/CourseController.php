@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Courses;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\LMS\Repositories\CourseRepository;
 use Illuminate\Contracts\View\View;
@@ -13,26 +14,48 @@ class CourseController extends Controller
 
     public function __construct(CourseRepository $courseRepository)
     {
+        parent::__construct();
         $this->repository = $courseRepository;
     }
 
+    /**
+     * Display a listing of the resource.
+     */
     public function index(): View
     {
         $coursesList = $this->repository->all();
+
         return view('coursesList', ['coursesList' => $coursesList]);
     }
 
-    public function create()
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create(): View
     {
-        //
+        return view('courseEdit');
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         //
     }
 
-    public function show(Courses $course)
+    /**
+     * Display the specified resource.
+     *
+     * @param \App\Models\Courses $course
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Courses $course): View
     {
         return view('courseDetail', ['course' => $course]);
     }
