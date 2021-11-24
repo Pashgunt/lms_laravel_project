@@ -14,6 +14,8 @@
         <a href="/" class="header__title _title">LMS</a>
         <div class="header__buttons">
             @if (Illuminate\Support\Facades\Auth::check())
+                <a href="/courses" class="header__registration">Список курсов</a>
+                <a href="/users/list" class="header__registration">Список пользователей</a>
                 <a href="/logout" class="header__registration">Выйти</a>
             @else
                 <a href="/login" class="header__registration">Авторизация</a>
@@ -29,7 +31,6 @@
 </section>
 <footer class="footer">
     <section class="footer__wrapper _container">
-        <a href="/users/list/1">Список пользователей</a>
     </section>
 </footer>
 <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>

@@ -20,14 +20,25 @@ class UsersListController extends Controller
         $this->repository = $userRepository;
     }
 
+    /** Перенаправление на нумерованную страницу */
+    public function redirect (): View
+    {
+        return $this->main('1');
+    }
+
     /** Отображение страницы со списком пользователей */
     public function main(string $page): View
     {
+        if(!isset($page)){
+            $page = 1;
+        }
+
         try {
             $page = $page * 1;
         } catch (\Exception $e) {
             $page = 1;
         }
+
         if(!is_int($page)) {
             $page = 1;
         }

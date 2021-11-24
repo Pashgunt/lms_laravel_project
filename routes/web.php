@@ -35,6 +35,8 @@ Route::post('/register', [RegisteredUserController::class, 'store'])->middleware
 
 Route::get('/users/list/{page}', [\App\Http\Controllers\UsersListController::class, 'main']);
 
+Route::get('/users/list', [\App\Http\Controllers\UsersListController::class, 'redirect']);
+
 Route::post('/users/list/{page}', [\App\Http\Controllers\UsersListController::class, 'delete']);
 
 Route::get('/users/edit/{userId}', [\App\Http\Controllers\UsersListController::class, 'editPage']);
