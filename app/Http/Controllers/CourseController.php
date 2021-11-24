@@ -64,8 +64,9 @@ class CourseController extends Controller
         return view('courseEdit', ['course' => $course]);
     }
 
-    public function editCourse(Request $request)
+    public function editCourse(Request $request, int $id)
     {
+        $this->repository->editCourseInfo($request, $id);
         return redirect()->to('/courses');
     }
 

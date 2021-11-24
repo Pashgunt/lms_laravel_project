@@ -19,6 +19,7 @@
             <th>Описание</th>
             <th></th>
             <th></th>
+            <th></th>
         </tr>
         @if (isset($coursesList))
             @foreach($coursesList as $course)
@@ -32,7 +33,7 @@
                         </a>
                     </td>
                     <td>
-                        <input type="submit" name="deleteUser" value="Удалить" class="btn btn-danger">
+                        <a class="btn btn-danger" href="/courses/{{$course->id}}/destroy">Удалить</a>
                     </td>
                     <td>
                         <a type="submit" class="btn btn-warning" href="/courses/{{$course->id}}/edit">Редактировать</a>

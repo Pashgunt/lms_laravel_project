@@ -4,9 +4,9 @@
     <h4>Редактирование курса</h4>
     @if(isset($course))
         <form action="/courses/{{$course->id}}/edit" method="post">
-            <input type="text" value="{{$course->name}}" class="form-control form-control-lg">
-            <input type="text" value="{{$course->author}}" class="form-control form-control-lg">
-            <textarea id="basic-wysiwyg">{{$course->description}}</textarea>
+            @csrf
+            <input type="text" value="{{$course->name}}" class="form-control form-control-lg" name="nameCourse">
+            <textarea id="basic-wysiwyg" name = "descCourse">{{$course->description}}</textarea>
             <input type="submit" value="Изменить" class="btn btn-success">
         </form>
     @endif
