@@ -7,7 +7,7 @@
 @section('content')
     <h4 class="head">Редактирование информации о пользователе</h4>
     <div class="editUserInfo">
-        <form action="/users/edit/{{$userId}}" method="post">
+        <form action="/users/edit/{{$user->id}}" method="post">
             @csrf
             <label>
                 Логин - <input type="text" name="username" value="{{$user->username}}">

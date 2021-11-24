@@ -3,14 +3,13 @@
 namespace App\Models;
 
 use App\Notifications\ResetPassword;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
- * @mixin Builder
+ * @mixin \Eloquent
  */
 class User extends Authenticatable
 {

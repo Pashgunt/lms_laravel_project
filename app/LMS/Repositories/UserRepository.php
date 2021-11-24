@@ -2,26 +2,15 @@
 
 namespace App\LMS\Repositories;
 
+use App\LMS\Abstracts\Repositories;
+use App\LMS\Assignment\Services\Paginate;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-class UserRepository
+class UserRepository extends Repositories
 {
-    protected User $model;
-
-    public function __construct()
-    {
-        $this->model = new User();
-    }
-
-    public function all()
-    {
-        return $this->model->all();
-    }
-
     /** Добавление пользователя */
     public function insertNewUser($request): User
     {
@@ -37,29 +26,15 @@ class UserRepository
     /** Получение списка пользователей через пагинацию */
     public function getUsersList(int $page, int $count): LengthAwarePaginator
     {
-        return $this->model->paginate($count, '*', '', $page);
+        return (new Paginate($this->model))->paginate($count, $page);
     }
 
     /** Редактирование информации о пользователе */
-    public function editUserInfo(Request $request, int $userId): bool
+    public function editUserInfo(Request $request, User $user): bool
     {
         return $this->model
-            ->where('id', '=', "$userId")
+            ->where('id', '=', "$user->id")
             ->update(['username' => $request->input('username'), 'email' => $request->input('email'), 'date_birth' => $request->input('date_birth')]);
     }
 
-    /** Получение информации о юзере через ID */
-    public function getUserInfo(int $userId): object
-    {
-        return $this->model
-            ->select('id', 'username', 'email', 'date_birth', 'role_id')
-            ->where('id', '=', $userId)
-            ->get();
-    }
-
-    /** Удаление юзера по ID */
-    public function deleteUser(int $userId): bool
-    {
-        return DB::table('users')->delete($userId);
-    }
 }

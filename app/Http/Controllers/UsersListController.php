@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ValidateRequest\EditUserRequest;
 use App\LMS\Repositories\UserRepository;
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+
 
 class UsersListController extends Controller
 {
@@ -68,39 +70,28 @@ class UsersListController extends Controller
     }
 
     /** Отображение страницы с формой редактирования информации о пользователе */
-    public function editPage(int $userId): View
+    public function editPage(User $user): View
     {
-        $userInfo = $this->repository->getUserInfo($userId);
-
-        if (count($userInfo) === 0) {
-            return view('errors/userNotFound');
-        }
-
         return view('forms/editUserInfo', [
-            'userId' => $userId,
-            'userInfo' => $userInfo,
+            'user' => $user,
             'roles' => (new Role())->all()
         ]);
     }
 
     /** Обработка POST на редактирование информации о пользователе */
-    public function editInfo(EditUserRequest $request, int $userId): View
+    public function editInfo(EditUserRequest $request, User $user): View
     {
         $this->validateController->checkEditUser($request);
-        $this->repository->editUserInfo($request, $userId);
+        $this->repository->editUserInfo($request, $user);
 
-        return view('forms/editUserInfo', [
-            'userId' => $userId,
-            'userInfo' => $this->repository->getUserInfo($userId),
-            'roles' => (new Role())->all()
-        ]);
+        return $this->editPage($this->repository->getById($user->id));
     }
 
     /** Удаление пользователя */
     public function delete(Request $request, int $page): View
     {
         $userId = $request->input('userId');
-        $this->repository->deleteUser($userId);
+        $this->repository->delete($userId);
 
         return $this->main($page);
     }
