@@ -5,7 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ValidateRequest\RegRequest;
 use App\LMS\Repositories\UserRepository;
+use Illuminate\Http\RedirectResponse;
 
+/**
+ * Контроллер для регистрации пользователей
+ */
 class RegisteredUserController extends Controller
 {
 
@@ -16,7 +20,10 @@ class RegisteredUserController extends Controller
         $this->userRepository = $userRepository;
     }
 
-    public function store(RegRequest $request)
+    /**
+     * Логика для занесения нового пользователя
+     */
+    public function store(RegRequest $request): RedirectResponse
     {
         /**
          *  Проверка валидации полей
