@@ -9,7 +9,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-
+/**
+ * Класс контроллер для работы с пользователями
+ */
 class UsersListController extends Controller
 {
     protected UserRepository $repository;
