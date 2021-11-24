@@ -24,8 +24,10 @@ use \App\Http\Controllers\CourseController;
 
 Route::get('/', [MainPageController::class, 'main'])->middleware(['auth'])->name('index');
 
-Route::resource('/courses', CourseController::class)->missing(function (Request $request) {
-    return Redirect::route('courses.index');})->middleware(['auth', 'role:admin|manager']);
+
+Route::resource('/courses', CourseController::class)->except(['destroy'])->middleware(['auth', 'role:admin|manager']);
+
+Route::get('/courses/{id}/destroy', [CourseController::class, 'destroy'])->middleware(['auth', 'role:admin|manager']);
 
 Route::get('/register', [RegisteredUserController::class, 'create'])->middleware('guest')->name('register');
 Route::post('/register', [RegisteredUserController::class, 'store'])->middleware('guest');

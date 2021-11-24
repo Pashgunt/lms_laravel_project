@@ -75,4 +75,10 @@ abstract class Repositories
         return $row->update($data);
     }
 
+    /** Удаление по ID */
+    public function delete(int $id): bool
+    {
+        return $this->model->find($id)->delete();
+    }
+
 }

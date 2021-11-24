@@ -19,8 +19,8 @@ class CreateCoursesTable extends Migration
             $table->date('created_at');
             $table->date('deleted_at')->unique()->nullable();
             $table->date('updated_at')->nullable();
-            $table->string('author');
-            $table->integer('censorship');
+            $table->integer('author_id');
+            $table->integer('censorship_id');
             $table->string('description');
         });
     }
