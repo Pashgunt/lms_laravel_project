@@ -53,7 +53,7 @@ class CourseController extends Controller
      * @param  \App\Models\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function show(Course $course)
+    public function show(Courses $course)
     {
         //
     }
@@ -64,7 +64,7 @@ class CourseController extends Controller
      * @param  \App\Models\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function edit(Course $course)
+    public function edit(Courses $course)
     {
         //
     }
@@ -76,7 +76,7 @@ class CourseController extends Controller
      * @param  \App\Models\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Course $course)
+    public function update(Request $request, Courses $course)
     {
         //
     }
@@ -84,11 +84,10 @@ class CourseController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Course  $course
-     * @return \Illuminate\Http\Response
      */
-    public function destroy(Course $course)
+    public function destroy(int $id)
     {
-        //
+        $this->repository->delete($id);
+        return redirect()->to('/courses');
     }
 }
