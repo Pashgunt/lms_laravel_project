@@ -29,12 +29,18 @@ Route::resource('/courses', CourseController::class)->except(['destroy'])->middl
 Route::get('/courses/{id}/destroy', [CourseController::class, 'destroy'])->middleware(['auth', 'role:admin|manager']);
 
 Route::get('/register', [RegisteredUserController::class, 'create'])->middleware('guest')->name('register');
+
 Route::post('/register', [RegisteredUserController::class, 'store'])->middleware('guest');
 
-Route::get('/users/list/{page}', '\App\Http\Controllers\UsersListController@main');
-Route::post('/users/list/{page}', '\App\Http\Controllers\UsersListController@delete');
-Route::get('/users/edit/{userId}', '\App\Http\Controllers\UsersListController@editPage');
-Route::post('/users/edit/{userId}', '\App\Http\Controllers\UsersListController@editInfo');
+Route::get('/users/list/{page}', [\App\Http\Controllers\UsersListController::class, 'main']);
+
+Route::get('/users/list', [\App\Http\Controllers\UsersListController::class, 'redirect']);
+
+Route::post('/users/list/{page}', [\App\Http\Controllers\UsersListController::class, 'delete']);
+
+Route::get('/users/edit/{userId}', [\App\Http\Controllers\UsersListController::class, 'editPage']);
+
+Route::post('/users/edit/{userId}', [\App\Http\Controllers\UsersListController::class, 'editInfo']);
 
 Route::get('/recovery', [PasswordResetLinkController::class, 'create'])->middleware('guest')->name('password.request');
 

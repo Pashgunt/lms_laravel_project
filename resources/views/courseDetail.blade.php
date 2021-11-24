@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('style')
-    <link rel="stylesheet" href="/assets/css/usersList.css">
+    <link rel="stylesheet" href="/assets/css/courseInfo.css">
 @endsection
 
 @section('content')
@@ -14,28 +14,7 @@
     @endif
     <div><b>Описание: </b> {{$course->description}}</div>
     <br>
-    <div><b>Назначения: </b>
-        <a href="/courses/{{$course->id}}/edit" class="btn btn-primary">Редактировать</a>
-        <br>
-        <table>
-            <tr>
-                <td>Пользователь 1</td>
-                <td width="30%">Выполнил</td>
-            </tr>
-            <tr>
-                <td>Пользователь 2</td>
-                <td>Выполнил</td>
-            </tr>
-            <tr>
-                <td>Пользователь 3</td>
-                <td>Выполнил</td>
-            </tr>
-            <tr>
-                <td>Пользователь 4</td>
-                <td>Не приступил</td>
-            </tr>
-        </table>
-    </div>
+    <div><b>Назначения: ПЕРЕНОСИМ на отдельную страницу</b></div>
     <br>
     <div><b>Содержание курса: </b>
         <a href="/courses/{{$course->id}}/edit" class="btn btn-primary">Редактировать</a>
