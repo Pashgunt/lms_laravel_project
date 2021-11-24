@@ -2923,6 +2923,7 @@
                     "type": "tidelift"
                 }
             ],
+            "abandoned": "symfony/mailer",
             "time": "2021-10-18T15:26:12+00:00"
         },
         {
@@ -5523,10 +5524,6 @@
                 "phpstorm",
                 "sublime"
             ],
-            "support": {
-                "issues": "https://github.com/barryvdh/laravel-ide-helper/issues",
-                "source": "https://github.com/barryvdh/laravel-ide-helper/tree/v2.10.0"
-            },
             "funding": [
                 {
                     "url": "https://github.com/barryvdh",
@@ -5582,9 +5579,6 @@
                     "email": "mike.vanriel@naenius.com"
                 }
             ],
-            "support": {
-                "source": "https://github.com/barryvdh/ReflectionDocBlock/tree/v2.0.6"
-            },
             "time": "2018-12-13T10:34:14+00:00"
         },
         {
@@ -5642,11 +5636,6 @@
                 "ssl",
                 "tls"
             ],
-            "support": {
-                "irc": "irc://irc.freenode.org/composer",
-                "issues": "https://github.com/composer/ca-bundle/issues",
-                "source": "https://github.com/composer/ca-bundle/tree/1.3.1"
-            },
             "funding": [
                 {
                     "url": "https://packagist.com",
@@ -5740,11 +5729,6 @@
                 "dependency",
                 "package"
             ],
-            "support": {
-                "irc": "ircs://irc.libera.chat:6697/composer",
-                "issues": "https://github.com/composer/composer/issues",
-                "source": "https://github.com/composer/composer/tree/2.1.12"
-            },
             "funding": [
                 {
                     "url": "https://packagist.com",
@@ -5810,10 +5794,6 @@
                 "composer",
                 "compression"
             ],
-            "support": {
-                "issues": "https://github.com/composer/metadata-minifier/issues",
-                "source": "https://github.com/composer/metadata-minifier/tree/1.0.0"
-            },
             "funding": [
                 {
                     "url": "https://packagist.com",
@@ -5883,10 +5863,6 @@
                 }
             ],
             "description": "Composer plugin that provides efficient querying for installed package versions (no runtime IO)",
-            "support": {
-                "issues": "https://github.com/composer/package-versions-deprecated/issues",
-                "source": "https://github.com/composer/package-versions-deprecated/tree/1.11.99.4"
-            },
             "funding": [
                 {
                     "url": "https://packagist.com",
@@ -5963,11 +5939,6 @@
                 "validation",
                 "versioning"
             ],
-            "support": {
-                "irc": "irc://irc.freenode.org/composer",
-                "issues": "https://github.com/composer/semver/issues",
-                "source": "https://github.com/composer/semver/tree/3.2.6"
-            },
             "funding": [
                 {
                     "url": "https://packagist.com",
@@ -6043,11 +6014,6 @@
                 "spdx",
                 "validator"
             ],
-            "support": {
-                "irc": "irc://irc.freenode.org/composer",
-                "issues": "https://github.com/composer/spdx-licenses/issues",
-                "source": "https://github.com/composer/spdx-licenses/tree/1.5.6"
-            },
             "funding": [
                 {
                     "url": "https://packagist.com",
@@ -6107,11 +6073,6 @@
                 "Xdebug",
                 "performance"
             ],
-            "support": {
-                "irc": "irc://irc.freenode.org/composer",
-                "issues": "https://github.com/composer/xdebug-handler/issues",
-                "source": "https://github.com/composer/xdebug-handler/tree/2.0.2"
-            },
             "funding": [
                 {
                     "url": "https://packagist.com",
@@ -6207,10 +6168,6 @@
                 "redis",
                 "xcache"
             ],
-            "support": {
-                "issues": "https://github.com/doctrine/cache/issues",
-                "source": "https://github.com/doctrine/cache/tree/2.1.1"
-            },
             "funding": [
                 {
                     "url": "https://www.doctrine-project.org/sponsorship.html",
@@ -6316,10 +6273,6 @@
                 "sqlserver",
                 "sqlsrv"
             ],
-            "support": {
-                "issues": "https://github.com/doctrine/dbal/issues",
-                "source": "https://github.com/doctrine/dbal/tree/3.1.4"
-            },
             "funding": [
                 {
                     "url": "https://www.doctrine-project.org/sponsorship.html",
@@ -6373,10 +6326,6 @@
             ],
             "description": "A small layer on top of trigger_error(E_USER_DEPRECATED) or PSR-3 logging with options to disable all deprecations or selectively for packages.",
             "homepage": "https://www.doctrine-project.org/",
-            "support": {
-                "issues": "https://github.com/doctrine/deprecations/issues",
-                "source": "https://github.com/doctrine/deprecations/tree/v0.5.3"
-            },
             "time": "2021-03-21T12:59:47+00:00"
         },
         {
@@ -6453,10 +6402,6 @@
                 "event system",
                 "events"
             ],
-            "support": {
-                "issues": "https://github.com/doctrine/event-manager/issues",
-                "source": "https://github.com/doctrine/event-manager/tree/1.1.x"
-            },
             "funding": [
                 {
                     "url": "https://www.doctrine-project.org/sponsorship.html",
@@ -6987,10 +6932,6 @@
                 "json",
                 "schema"
             ],
-            "support": {
-                "issues": "https://github.com/justinrainbow/json-schema/issues",
-                "source": "https://github.com/justinrainbow/json-schema/tree/5.2.11"
-            },
             "time": "2021-07-22T09:24:00+00:00"
         },
         {
@@ -7044,10 +6985,6 @@
                 "auth",
                 "laravel"
             ],
-            "support": {
-                "issues": "https://github.com/laravel/breeze/issues",
-                "source": "https://github.com/laravel/breeze"
-            },
             "time": "2021-11-02T15:52:42+00:00"
         },
         {
@@ -8130,10 +8067,6 @@
                 "promise",
                 "promises"
             ],
-            "support": {
-                "issues": "https://github.com/reactphp/promise/issues",
-                "source": "https://github.com/reactphp/promise/tree/v2.8.0"
-            },
             "time": "2020-05-12T15:16:56+00:00"
         },
         {
@@ -9147,10 +9080,6 @@
                 "parser",
                 "validator"
             ],
-            "support": {
-                "issues": "https://github.com/Seldaek/jsonlint/issues",
-                "source": "https://github.com/Seldaek/jsonlint/tree/1.8.3"
-            },
             "funding": [
                 {
                     "url": "https://github.com/Seldaek",
@@ -9205,10 +9134,6 @@
             "keywords": [
                 "phar"
             ],
-            "support": {
-                "issues": "https://github.com/Seldaek/phar-utils/issues",
-                "source": "https://github.com/Seldaek/phar-utils/tree/1.1.2"
-            },
             "time": "2021-08-19T21:01:38+00:00"
         },
         {
@@ -9255,9 +9180,6 @@
             ],
             "description": "Provides basic utilities for the filesystem",
             "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/filesystem/tree/v5.3.4"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -9334,5 +9256,5 @@
         "php": "^7.4|^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "1.1.0"
 }
