@@ -5,12 +5,14 @@ namespace App\LMS\Repositories;
 use App\LMS\Abstracts\Repositories;
 use App\LMS\Assignment\Services\Paginate;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Hash;
 
 class UserRepository extends Repositories
 {
+
     /** Добавление пользователя */
     public function insertNewUser($request): User
     {

@@ -11,25 +11,18 @@ class RegisteredUserController extends Controller
 
     public UserRepository $userRepository;
 
-    public function __construct()
+    public function __construct(UserRepository $userRepository)
     {
-        parent::__construct();
-    }
-
-    public function create()
-    {
-        return view('register');
+        $this->userRepository = $userRepository;
     }
 
     public function store(RegRequest $request)
     {
-
-        $this->userRepository = new UserRepository();
-
         /**
          *  Проверка валидации полей
          */
-        $this->validateController->checkReg($request);
+        $request->validated();
+
 
         /**
          * Занесение данных в таблицу с пользователями
