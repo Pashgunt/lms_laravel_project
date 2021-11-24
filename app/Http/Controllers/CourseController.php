@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Courses;
 use Illuminate\Http\Request;
 use App\LMS\Repositories\CourseRepository;
-use Illuminate\View\View;
+use Illuminate\Contracts\View\View;
 
 class CourseController extends Controller
 {
@@ -20,7 +20,7 @@ class CourseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
         $coursesList = $this->repository->all();
         return view('coursesList', ['coursesList' => $coursesList]);
@@ -55,18 +55,18 @@ class CourseController extends Controller
      */
     public function show(Courses $course)
     {
-        //
+        return view('courseDetail', ['course' => $course]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Course  $course
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Courses $course)
+    public function edit(int $id)
     {
-        //
+        $course = $this->repository->getById($id);
+        return view('courseEdit', ['course' => $course]);
+    }
+
+    public function editCourse(Request $request)
+    {
+        return redirect()->to('/courses');
     }
 
     /**
