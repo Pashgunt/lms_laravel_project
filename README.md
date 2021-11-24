@@ -30,7 +30,12 @@ php artisan db:seed --class=UserSeeder
 ### Видео Плеер
 Используется Video.js
 
-[Полная документация Video.js](/node_modules/video.js/README.md)
+Для вставки видео:
+
+id=name для обработки плеера через js
+
+
+[Полная документация Video.js](https://docs.videojs.com)
 
 ### Wysiwyg
 Используется TinyMCE
