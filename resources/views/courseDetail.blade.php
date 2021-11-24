@@ -10,7 +10,7 @@
     <div><b>Автор: </b> {{$course->author->username}}</div>
     <div><b>Дата создания: </b> {{$course->created_at->format('Y-m-d')}}</div>
     @isset($course->updated_at)
-        <div><b>Дата последнего редактирования: </b> {{$course->updated_at}}</div>
+        <div><b>Дата последнего редактирования: </b> {{$course->updated_at->format('Y-m-d')}}</div>
     @endif
     <div><b>Описание: </b> {{$course->description}}</div>
     <br>
