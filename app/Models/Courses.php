@@ -15,13 +15,13 @@ class Courses extends Authenticatable
         'name',
         'created_at',
         'updated_at',
-        'author',
-        'censorship',
+        'author_id',
+        'censorship_id',
         'description'
     ];
 
     public function author()
     {
-        return $this->hasOne(User::class, 'id');
+        return $this->belongsTo(User::class);
     }
 }

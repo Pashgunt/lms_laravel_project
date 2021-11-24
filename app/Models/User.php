@@ -48,6 +48,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Отношение курсов и автора
+     */
+    public function courses(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Courses::class, 'author_id');
+    }
+
     /** Проверка, назначена ли пользователю конкретная роль */
     public function hasRole(string $role): bool
     {

@@ -5,6 +5,7 @@ namespace App\LMS\Repositories;
 use App\LMS\Abstracts\Repositories;
 use App\Models\Courses;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CourseRepository extends Repositories
 {

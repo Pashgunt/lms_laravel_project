@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\LMS\Repositories\CourseRepository;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
@@ -14,7 +15,6 @@ class CourseController extends Controller
 
     public function __construct(CourseRepository $courseRepository)
     {
-        parent::__construct();
         $this->repository = $courseRepository;
     }
 
@@ -24,17 +24,30 @@ class CourseController extends Controller
     public function index(): View
     {
         $coursesList = $this->repository->all();
-
+//        foreach ($coursesList as $course) {
+//            var_dump($course->name);
+//            var_dump($course->author->username);
+//        }
+        //exit;
         return view('coursesList', ['coursesList' => $coursesList]);
     }
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function create(): View
+    public function create(Request $request)
     {
+        if (!empty($request->nameCourse)) {
+            $this->repository->create([
+                'author_id' => Auth::id(),
+                'censorship_id'=> 1,
+                'name' => $request->nameCourse,
+                'description' => $request->descCourse,
+                ]);
+
+            return redirect('/courses');
+        }
+
         return view('courseEdit');
     }
 
