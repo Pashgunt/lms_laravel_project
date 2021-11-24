@@ -5,20 +5,15 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ValidateRequest\RegRequest;
 use App\LMS\Repositories\UserRepository;
-use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
 
 class RegisteredUserController extends Controller
 {
 
     public UserRepository $userRepository;
-    public User $user;
 
     public function __construct()
     {
         parent::__construct();
-        $this->userRepository = new UserRepository();
-        $this->user = new User();
     }
 
     public function create()
@@ -29,6 +24,8 @@ class RegisteredUserController extends Controller
     public function store(RegRequest $request)
     {
 
+        $this->userRepository = new UserRepository();
+
         /**
          *  Проверка валидации полей
          */
@@ -38,7 +35,7 @@ class RegisteredUserController extends Controller
          * Занесение данных в таблицу с пользователями
          * Поля, которые будут заноситьсть должны совпадать с массивом fillable в модели User
          */
-        $user = $this->userRepository->insertNewUser($this->user, $request);
+        $user = $this->userRepository->insertNewUser($request);
 
         /**
          * Если пользователь успешно зарегестрировался перенаправляем на страницу авторизации
