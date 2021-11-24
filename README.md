@@ -37,5 +37,5 @@ php artisan db:seed --class=UserSeeder
 
 У всех элементов textarea, где его необходимо реализовать, в качестве id указать basic-wysiwyg
 
-[Полная документация TinyMCE](/wysiwyg.md)
+[Полная документация TinyMCE](https://git.devspark.ru/m_kultyshev/stage-lms-2021/-/blob/5_videoPlayer/wydiwyg.md)
 
