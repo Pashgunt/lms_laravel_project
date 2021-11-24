@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Courses;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\LMS\Repositories\CourseRepository;
 use Illuminate\Contracts\View\View;
@@ -23,6 +24,7 @@ class CourseController extends Controller
     public function index(): View
     {
         $coursesList = $this->repository->all();
+
         return view('coursesList', ['coursesList' => $coursesList]);
     }
 
@@ -31,15 +33,15 @@ class CourseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): View
     {
-        //
+        return view('courseEdit');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -50,15 +52,15 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Course  $course
+     * @param \App\Models\Courses $course
      * @return \Illuminate\Http\Response
      */
-    public function show(Courses $course)
+    public function show(Courses $course): View
     {
         return view('courseDetail', ['course' => $course]);
     }
 
-    public function edit(int $id)
+    public function edit(int $id): View
     {
         $course = $this->repository->getById($id);
         return view('courseEdit', ['course' => $course]);
@@ -72,8 +74,8 @@ class CourseController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Course  $course
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Courses $course
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Courses $course)

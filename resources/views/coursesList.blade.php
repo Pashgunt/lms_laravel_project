@@ -24,7 +24,7 @@
             @foreach($coursesList as $course)
                 <tr>
                     <td>{{$course->name}}</td>
-                    <td>{{$course->author}}</td>
+                    <td>{{$course->author->username}}</td>
                     <td>{{$course->description}}</td>
                     <td>
                         <a href="/courses/{{$course->id}}" class="btn btn-primary">
@@ -32,7 +32,7 @@
                         </a>
                     </td>
                     <td>
-                        <input type="submit" name="deleteUser" value="Удалить" class="btn btn-danger">
+                        <a type="submit" name="deleteUser" href="/courses/{{$course->id}}/destroy" class="btn btn-danger">Удалить</a>
                     </td>
                     <td>
                         <a type="submit" class="btn btn-warning" href="/courses/{{$course->id}}/edit">Редактировать</a>

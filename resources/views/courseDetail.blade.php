@@ -7,7 +7,7 @@
 @section('content')
     <h4>{{$course->name}}</h4>
     <br>
-    <div><b>Автор: </b> {{$course->author}}</div>
+    <div><b>Автор: </b> {{$course->author->username}}</div>
     <div><b>Дата создания: </b> {{$course->created_at}}</div>
     @isset($course->updated_at)
         <div><b>Дата последнего редактирования: </b> {{$course->updated_at}}</div>

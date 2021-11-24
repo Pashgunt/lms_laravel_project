@@ -19,4 +19,9 @@ class Courses extends Authenticatable
         'censorship',
         'description'
     ];
+
+    public function author()
+    {
+        return $this->hasOne(User::class, 'id');
+    }
 }
