@@ -3,10 +3,10 @@
 namespace App\LMS\Repositories;
 
 use App\LMS\Abstracts\Repositories;
-use App\Models\Courses;
-use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Репозиторий для работы с методами для предназначенных для назначения курсов
+ */
 class TargetRepository extends Repositories
 {
 }

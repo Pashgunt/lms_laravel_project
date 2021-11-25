@@ -41,6 +41,9 @@ class UserRepository extends Repositories
             ->update(['username' => $request->input('username'), 'email' => $request->input('email'), 'date_birth' => $request->input('date_birth')]);
     }
 
+    /**
+     * Метод для реализации поиска по пользователям
+     */
     public function searchUser($request)
     {
         return $this->model

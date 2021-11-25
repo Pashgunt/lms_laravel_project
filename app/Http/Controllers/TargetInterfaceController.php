@@ -7,6 +7,9 @@ use App\LMS\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ * Контроллер для назначения курсов
+ */
 class TargetInterfaceController extends Controller
 {
     protected UserRepository $userRepository;
@@ -18,6 +21,9 @@ class TargetInterfaceController extends Controller
         $this->courseRepository = $courseRepository;
     }
 
+    /**
+     * Вывод всех допустимых пользователей и курсов
+     */
     public function allInfo(): View
     {
         return view('interfaceForTarget', [
@@ -26,6 +32,9 @@ class TargetInterfaceController extends Controller
         ]);
     }
 
+    /**
+     * Метод для поиска по пользователям
+     */
     public function searchUser(Request $request): View
     {
         $value = $request->input('search_user');
@@ -36,6 +45,9 @@ class TargetInterfaceController extends Controller
         ]);
     }
 
+    /**
+     * Метод для поиска по курсам
+     */
     public function searchCourses(Request $request): View
     {
         $value = $request->input('search_course');

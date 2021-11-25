@@ -4,6 +4,7 @@ namespace App\LMS\Repositories;
 
 use App\LMS\Abstracts\Repositories;
 use Illuminate\Http\Request;
+use App\LMS\Assignment\Services\Paginate;
 
 /**
  * Репозиторий для работы с методами для предназначенных для курсов
@@ -20,9 +21,14 @@ class CourseRepository extends Repositories
         ]);
     }
 
+    /**
+     * Метод для реализации поиска по курсам
+     */
     public function searchCourse($request)
     {
         return $this->model
             ->where('name', 'LIKE', '%' . $request . '%')->get();
     }
+
+
 }
