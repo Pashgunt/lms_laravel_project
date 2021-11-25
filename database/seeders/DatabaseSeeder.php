@@ -11,15 +11,17 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
-        (new AdminSeeder)->run();
-        (new ManagerSeeder)->run();
-        (new UserSeeder)->run();
-        (new RoleSeeder)->run();
-        (new CoursesSeeder)->run();
-        (new ActivitiesSeeder)->run();
-        (new AuthorSeeder)->run();
-        (new ActivitiesTypeSeeder())->run();
+        $this->call([
+            AdminSeeder::class,
+            ManagerSeeder::class,
+            UserSeeder::class,
+            RoleSeeder::class,
+            CoursesSeeder::class,
+            ActivitiesSeeder::class,
+            AuthorSeeder::class,
+            ActivitiesTypeSeeder::class,
+        ]);
     }
 }

@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Courses;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\LMS\Repositories\CourseRepository;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
@@ -14,7 +16,6 @@ class CourseController extends Controller
 
     public function __construct(CourseRepository $courseRepository)
     {
-        parent::__construct();
         $this->repository = $courseRepository;
     }
 
@@ -30,11 +31,15 @@ class CourseController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function create(): View
+    public function create(Request $request)
     {
+        if (!empty($request->nameCourse)) {
+            $this->repository->createNewCourse($request);
+
+            return redirect('/courses');
+        }
+
         return view('courseEdit');
     }
 
@@ -60,15 +65,15 @@ class CourseController extends Controller
         return view('courseDetail', ['course' => $course]);
     }
 
-    public function edit(int $id)
+    public function edit(Courses $course): View
     {
-        $course = $this->repository->getById($id);
         return view('courseEdit', ['course' => $course]);
     }
 
-    public function editCourse(Request $request, int $id)
+    public function editCourse(Request $request, Courses $course): RedirectResponse
     {
-        $this->repository->editCourseInfo($request, $id);
+        $this->repository->editCourseInfo($request, $course);
+
         return redirect()->to('/courses');
     }
 
@@ -79,9 +84,10 @@ class CourseController extends Controller
     }
 
 
-    public function destroy(int $id)
+    public function destroy(Courses $course): RedirectResponse
     {
-        $this->repository->delete($id);
+        $course->delete();
+
         return redirect()->to('/courses');
     }
 }
