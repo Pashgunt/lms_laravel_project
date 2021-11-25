@@ -16,6 +16,7 @@
         <div class="header__buttons">
             @if (Illuminate\Support\Facades\Auth::check())
                 <a href="/logout" class="header__registration">Выйти</a>
+                <a href="/target-interface" class="header__targetInterface">Назначения</a>
             @else
                 <a href="/login" class="header__registration">Авторизация</a>
                 <a href="/register" class="header__registration"> Регистрация</a>

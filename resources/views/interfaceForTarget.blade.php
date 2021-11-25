@@ -1,0 +1,43 @@
+@extends('layout')
+
+@section('content')
+    <div class="target_user_list mt-3">
+        <h4 class="mb-1">Список пользоватлей</h4>
+        @if(isset($users))
+            <div class="d-flex align-content-start flex-wrap">
+                @foreach($users as $user)
+                    <div class="btn btn-primary btn-sm mb-1 ms-1 user__draggable" draggable="true">{{$user->username}}</div>
+                @endforeach
+            </div>
+        @endif
+    </div>
+
+    <div class="target_courses_list">
+        <h4 class="mb-1">Список курсов</h4>
+        @if(isset($courses))
+            <div class="d-flex align-content-start flex-wrap">
+                @foreach($courses as $course)
+                    <div class="btn btn-primary btn-sm mb-1 ms-1 course__draggable" draggable="true">{{$course->name}}</div>
+                @endforeach
+            </div>
+        @endif
+    </div>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col text-center bg-info p-2">Кому назначитть</div>
+            <div class="col text-center bg-info p-2 ms-3">Какие курсы назначить</div>
+        </div>
+        <div class="row">
+            <div class="col mx-auto border border-primary users__dragover" style="min-height: 200px"></div>
+            <div class="col mx-auto border border-primary ms-3 courses__dragover" style="min-height: 200px"></div>
+        </div>
+    </div>
+
+    <div class = "btn btn-success col-md-4 offset-md-4 mt-3">Назначить</div>
+@endsection
+
+@section('script')
+    <script src="/assets/js/jquery-3.6.0.min.js"></script>
+    <script src="/assets/js/targetInterface.js"></script>
+@endsection
