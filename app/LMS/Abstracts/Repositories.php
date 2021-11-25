@@ -5,6 +5,9 @@ namespace App\LMS\Abstracts;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 
+/**
+ * Репозиторий предназначнный для набора общих методов, которые используются во всех дочерних репозиториях
+ */
 abstract class Repositories
 {
     protected Model $model;

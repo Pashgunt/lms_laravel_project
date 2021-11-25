@@ -3,12 +3,17 @@
 namespace App\LMS\Repositories;
 
 use App\LMS\Abstracts\Repositories;
-use App\Models\Courses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Репозиторий для работы с методами для предназначенных для курсов
+ */
 class CourseRepository extends Repositories
 {
+    /**
+     * Метод редактирования данных курса
+     */
     public function editCourseInfo(Request $request, int $id)
     {
         $this->model->where('id', '=', "$id")->update(["name" => $request->input('nameCourse'),

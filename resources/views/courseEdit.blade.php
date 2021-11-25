@@ -9,8 +9,14 @@
     @if(isset($course))
         <form action="/courses/{{$course->id}}/edit" method="post">
             @csrf
+            @error('nameCourse')
+            <div class="alert-danger">{{ $message }}</div>
+            @enderror
             <input type="text" value="{{$course->name}}" class="form-control form-control-lg" name="nameCourse">
-            <textarea id="basic-wysiwyg" name="descCourse">{{$course->description}}</textarea>
+            @error('descCourse')
+            <div class="alert-danger">{{ $message }}</div>
+            @enderror
+            <textarea id="basic-wysiwyg" name = "descCourse">{{$course->description}}</textarea>
             <input type="submit" value="Изменить" class="btn btn-success">
         </form>
     @else

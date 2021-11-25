@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
@@ -46,10 +47,25 @@ Route::get('/register', [PageRegisterUserController::class, 'create'])
 Route::post('/register', [RegisteredUserController::class, 'store'])
     ->middleware('guest');
 
-Route::get('/users/list/{page}', '\App\Http\Controllers\UsersListController@main');
-Route::post('/users/list/{page}', '\App\Http\Controllers\UsersListController@delete');
-Route::get('/users/edit/{userId}', '\App\Http\Controllers\UsersListController@editPage');
-Route::post('/users/edit/{userId}', '\App\Http\Controllers\UsersListController@editInfo');
+Route::get('/users/list/{page}', [\App\Http\Controllers\UsersListController::class, 'main']);
+
+Route::get('/users/list', [\App\Http\Controllers\UsersListController::class, 'redirect']);
+
+Route::post('/users/list/{page}', [\App\Http\Controllers\UsersListController::class, 'delete']);
+
+Route::get('/users/edit/{userId}', [\App\Http\Controllers\UsersListController::class, 'editPage']);
+
+Route::post('/users/edit/{userId}', [\App\Http\Controllers\UsersListController::class, 'editInfo']);
+
+Route::get('/courses/activity/{activityId}', [\App\Http\Controllers\ActivitiesController::class, 'info']);
+
+Route::get('/courses/activity/{activityId}/delete', [\App\Http\Controllers\ActivitiesController::class, 'delete']);
+
+Route::get('/courses/{courseId}/activity/add', [\App\Http\Controllers\ActivitiesController::class, 'addPage']);
+
+Route::post('/courses/{courseId}/activity/add', [\App\Http\Controllers\ActivitiesController::class, 'addActivity']);
+
+Route::get('/courses/{courseId}/activity/add', [\App\Http\Controllers\ActivitiesController::class, 'addPage']);
 
 Route::get('/recovery', [PasswordResetLinkController::class, 'create'])
     ->middleware('guest')
@@ -78,3 +94,4 @@ Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
 
+Route::get('/video', [VideoController::class, 'play']);

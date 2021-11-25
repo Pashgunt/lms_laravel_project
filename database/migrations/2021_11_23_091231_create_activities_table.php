@@ -16,10 +16,10 @@ class CreateActivitiesTable extends Migration
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
             $table->integer('course_id');
-            $table->string('text');
+            $table->longText('text');
             $table->string('activity_type');
             $table->string('activity_title');
-            $table->string('link');
+            $table->string('link')->nullable();
             $table->integer('priority');
         });
     }
