@@ -3,7 +3,7 @@
 namespace App\LMS\Repositories;
 
 use App\LMS\Abstracts\Repositories;
-use App\LMS\Assignment\Services\Paginate;
+use App\LMS\Assignments\Services\Paginate;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -28,7 +28,7 @@ class UserRepository extends Repositories
     }
 
     /** Получение списка пользователей через пагинацию */
-    public function getUsersList(int $page, int $count): LengthAwarePaginator
+    public function getUsersList(int $count, int $page): LengthAwarePaginator
     {
         return (new Paginate($this->model))->paginate($count, $page);
     }

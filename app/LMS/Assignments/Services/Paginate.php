@@ -1,6 +1,6 @@
 <?php
 
-namespace App\LMS\Assignment\Services;
+namespace App\LMS\Assignments\Services;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
