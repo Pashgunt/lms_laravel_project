@@ -51,9 +51,9 @@ $(() => {
         })
     }
 
-    let targetAjax = (objOfTarget) => {
+    let targetAjax = (objOfTarget, firstArg, secondArg) => {
         $.ajax({
-            url: '/target-interface',
+            url: `/target-interface/${firstArg}/${secondArg}`,
             method: 'POST',
             data: {
                 'arr': JSON.stringify(objOfTarget)
@@ -87,7 +87,24 @@ $(() => {
             'courses': arrOfCourses,
         }
 
-        targetAjax(objOfTarget);
+        let url = new URL(window.location.href);
+
+        let arr = url.pathname.split('/');
+
+        let firstArg = null;
+        let secondArg = null;
+
+        arr.forEach((item, index) => {
+            if (!isNaN(parseInt(item))) {
+                if (index % 2 === 0) {
+                    firstArg = item;
+                } else {
+                    secondArg = item;
+                }
+            }
+        })
+
+        targetAjax(objOfTarget, firstArg, secondArg);
     })
 })
 

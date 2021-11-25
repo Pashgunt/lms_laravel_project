@@ -103,6 +103,8 @@ Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
 
+Route::post('/target-interface', [TargetInterfaceController::class, 'adc']);
+
 Route::get('/target-interface/{page_course}/{page_user}', [TargetInterfaceController::class, 'allInfo']);
 
 Route::get('/target/user/search', [TargetInterfaceController::class, 'searchUser']);

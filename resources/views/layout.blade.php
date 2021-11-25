@@ -18,7 +18,7 @@
                 <a href="/courses" class="header__registration">Список курсов</a>
                 <a href="/users/list" class="header__registration">Список пользователей</a>
                 <a href="/logout" class="header__registration">Выйти</a>
-                <a href="/target-interface" class="header__targetInterface">Назначения</a>
+                <a href="/target-interface/1/1" class="header__targetInterface">Назначения</a>
             @else
                 <a href="/login" class="header__registration">Авторизация</a>
                 <a href="/register" class="header__registration"> Регистрация</a>
