@@ -4,9 +4,11 @@ namespace App\LMS\Repositories;
 
 use App\LMS\Abstracts\Repositories;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
 
 class ActivityRepository extends Repositories
 {
+    /**  Получение коллекции элементов курса */
     public function getCourseActivities(int $courseId): Collection
     {
         return $this->model
@@ -15,6 +17,7 @@ class ActivityRepository extends Repositories
             ->get();
     }
 
+    /** Получение последнего, по приоритетности, элемента курса */
     public function getLastPriority(int $courseId): ?int
     {
         $activity = $this->model
@@ -29,4 +32,18 @@ class ActivityRepository extends Repositories
 
         return null;
     }
+
+    /** Редактирование информации вложенного элемента курса */
+    public function editActivity (Request $request, int $activityId): void
+    {
+        $this->model
+            ->where('id', '=', $activityId)
+            ->update([
+                'text' => $request->input('activity_text'),
+                'activity_title' => $request->input('activity_title'),
+                'link' => $request->input('activity_link')
+            ]);
+    }
+
+
 }
