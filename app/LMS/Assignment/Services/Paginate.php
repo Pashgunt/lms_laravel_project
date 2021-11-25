@@ -22,4 +22,31 @@ class Paginate
     {
         return $this->model->paginate($count, '*', '', $page);
     }
+
+    public function getPagesNumber (int $page, int $count): array
+    {
+        $maxPage = ceil(count($this->model->select('id')->get()) / $count);
+
+        $pages = [
+            'main_page' => $page
+        ];
+
+        if ($page > 1) {
+            $pages['min_page'] = 1;
+        }
+
+        if ($maxPage > 1 && $maxPage != $page) {
+            $pages['max_page'] = $maxPage;
+        }
+
+        if ($page - 1 > 1) {
+            $pages['prev_page'] = $page - 1;
+        }
+
+        if ($page + 1 < $maxPage) {
+            $pages['next_page'] = $page + 1;
+        }
+
+        return $pages;
+    }
 }

@@ -53,7 +53,7 @@ class CourseController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Courses  $course
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View|\Illuminate\Http\Response
      */
     public function show(Courses $course)
     {

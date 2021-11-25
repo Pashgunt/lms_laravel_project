@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ValidateRequest\EditUserRequest;
+use App\LMS\Assignment\Services\Paginate;
 use App\LMS\Repositories\UserRepository;
 use App\Models\Role;
 use App\Models\User;
@@ -54,25 +55,7 @@ class UsersListController extends Controller
 
         $usersList = $this->repository->getUsersList($page, $count);
 
-        $pages = [
-            'main_page' => $page
-        ];
-
-        if ($page > 1) {
-            $pages['min_page'] = 1;
-        }
-
-        if ($maxPage > 1 && $maxPage != $page) {
-            $pages['max_page'] = $maxPage;
-        }
-
-        if ($page - 1 > 1) {
-            $pages['prev_page'] = $page - 1;
-        }
-
-        if ($page + 1 < $maxPage) {
-            $pages['next_page'] = $page + 1;
-        }
+        $pages = $this->repository->generatePagesNumber($page, $count);
 
         return view('usersList', [
             'usersList' => $usersList,

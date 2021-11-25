@@ -9,11 +9,24 @@ class ActivityRepository extends Repositories
 {
     public function getCourseActivities(int $courseId): Collection
     {
-        return $this->model->where('course_id', '=', $courseId)->get();
+        return $this->model
+            ->where('course_id', '=', $courseId)
+            ->orderBy('priority', 'asc')
+            ->get();
     }
 
-    public function getActivitiesList ()
+    public function getLastPriority(int $courseId): ?int
     {
-        return $this->model->all();
+        $activity = $this->model
+            ->where('course_id', '=', $courseId)
+            ->orderBy('priority', 'desc')
+            ->limit(1)
+            ->get();
+
+        foreach($activity as $data) {
+            return $data->priority;
+        }
+
+        return null;
     }
 }

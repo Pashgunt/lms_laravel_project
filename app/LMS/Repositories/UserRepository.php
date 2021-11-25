@@ -37,4 +37,10 @@ class UserRepository extends Repositories
             ->update(['username' => $request->input('username'), 'email' => $request->input('email'), 'date_birth' => $request->input('date_birth')]);
     }
 
+    /** Генерация номеров страниц */
+    public function generatePagesNumber(int $page, int $count)
+    {
+        return (new Paginate($this->model))->getPagesNumber($page, $count);
+    }
+
 }

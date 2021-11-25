@@ -2,11 +2,15 @@
 
 namespace Database\Seeders;
 
-use App\Models\ActivitiesType;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ActivitiesTypeSeeder extends Seeder
 {
+    public array $types = [
+      'text', 'test', 'video', 'image'
+    ];
+
     /**
      * Run the database seeds.
      *
@@ -14,6 +18,10 @@ class ActivitiesTypeSeeder extends Seeder
      */
     public function run()
     {
-        ActivitiesType::factory()->create();
+        foreach ($this->types as $type) {
+            DB::table('activities_type')->insert([
+                'name' => $type
+            ]);
+        }
     }
 }

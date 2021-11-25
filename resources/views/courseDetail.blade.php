@@ -14,8 +14,6 @@
     @endif
     <div><b>Описание: </b> {{$course->description}}</div>
     <br>
-    <div><b>Назначения: ПЕРЕНОСИМ на отдельную страницу</b></div>
-    <br>
     <div><b>Содержание курса: </b>
         <table class="table table-striped table-modify">
             <tr>
@@ -29,6 +27,7 @@
                     <td>{{$activity->activity_title}}</td>
                     <td>
                         <a href="/courses/activity/{{$activity->id}}" class="btn btn-primary">Перейти</a>
+                        <a href="/courses/activity/{{$activity->id}}/delete" class="btn btn-danger">Удалить</a>
                     </td>
                 </tr>
             @endforeach
