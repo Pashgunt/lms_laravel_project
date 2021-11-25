@@ -107,6 +107,8 @@ Route::post('/target-interface', [TargetInterfaceController::class, 'adc']);
 
 Route::get('/target-interface/{page_course}/{page_user}', [TargetInterfaceController::class, 'allInfo']);
 
+Route::post('/target-interface/{page_course}/{page_user}', [TargetInterfaceController::class, 'abc']);
+
 Route::get('/target/user/search', [TargetInterfaceController::class, 'searchUser']);
 
 Route::get('/target/course/search', [TargetInterfaceController::class, 'searchCourses']);

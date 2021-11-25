@@ -95,4 +95,9 @@ class TargetInterfaceController extends Controller
             'search_course' => $value,
         ]);
     }
+
+    public function abc(Request $request)
+    {
+        dd($request);
+    }
 }

@@ -55,12 +55,14 @@ $(() => {
         $.ajax({
             url: `/target-interface/${firstArg}/${secondArg}`,
             method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             data: {
                 'arr': JSON.stringify(objOfTarget)
             },
             success(response) {
-                location.reload();
-                return response;
+                console.log(response)
             }
         })
     }
