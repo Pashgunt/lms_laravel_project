@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\LMS\Repositories\ActivityRepository;
+use App\Models\Activities;
 use App\Models\Courses;
 use Illuminate\Http\Request;
 use App\LMS\Repositories\CourseRepository;
@@ -55,7 +57,12 @@ class CourseController extends Controller
      */
     public function show(Courses $course)
     {
-        return view('courseDetail', ['course' => $course]);
+        $model = new Activities();
+
+        return view('courseDetail', [
+            'course' => $course,
+            'activities' => (new ActivityRepository($model))->getCourseActivities($course->id)
+        ]);
     }
 
     /**

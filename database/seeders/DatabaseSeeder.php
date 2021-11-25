@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         (new CoursesSeeder)->run();
         (new ActivitiesSeeder)->run();
         (new AuthorSeeder)->run();
+        (new ActivitiesTypeSeeder())->run();
     }
 }

@@ -42,6 +42,11 @@ Route::get('/users/edit/{userId}', [\App\Http\Controllers\UsersListController::c
 
 Route::post('/users/edit/{userId}', [\App\Http\Controllers\UsersListController::class, 'editInfo']);
 
+Route::get('/courses/activity/{activityId}', [\App\Http\Controllers\ActivitiesController::class, 'info']);
+
+Route::get('/courses/{courseId}/activity/add', [\App\Http\Controllers\ActivitiesController::class, 'addPage']);
+
+
 Route::get('/recovery', [PasswordResetLinkController::class, 'create'])->middleware('guest')->name('password.request');
 
 Route::post('/recovery', [PasswordResetLinkController::class, 'store'])->middleware('guest')->name('password.email');

@@ -17,8 +17,23 @@
     <div><b>Назначения: ПЕРЕНОСИМ на отдельную страницу</b></div>
     <br>
     <div><b>Содержание курса: </b>
-        <a href="/courses/{{$course->id}}/edit" class="btn btn-primary">Редактировать</a>
-
+        <table class="table table-striped table-modify">
+            <tr>
+                <td></td>
+                <td>Название</td>
+                <td></td>
+            </tr>
+            @foreach ($activities as $activity)
+                <tr>
+                    <td>{{$activity->priority}}</td>
+                    <td>{{$activity->activity_title}}</td>
+                    <td>
+                        <a href="/courses/activity/{{$activity->id}}" class="btn btn-primary">Перейти</a>
+                    </td>
+                </tr>
+            @endforeach
+        </table>
+        <a href="/courses/{{$course->id}}/activity/add" class="btn btn-success">Добавить</a>
     </div>
 
     <br>
