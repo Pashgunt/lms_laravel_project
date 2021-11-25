@@ -3,25 +3,26 @@
 namespace App\LMS\Repositories;
 
 use App\LMS\Abstracts\Repositories;
+use App\Models\Courses;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class ActivityRepository extends Repositories
 {
     /**  Получение коллекции элементов курса */
-    public function getCourseActivities(int $courseId): Collection
+    public function getCourseActivities(Courses $course): Collection
     {
         return $this->model
-            ->where('course_id', '=', $courseId)
+            ->where('course_id', '=', $course->getKey())
             ->orderBy('priority', 'asc')
             ->get();
     }
 
     /** Получение последнего, по приоритетности, элемента курса */
-    public function getLastPriority(int $courseId): ?int
+    public function getLastPriority(Courses $course): ?int
     {
         $activity = $this->model
-            ->where('course_id', '=', $courseId)
+            ->where('course_id', '=', $course->getKey())
             ->orderBy('priority', 'desc')
             ->limit(1)
             ->get();
