@@ -53,19 +53,29 @@ Route::get('/users/list', [\App\Http\Controllers\UsersListController::class, 're
 
 Route::post('/users/list/{page}', [\App\Http\Controllers\UsersListController::class, 'delete']);
 
-Route::get('/users/edit/{userId}', [\App\Http\Controllers\UsersListController::class, 'editPage']);
+Route::get('/users/edit/{userId}', [\App\Http\Controllers\UsersListController::class, 'editPage'])
+    ->middleware(['auth', 'role:admin']);
 
-Route::post('/users/edit/{userId}', [\App\Http\Controllers\UsersListController::class, 'editInfo']);
+Route::post('/users/edit/{userId}', [\App\Http\Controllers\UsersListController::class, 'editInfo'])
+    ->middleware(['auth', 'role:admin']);
 
 Route::get('/courses/activity/{activityId}', [\App\Http\Controllers\ActivitiesController::class, 'info']);
 
-Route::get('/courses/activity/{activityId}/delete', [\App\Http\Controllers\ActivitiesController::class, 'delete']);
+Route::get('/courses/activity/{activityId}/edit', [\App\Http\Controllers\ActivitiesController::class, 'editPage']);
 
-Route::get('/courses/{courseId}/activity/add', [\App\Http\Controllers\ActivitiesController::class, 'addPage']);
+Route::post('/courses/activity/{activityId}/edit', [\App\Http\Controllers\ActivitiesController::class, 'editActivity']);
 
-Route::post('/courses/{courseId}/activity/add', [\App\Http\Controllers\ActivitiesController::class, 'addActivity']);
+Route::get('/courses/activity/{activityId}/delete', [\App\Http\Controllers\ActivitiesController::class, 'delete'])
+    ->middleware(['auth', 'role:admin|manager']);
 
-Route::get('/courses/{courseId}/activity/add', [\App\Http\Controllers\ActivitiesController::class, 'addPage']);
+Route::get('/courses/{courseId}/activity/add', [\App\Http\Controllers\ActivitiesController::class, 'addPage'])
+    ->middleware(['auth', 'role:admin|manager']);
+
+Route::post('/courses/{courseId}/activity/add', [\App\Http\Controllers\ActivitiesController::class, 'addActivity'])
+    ->middleware(['auth', 'role:admin|manager']);
+
+Route::get('/courses/{courseId}/activity/add', [\App\Http\Controllers\ActivitiesController::class, 'addPage'])
+    ->middleware(['auth', 'role:admin|manager']);
 
 Route::get('/recovery', [PasswordResetLinkController::class, 'create'])
     ->middleware('guest')

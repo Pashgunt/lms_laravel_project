@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Contracts\View\View;
 
 /**
- * Класс для отображения глваной страницы сайта
+ * Класс для отображения главной страницы сайта
  */
 class MainPageController
 {
