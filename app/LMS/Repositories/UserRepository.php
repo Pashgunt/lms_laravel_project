@@ -5,11 +5,13 @@ namespace App\LMS\Repositories;
 use App\LMS\Abstracts\Repositories;
 use App\LMS\Assignment\Services\Paginate;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Hash;
 
+/**
+ * Репозиторий для работы с методами для предназначенных для пользователей
+ */
 class UserRepository extends Repositories
 {
 
@@ -37,6 +39,12 @@ class UserRepository extends Repositories
         return $this->model
             ->where('id', '=', "$user->id")
             ->update(['username' => $request->input('username'), 'email' => $request->input('email'), 'date_birth' => $request->input('date_birth')]);
+    }
+
+    /** Генерация номеров страниц */
+    public function generatePagesNumber(int $page, int $count)
+    {
+        return (new Paginate($this->model))->getPagesNumber($page, $count);
     }
 
 }

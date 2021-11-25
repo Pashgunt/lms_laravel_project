@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ValidateRequest\EditUserRequest;
+use App\LMS\Assignment\Services\Paginate;
 use App\LMS\Repositories\UserRepository;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-
+/**
+ * Класс контроллер для работы с пользователями
+ */
 class UsersListController extends Controller
 {
     protected UserRepository $repository;
@@ -19,15 +22,26 @@ class UsersListController extends Controller
         $this->repository = $userRepository;
     }
 
+    /** Перенаправление на нумерованную страницу */
+    public function redirect (): View
+    {
+        return $this->main('1');
+    }
+
     /** Отображение страницы со списком пользователей */
     public function main(string $page): View
     {
+        if(!isset($page)){
+            $page = 1;
+        }
+
         try {
             $page = $page * 1;
         } catch (\Exception $e) {
             $page = 1;
         }
-        if (!is_int($page)) {
+
+        if(!is_int($page)) {
             $page = 1;
         }
 
@@ -42,25 +56,7 @@ class UsersListController extends Controller
 
         $usersList = $this->repository->getUsersList($page, $count);
 
-        $pages = [
-            'main_page' => $page
-        ];
-
-        if ($page > 1) {
-            $pages['min_page'] = 1;
-        }
-
-        if ($maxPage > 1 && $maxPage != $page) {
-            $pages['max_page'] = $maxPage;
-        }
-
-        if ($page - 1 > 1) {
-            $pages['prev_page'] = $page - 1;
-        }
-
-        if ($page + 1 < $maxPage) {
-            $pages['next_page'] = $page + 1;
-        }
+        $pages = $this->repository->generatePagesNumber($page, $count);
 
         return view('usersList', [
             'usersList' => $usersList,
