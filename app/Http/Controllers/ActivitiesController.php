@@ -15,7 +15,6 @@ class ActivitiesController extends Controller
 
     public function __construct(ActivityRepository $repository)
     {
-        parent::__construct();
         $this->repository = $repository;
     }
 
