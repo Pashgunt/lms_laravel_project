@@ -4,7 +4,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\TargetInterface;
+use App\Http\Controllers\TargetInterfaceController;
 use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
@@ -80,6 +80,10 @@ Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
 
-Route::get('/target-interface', [TargetInterface::class, 'allInfo']);
+Route::get('/target-interface', [TargetInterfaceController::class, 'allInfo']);
+
+Route::get('/target/user/search', [TargetInterfaceController::class, 'searchUser']);
+
+Route::get('/target/course/search', [TargetInterfaceController::class, 'searchCourses']);
 
 Route::get('/video', [VideoController::class, 'play']);

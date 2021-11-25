@@ -19,4 +19,10 @@ class CourseRepository extends Repositories
             "description" => strip_tags($request->input('descCourse')),
         ]);
     }
+
+    public function searchCourse($request)
+    {
+        return $this->model
+            ->where('name', 'LIKE', '%' . $request . '%')->get();
+    }
 }

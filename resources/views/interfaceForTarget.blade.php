@@ -4,9 +4,11 @@
     <div class="target_user_list mt-3">
         <h4 class="mb-1">Список пользоватлей</h4>
         <span>
-            <div>
-                <input type="text">
-                <input type="submit" value="Найти">
+            <div class="mb-3">
+                <form action="/target/user/search" method="get">
+                    <input type="text" name="search_user" value="{{$search}}">
+                    <input type="submit" value="Найти">
+                </form>
             </div>
         </span>
         @if(isset($users))
@@ -22,9 +24,11 @@
     <div class="target_courses_list">
         <h4 class="mb-1">Список курсов</h4>
         <span>
-            <div>
-                <input type="text">
-                <input type="submit" value="Найти">
+            <div class="mb-3">
+                <form action="/target/course/search" method="get">
+                    <input type="text" name="search_course" value="{{$search}}">
+                    <input type="submit" value="Найти">
+                </form>
             </div>
         </span>
         @if(isset($courses))

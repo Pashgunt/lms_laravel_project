@@ -41,4 +41,10 @@ class UserRepository extends Repositories
             ->update(['username' => $request->input('username'), 'email' => $request->input('email'), 'date_birth' => $request->input('date_birth')]);
     }
 
+    public function searchUser($request)
+    {
+        return $this->model
+            ->where('username', 'LIKE', '%' . $request . '%')->get();
+    }
+
 }
