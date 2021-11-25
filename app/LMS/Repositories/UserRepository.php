@@ -50,4 +50,10 @@ class UserRepository extends Repositories
             ->where('username', 'LIKE', '%' . $request . '%')->get();
     }
 
+    /** Генерация номеров страниц */
+    public function generatePagesNumber(int $page, int $count)
+    {
+        return (new Paginate($this->model))->getPagesNumber($page, $count);
+    }
+
 }

@@ -12,8 +12,8 @@ class CoursesFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name(),
-            'created_at' => $this->faker->date(),
+            'name' => $this->faker->text(30),
+            'created_at' => date('Y-m-d h:m:s'),
             'updated_at' => null,
             'author_id' => 1,
             'censorship_id' => 1,

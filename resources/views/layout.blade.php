@@ -15,6 +15,8 @@
         <a href="/" class="header__title _title">LMS</a>
         <div class="header__buttons">
             @if (Illuminate\Support\Facades\Auth::check())
+                <a href="/courses" class="header__registration">Список курсов</a>
+                <a href="/users/list" class="header__registration">Список пользователей</a>
                 <a href="/logout" class="header__registration">Выйти</a>
                 <a href="/target-interface" class="header__targetInterface">Назначения</a>
             @else
@@ -31,7 +33,6 @@
 </section>
 <footer class="footer">
     <section class="footer__wrapper _container">
-        <a href="/users/list/1">Список пользователей</a>
     </section>
 </footer>
 </body>
