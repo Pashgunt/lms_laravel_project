@@ -43,7 +43,6 @@ body {
 }
 
 .footer {
-    position: fixed;
     bottom: 0;
     left: 0;
     margin-top: 25px;
@@ -65,6 +64,6 @@ a {
 }
 
 .content__wrapper {
-    height: calc(100vh - 120px);
+    height: 100%;
 }
 

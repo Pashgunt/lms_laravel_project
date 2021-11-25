@@ -1,6 +1,8 @@
 @extends('layout')
 
 @section('content')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <div class="target_user_list mt-3">
         <h4 class="mb-1">Список пользоватлей</h4>
         <span>

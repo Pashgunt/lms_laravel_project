@@ -12,16 +12,16 @@
     </a>
 
     <div class="usersTable">
-        <table class="table table-striped table-modify">
-            <tr>
-                <th>Наименование</th>
-                <th>Автор</th>
-                <th>Описание</th>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
-            @if (isset($coursesList))
+        @if (isset($coursesList))
+            <table class="table table-striped table-modify">
+                <tr>
+                    <th>Наименование</th>
+                    <th>Автор</th>
+                    <th>Описание</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
                 @foreach($coursesList as $course)
                     <tr>
                         <td>{{$course->name}}</td>
@@ -33,15 +33,16 @@
                             </a>
                         </td>
                         <td>
-                            <a class="btn btn-danger" href="/courses/{{$course->id}}/destroy">Удалить</a>
-                        </td>
-                        <td>
                             <a type="submit" class="btn btn-warning"
                                href="/courses/{{$course->id}}/edit">Редактировать</a>
                         </td>
+                        <td>
+                            <a class="btn btn-danger" href="/courses/{{$course->id}}/destroy">Удалить</a>
+                        </td>
                     </tr>
                 @endforeach
-            @endif
-        </table>
+            </table>
+            {{ $coursesList->links('vendor.pagination.bootstrap-4') }}
+        @endif
     </div>
 @endsection

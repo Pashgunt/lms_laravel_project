@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Notifications\ResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -54,15 +55,12 @@ class User extends Authenticatable
         return $this->hasMany(Courses::class, 'author_id');
     }
 
-    /** Проверка, назначена ли пользователю конкретная роль */
-    public function hasRole(string $role): bool
+    /*
+     * Отношение роли к пользователю
+     */
+    public function role(): HasOne
     {
-        $userRole = Role::find($this->role_id);
-        if (strtolower($userRole->role_name) === $role) {
-            return true;
-        }
-
-        return false;
+        return $this->hasOne(Role::class, 'id', 'role_id');
     }
 
     /** Отправка токена письмом */

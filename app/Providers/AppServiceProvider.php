@@ -3,12 +3,13 @@
 namespace App\Providers;
 
 use App\LMS\Repositories\ActivityRepository;
+use App\LMS\Repositories\AppointmentRepository;
 use App\LMS\Repositories\CourseRepository;
 use App\LMS\Repositories\UserRepository;
 use App\Models\Activities;
+use App\Models\Appointment;
 use App\Models\Courses;
 use App\Models\User;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -35,6 +36,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(ActivityRepository::class, function ($app) {
             return new ActivityRepository(new Activities());
         });
+
+        $this->app->singleton(AppointmentRepository::class, function ($app) {
+            return new AppointmentRepository(new Appointment());
+        });
     }
 
     /**
@@ -44,6 +49,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Route::model('id', Courses::class);
+
     }
 }
