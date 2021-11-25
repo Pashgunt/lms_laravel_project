@@ -10,14 +10,15 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-
+/**
+ * Класс контроллер для работы с пользователями
+ */
 class UsersListController extends Controller
 {
     protected UserRepository $repository;
 
     public function __construct(UserRepository $userRepository)
     {
-        parent::__construct();
         $this->repository = $userRepository;
     }
 
@@ -75,7 +76,8 @@ class UsersListController extends Controller
     /** Обработка POST на редактирование информации о пользователе */
     public function editInfo(EditUserRequest $request, User $user): View
     {
-        $this->validateController->checkEditUser($request);
+        $request->validated();
+
         $this->repository->editUserInfo($request, $user);
 
         return $this->editPage($this->repository->getById($user->id));

@@ -15,10 +15,8 @@
                 @csrf
                 <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
-                <x-label for="email" :value="__('Email')"/>
-
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email"
-                         :value="old('email', $request->email)" required autofocus/>
+                         :value="old('email', $request->email)" hidden required autofocus/>
 
                 <x-label for="password" :value="__('Новый пароль')"/>
 

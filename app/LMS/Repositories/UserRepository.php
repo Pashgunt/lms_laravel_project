@@ -9,8 +9,12 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Hash;
 
+/**
+ * Репозиторий для работы с методами для предназначенных для пользователей
+ */
 class UserRepository extends Repositories
 {
+
     /** Добавление пользователя */
     public function insertNewUser($request): User
     {

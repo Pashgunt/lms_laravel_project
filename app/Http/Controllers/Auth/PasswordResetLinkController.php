@@ -6,20 +6,36 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ValidateRequest\RecoveryRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Password;
+use Illuminate\View\View;
 
-
+/**
+ * Контроллер для изменения пароля
+ */
 class PasswordResetLinkController extends Controller
 {
 
-    public function create()
+    /**
+     * Возвращение блока для изменения пароля
+     */
+    public function create(): View
     {
         return view('recovery');
     }
 
+    /**
+     * Изменение пароля
+     */
     public function store(RecoveryRequest $request): RedirectResponse
     {
-        $this->validateController->checkRecovery($request);
 
+        /**
+         * Валидация полей
+         */
+        $request->validated();
+
+        /**
+         * Отправление письма
+         */
         $status = Password::sendResetLink(
             $request->only('email')
         );

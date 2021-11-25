@@ -27,7 +27,7 @@ class ResetPassword extends Notification
         return ['mail'];
     }
 
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         $resetUrl = $this->resetUrl($notifiable);
 
@@ -52,7 +52,7 @@ class ResetPassword extends Notification
             );
     }
 
-    protected function resetUrl($notifiable)
+    protected function resetUrl($notifiable): string
     {
         if (static::$createUrlCallback) {
             return call_user_func(static::$createUrlCallback, $notifiable, $this->token);
