@@ -6,6 +6,7 @@
     @else
         <h4>Создание курса</h4>
     @endif
+
     @if(isset($course))
         <form action="/courses/{{$course->id}}/edit" method="post">
             @csrf
@@ -16,18 +17,20 @@
             @error('descCourse')
             <div class="alert-danger">{{ $message }}</div>
             @enderror
-            <textarea id="basic-wysiwyg" name = "descCourse">{{$course->description}}</textarea>
+            <textarea id="basic-wysiwyg" name="descCourse">{{$course->description}}</textarea>
             <input type="submit" value="Изменить" class="btn btn-success">
         </form>
     @else
         <form action="/courses/create" method="get">
             @csrf
-            <input placeholder="Название курса" type="text" value="" class="form-control form-control-lg" name="nameCourse" >
+            <input placeholder="Название курса" type="text" value="" class="form-control form-control-lg"
+                   name="nameCourse">
             <textarea placeholder="Описание курса" id="basic-wysiwyg" name="descCourse"></textarea>
             <br>
             <input type="submit" value="Сохранить" class="btn btn-success">
         </form>
     @endif
+
 @endsection
 
 @section('script')

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Courses;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\LMS\Repositories\CourseRepository;
 use Illuminate\Contracts\View\View;
@@ -24,11 +25,7 @@ class CourseController extends Controller
     public function index(): View
     {
         $coursesList = $this->repository->all();
-//        foreach ($coursesList as $course) {
-//            var_dump($course->name);
-//            var_dump($course->author->username);
-//        }
-        //exit;
+
         return view('coursesList', ['coursesList' => $coursesList]);
     }
 
@@ -38,12 +35,7 @@ class CourseController extends Controller
     public function create(Request $request)
     {
         if (!empty($request->nameCourse)) {
-            $this->repository->create([
-                'author_id' => Auth::id(),
-                'censorship_id'=> 1,
-                'name' => $request->nameCourse,
-                'description' => $request->descCourse,
-                ]);
+            $this->repository->createNewCourse($request);
 
             return redirect('/courses');
         }
@@ -73,15 +65,15 @@ class CourseController extends Controller
         return view('courseDetail', ['course' => $course]);
     }
 
-    public function edit(int $id)
+    public function edit(Courses $course): View
     {
-        $course = $this->repository->getById($id);
         return view('courseEdit', ['course' => $course]);
     }
 
-    public function editCourse(Request $request, int $id)
+    public function editCourse(Request $request, Courses $course): RedirectResponse
     {
-        $this->repository->editCourseInfo($request, $id);
+        $this->repository->editCourseInfo($request, $course);
+
         return redirect()->to('/courses');
     }
 
@@ -92,9 +84,10 @@ class CourseController extends Controller
     }
 
 
-    public function destroy(int $id)
+    public function destroy(Courses $course): RedirectResponse
     {
-        $this->repository->delete($id);
+        $course->delete();
+
         return redirect()->to('/courses');
     }
 }

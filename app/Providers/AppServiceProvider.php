@@ -8,6 +8,7 @@ use App\LMS\Repositories\UserRepository;
 use App\Models\Activities;
 use App\Models\Courses;
 use App\Models\User;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -43,6 +44,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Route::model('id', Courses::class);
     }
 }
