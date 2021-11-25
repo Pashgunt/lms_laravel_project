@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ValidateRequest\EditUserRequest;
-use App\LMS\Assignment\Services\Paginate;
 use App\LMS\Repositories\UserRepository;
 use App\Models\Role;
 use App\Models\User;

@@ -6,8 +6,6 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\TargetInterfaceController;
 use App\Http\Controllers\VideoController;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainPageController;
 use \App\Http\Controllers\CourseController;
@@ -105,7 +103,7 @@ Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
 
-Route::get('/target-interface', [TargetInterfaceController::class, 'allInfo']);
+Route::get('/target-interface/{page_course}/{page_user}', [TargetInterfaceController::class, 'allInfo']);
 
 Route::get('/target/user/search', [TargetInterfaceController::class, 'searchUser']);
 

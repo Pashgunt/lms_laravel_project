@@ -3,7 +3,7 @@
 namespace App\LMS\Repositories;
 
 use App\LMS\Abstracts\Repositories;
-use App\LMS\Assignment\Services\Paginate;
+use App\LMS\Assignments\Services\Paginate;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -33,6 +33,11 @@ class UserRepository extends Repositories
         return (new Paginate($this->model))->paginate($count, $page);
     }
 
+    public function getUserListWithConditional(int $page, int $count, int $id)
+    {
+        return (new Paginate($this->model))->paginateWithWhere($count, $page, $id);
+    }
+
     /** Редактирование информации о пользователе */
     public function editUserInfo(Request $request, User $user): bool
     {
@@ -44,10 +49,10 @@ class UserRepository extends Repositories
     /**
      * Метод для реализации поиска по пользователям
      */
-    public function searchUser($request)
+    public function searchUser($request, $id)
     {
         return $this->model
-            ->where('username', 'LIKE', '%' . $request . '%')->get();
+            ->where('username', 'LIKE', '%' . $request . '%')->where('role_id', '=', $id)->get();
     }
 
     /** Генерация номеров страниц */
@@ -55,5 +60,4 @@ class UserRepository extends Repositories
     {
         return (new Paginate($this->model))->getPagesNumber($page, $count);
     }
-
 }

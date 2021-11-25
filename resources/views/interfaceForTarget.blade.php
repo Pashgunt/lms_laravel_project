@@ -6,10 +6,11 @@
         <span>
             <div class="mb-3">
                 <form action="/target/user/search" method="get">
-                    @if(isset($search))
-                        <input type="text" name="search_user" value="{{$search}}">
+                    @if(isset($search_user))
+                        <input type="text" name="search_user" value="{{$search_user}}">
+                    @else
+                        <input type="text" name="search_user">
                     @endif
-                    <input type="text" name="search_user">
                     <input type="submit" value="Найти">
                 </form>
             </div>
@@ -29,10 +30,11 @@
         <span>
             <div class="mb-3">
                 <form action="/target/course/search" method="get">
-                    @if(isset($search))
-                        <input type="text" name="search_course" value="{{$search}}">
+                    @if(isset($search_course))
+                        <input type="text" name="search_course" value="{{$search_course}}">
+                    @else
+                        <input type="text" name="search_course">
                     @endif
-                    <input type="text" name="search_course">
                     <input type="submit" value="Найти">
                 </form>
             </div>

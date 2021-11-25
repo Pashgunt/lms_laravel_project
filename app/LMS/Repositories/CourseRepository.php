@@ -5,7 +5,7 @@ namespace App\LMS\Repositories;
 use App\LMS\Abstracts\Repositories;
 use App\Models\Courses;
 use Illuminate\Http\Request;
-use App\LMS\Assignment\Services\Paginate;
+use App\LMS\Assignments\Services\Paginate;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -27,7 +27,7 @@ class CourseRepository extends Repositories
     {
         $this->model->create([
             'author_id' => Auth::id(),
-            'censorship_id'=> 1,
+            'censorship_id' => 1,
             'name' => $request->nameCourse,
             'description' => strip_tags($request->descCourse),
         ]);
@@ -42,5 +42,13 @@ class CourseRepository extends Repositories
             ->where('name', 'LIKE', '%' . $request . '%')->get();
     }
 
+    public function getCourseList(int $page, int $count)
+    {
+        return (new Paginate($this->model))->paginate($count, $page);
+    }
 
+    public function generatePageNumbersForUsers(int $page, int $count)
+    {
+        return (new Paginate($this->model))->getPagesNumber($page, $count);
+    }
 }
