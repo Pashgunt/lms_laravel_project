@@ -53,7 +53,7 @@ class UsersListController extends Controller
             $page = $maxPage;
         }
 
-        $usersList = $this->repository->getUsersList($page, $count);
+        $usersList = $this->repository->getUsersList($count, $page);
 
         $pages = $this->repository->generatePagesNumber($page, $count);
 

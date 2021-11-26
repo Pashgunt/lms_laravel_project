@@ -7,6 +7,7 @@ body {
 
 ._container {
     width: 90%;
+    height: 100%;
     margin: 0 auto;
 }
 
@@ -49,5 +50,13 @@ a {
 
 .content__wrapper {
     height: 100%;
+}
+
+.footer-main {
+    background: greenyellow;
+    width: 100%;
+    text-align: center;
+    padding: 25px;
+    bottom: 0;
 }
 

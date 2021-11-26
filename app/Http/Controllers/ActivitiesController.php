@@ -17,62 +17,88 @@ class ActivitiesController extends Controller
         $this->repository = $repository;
     }
 
-    /** Отображение страницы с информацией об элементе */
-    public function info (Activities $activity)
+    /**
+     * Отображение страницы с информацией об элементе
+     */
+    public function info(Activities $activity)
     {
-        return view ('activityInfo', [
-            'activity' => $activity
+        return view('activityInfo', [
+                'activity' => $activity
             ]
         );
     }
 
-    /** Отображение формы добавление элемента */
-    public function addPage (Courses $course)
+    /**
+     * Отображение формы добавление элемента
+     */
+    public function addPage(Courses $course)
     {
-        return view ('forms/addActivity', [
-            'courseId' => $course->id,
-            'activitiesType' => ['text']
+        return view('forms/addActivity', [
+            'courseId' => $course->getKey(),
+            'activitiesType' => [
+                'text' => 1
+            ]
         ]);
     }
 
-    /** Добавление элемента */
-    public function addActivity (Request $request, Courses $course)
+    /**
+     * Добавление элемента
+     */
+    public function addActivity(Request $request, Courses $course)
     {
-        $priority = $this->repository->getLastPriority($course->id) + 1;
-
-        $this->repository->create([
-            'course_id' => $course->id,
-            'text' => $request->input('activity_text'),
-            'activity_type' => $request->input('activity_type'),
-            'activity_title' => $request->input('activity_title'),
-            'priority' => $priority
-        ]);
+        $this->repository->createActivity($request->all(), $course);
 
         return redirect("/courses/$course->id}");
     }
 
-    /** Отображение формы редактирования элемента */
-    public function editPage (Activities $activity)
+    /**
+     * Отображение формы редактирования элемента
+     */
+    public function editPage(Activities $activity)
     {
         return view('forms/editActivityInfo', [
             'activity' => $activity
         ]);
     }
 
-    /** Редактирование элемента */
-    public function editActivity (Request $request, Activities $activity)
+    /**
+     * Редактирование элемента
+     */
+    public function editActivity(Request $request, Activities $activity)
     {
         $this->repository->editActivity($request, $activity->id);
 
         return redirect("/courses/activity/$activity->id/edit");
     }
 
-    /** Удаление элемента */
-    public function delete (Activities $activity)
+    /**
+     * Удаление элемента
+     */
+    public function delete(Activities $activity)
     {
-        $this->repository->delete($activity->id);
+        $this->repository->delete($activity->getKey());
 
         return redirect("/courses/$activity->course_id");
+    }
+
+    /**
+     * Сортировка списка по столбцу (param(столбец)) и типу (type(asc/desc))
+     */
+    public function getSortedList(Courses $course, string $column, string $sort_type)
+    {
+        $sortTypes = ['asc', 'desc'];
+        if (!in_array($sort_type, $sortTypes)) {
+            return redirect("/courses/$course->id");
+        }
+        $columns = $this->repository->getColumnNames();
+        if (!in_array($column, $columns)) {
+            return redirect("/courses/$course->id");
+        }
+
+        return view('courseDetail', [
+            'course' => $course,
+            'activities' => $this->repository->getSortedList($course, $column, $sort_type)
+        ]);
     }
 
 }

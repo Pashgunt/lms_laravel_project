@@ -28,7 +28,7 @@ class UserRepository extends Repositories
     }
 
     /** Получение списка пользователей через пагинацию */
-    public function getUsersList(int $page, int $count): LengthAwarePaginator
+    public function getUsersList(int $count, int $page): LengthAwarePaginator
     {
         return (new Paginate($this->model))->paginate($count, $page);
     }

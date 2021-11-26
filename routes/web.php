@@ -62,6 +62,8 @@ Route::get('/courses/activity/{activityId}', [\App\Http\Controllers\ActivitiesCo
 
 Route::get('/courses/activity/{activityId}/edit', [\App\Http\Controllers\ActivitiesController::class, 'editPage']);
 
+Route::get('/courses/{courseId}/sort/{column}/{sort_type}', [\App\Http\Controllers\ActivitiesController::class, 'getSortedList']);
+
 Route::post('/courses/activity/{activityId}/edit', [\App\Http\Controllers\ActivitiesController::class, 'editActivity']);
 
 Route::get('/courses/activity/{activityId}/delete', [\App\Http\Controllers\ActivitiesController::class, 'delete'])

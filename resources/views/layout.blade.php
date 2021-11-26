@@ -32,5 +32,8 @@
         @yield('content')
     </section>
 </section>
+<footer>
+
+</footer>
 </body>
 </html>
