@@ -21,11 +21,17 @@
                 </tr>
                 @foreach($appointments as $appointment)
                     <tr>
-                        <td>{{$appointment->course->first()->name}}</td>
-                        <td>{{($appointment->student->first()->username)}}</td>
-                        <td>
-                            <a class="btn btn-danger" href="/target/{{$appointment->id}}/destroy">Удалить</a>
-                        </td>
+                        @if ($appointment->course->first()->name !== $current_course)
+                            <td>{{$appointment->course->first()->name}}</td>
+                            @php ($current_course = $appointment->course->first()->name)
+                        @else
+                            <td></td>
+                        @endif
+                            <td>
+                                {{($appointment->student->first()->username)}}</td>
+                            <td>
+                                <a class="btn btn-danger" href="/target/{{$appointment->id}}/destroy">Удалить</a>
+                            </td>
                     </tr>
                 @endforeach
             </table>

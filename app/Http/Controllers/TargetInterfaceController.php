@@ -21,7 +21,7 @@ class TargetInterfaceController extends Controller
     protected CourseRepository $courseRepository;
     protected AppointmentRepository $repository;
 
-    public function __construct(UserRepository $userRepository, CourseRepository $courseRepository,
+    public function __construct(UserRepository        $userRepository, CourseRepository $courseRepository,
                                 AppointmentRepository $repository)
     {
         $this->userRepository = $userRepository;
@@ -123,9 +123,12 @@ class TargetInterfaceController extends Controller
      */
     public function show()
     {
-        $appointments = $this->repository->paginate(10);
+        $appointments = $this->repository->orderByRaw('course_id')->paginate(10);
 
-        return view('appointmentsList', ['appointments' => $appointments]);
+        return view('appointmentsList', [
+            'appointments' => $appointments,
+            'current_course' => '',
+        ]);
     }
 
     /**
@@ -137,4 +140,6 @@ class TargetInterfaceController extends Controller
 
         return back();
     }
+
+
 }
