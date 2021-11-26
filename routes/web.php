@@ -104,15 +104,15 @@ Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->name('logout');
 
 
-Route::get('/target-interface/{page_course}/{page_user}', [TargetInterfaceController::class, 'allInfo']);
+Route::get('/target-interface/{page_course}/{page_user}', [TargetInterfaceController::class, 'allInfo'])->middleware(['auth', 'role:admin|manager']);;
 
-Route::post('/target-interface/{page_course}/{page_user}', [TargetInterfaceController::class, 'createAppointment']);
+Route::post('/target-interface/{page_course}/{page_user}', [TargetInterfaceController::class, 'createAppointment'])->middleware(['auth', 'role:admin|manager']);;
 
-Route::get('/target/user/search', [TargetInterfaceController::class, 'searchUser']);
+Route::get('/target/user/search', [TargetInterfaceController::class, 'searchUser'])->middleware(['auth', 'role:admin|manager']);;
 
-Route::get('/target/course/search', [TargetInterfaceController::class, 'searchCourses']);
+Route::get('/target/course/search', [TargetInterfaceController::class, 'searchCourses'])->middleware(['auth', 'role:admin|manager']);;
 
-Route::get('/target', [TargetInterfaceController::class, 'show']);
-Route::get('/target/{target_id}/destroy', [TargetInterfaceController::class, 'destroy']);
+Route::get('/target', [TargetInterfaceController::class, 'show'])->middleware(['auth', 'role:admin|manager']);;
+Route::get('/target/{target_id}/destroy', [TargetInterfaceController::class, 'destroy'])->middleware(['auth', 'role:admin|manager']);;
 
 Route::get('/video', [VideoController::class, 'play']);
