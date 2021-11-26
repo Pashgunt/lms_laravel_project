@@ -11,8 +11,8 @@
         <label>
             Тип -
             <select name="activity_type" style="margin-bottom: 20px">
-                @foreach($activitiesType as $type)
-                    <option value="{{$type}}">{{$type}}</option>
+                @foreach($activitiesType as $type => $id)
+                    <option value="{{$id}}">{{$type}}</option>
                 @endforeach
             </select>
         </label> <br>

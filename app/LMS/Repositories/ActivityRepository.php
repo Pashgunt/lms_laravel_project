@@ -7,10 +7,16 @@ use App\Models\Courses;
 use App\Models\Activities;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
+/**
+ * Репозиторий для работы с вложенными элементами курса
+ */
 class ActivityRepository extends Repositories
 {
-    /**  Получение коллекции элементов курса */
+    /**
+     * Получение коллекции элементов курса
+     */
     public function getCourseActivities(Courses $course): Collection
     {
         return $this->model
@@ -19,7 +25,9 @@ class ActivityRepository extends Repositories
             ->get();
     }
 
-    /** Получение последнего, по приоритетности, элемента курса */
+    /**
+     * Получение последнего, по приоритетности, элемента курса
+     */
     public function getLastPriority(Courses $course): ?int
     {
         $activity = $this->model
@@ -35,7 +43,9 @@ class ActivityRepository extends Repositories
         return null;
     }
 
-    /** Редактирование информации вложенного элемента курса */
+    /**
+     * Редактирование информации вложенного элемента курса
+     */
     public function editActivity (Request $request, int $activityId): void
     {
         $this->model
@@ -53,12 +63,30 @@ class ActivityRepository extends Repositories
     public function createActivity(array $data, Courses $course): Activities
     {
         return $this->model->create([
-            'course_id' => $course->id,
+            'course_id' => $course->getKey(),
             'text' => $data['activity_text'],
             'activity_type' => $data['activity_type'],
             'activity_title' => $data['activity_title'],
-            'priority' => $this->getLastPriority($course->id)
+            'priority' => $this->getLastPriority($course)
         ]);
     }
 
+    /**
+     * Получение сортированной коллекции
+     */
+    public function getSortedList(Courses $course, string $param, string $type): Collection
+    {
+        return $this->model
+            ->where('course_id','=', $course->getKey())
+            ->orderBy($param, $type)
+            ->get();
+    }
+
+    /**
+     * Получение списка наименований столбцов
+     */
+    public function getColumnNames ()
+    {
+        return Schema::getColumnListing('activities');
+    }
 }

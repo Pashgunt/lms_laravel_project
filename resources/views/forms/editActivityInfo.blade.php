@@ -18,10 +18,6 @@
                 {{$activity->text}}
             </textarea>
         </label><br>
-        <label style="margin-top: 20px">
-            Ссылка на контент -
-            <input type="text" name="activity_link" value="{{$activity->link}}">
-        </label><br>
         <a href="/courses/activity/{{$activity->id}}" class="btn btn-primary" style="margin-top: 20px">Назад</a>
         <input type="submit" name="edit_activity" value="Сохранить" class="btn btn-success" style="margin-top: 20px">
     </form>
