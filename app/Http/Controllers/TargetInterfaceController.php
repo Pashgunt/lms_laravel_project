@@ -85,11 +85,14 @@ class TargetInterfaceController extends Controller
     {
         $value = $request->input('search_user_field');
 
-        return view('interfaceForTarget', [
-            'users' => $this->userRepository->searchUser($value, 1),
-            'courses' => $this->courseRepository->all(),
-            'search_user' => $value,
-        ]);
+        if ($value) {
+            return view('interfaceForTarget', [
+                'users' => $this->userRepository->searchUser($value, 1),
+                'courses' => $this->courseRepository->all(),
+                'search_user' => $value,
+            ]);
+        }
+        return $this->allInfo('1', '1');
     }
 
     /**
@@ -98,11 +101,15 @@ class TargetInterfaceController extends Controller
     public function searchCourses(Request $request): View
     {
         $value = $request->input('search_course_field');
-        return view('interfaceForTarget', [
-            'users' => $this->userRepository->all(),
-            'courses' => $this->courseRepository->searchCourse($value),
-            'search_course' => $value,
-        ]);
+
+        if ($value) {
+            return view('interfaceForTarget', [
+                'users' => $this->userRepository->all(),
+                'courses' => $this->courseRepository->searchCourse($value),
+                'search_course' => $value,
+            ]);
+        }
+        return $this->allInfo('1', '1');
     }
 
     /**
