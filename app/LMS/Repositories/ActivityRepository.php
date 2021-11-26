@@ -36,7 +36,7 @@ class ActivityRepository extends Repositories
             ->limit(1)
             ->get();
 
-        foreach($activity as $data) {
+        foreach ($activity as $data) {
             return $data->priority;
         }
 
@@ -46,7 +46,7 @@ class ActivityRepository extends Repositories
     /**
      * Редактирование информации вложенного элемента курса
      */
-    public function editActivity (Request $request, int $activityId): void
+    public function editActivity(Request $request, int $activityId): void
     {
         $this->model
             ->where('id', '=', $activityId)
@@ -62,17 +62,18 @@ class ActivityRepository extends Repositories
      */
     public function createActivity(array $data, Courses $course): ?Activities
     {
-        if(!$this->checkPosts($data)) {
-            return null;
+        if (isset($data['activity_text']) && isset($data['activity_type']) && isset($data['activity_title'])) {
+            return $this->model->create([
+                'course_id' => $course->getKey(),
+                'text' => $data['activity_text'],
+                'activity_type_id' => $data['activity_type'],
+                'activity_title' => $data['activity_title'],
+                'priority' => $this->getLastPriority($course)
+            ]);
         }
 
-        return $this->model->create([
-            'course_id' => $course->getKey(),
-            'text' => $data['activity_text'],
-            'activity_type_id' => $data['activity_type'],
-            'activity_title' => $data['activity_title'],
-            'priority' => $this->getLastPriority($course)
-        ]);
+        return null;
+
     }
 
     /**
@@ -81,7 +82,7 @@ class ActivityRepository extends Repositories
     public function getSortedList(Courses $course, string $param, string $type): Collection
     {
         return $this->model
-            ->where('course_id','=', $course->getKey())
+            ->where('course_id', '=', $course->getKey())
             ->orderBy($param, $type)
             ->get();
     }
@@ -89,20 +90,8 @@ class ActivityRepository extends Repositories
     /**
      * Получение списка наименований столбцов
      */
-    public function getColumnNames ()
+    public function getColumnNames()
     {
         return Schema::getColumnListing('activities');
-    }
-
-    /**
-     * Сверка комплектности POST
-     */
-    private function checkPosts (array $data): bool
-    {
-        if(!isset($data['activity_text']) || !isset($data['activity_type']) || !isset($data['activity_tittle'])) {
-            return false;
-        }
-
-        return true;
     }
 }
