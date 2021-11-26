@@ -68,7 +68,7 @@ class ActivityRepository extends Repositories
                 'text' => $data['activity_text'],
                 'activity_type_id' => $data['activity_type'],
                 'activity_title' => $data['activity_title'],
-                'priority' => $this->getLastPriority($course)
+                'priority' => $this->getLastPriority($course) + 1
             ]);
         }
 
