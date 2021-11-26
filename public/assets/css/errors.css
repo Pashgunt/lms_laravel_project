@@ -1,0 +1,8 @@
+.error {
+    width: 100%;
+    margin: 50px auto;
+    text-align: center;
+}
+.error a {
+    color: blue;
+}

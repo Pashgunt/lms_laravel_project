@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\LMS\Repositories\AppointmentRepository;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -11,8 +12,18 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call([
+            AdminSeeder::class,
+            ManagerSeeder::class,
+            UserSeeder::class,
+            RoleSeeder::class,
+            CoursesSeeder::class,
+            ActivitiesSeeder::class,
+            AuthorSeeder::class,
+            ActivitiesTypeSeeder::class,
+            AppointmentSeeder::class
+        ]);
     }
 }

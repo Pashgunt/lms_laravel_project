@@ -1,0 +1,63 @@
+body {
+    margin: 0;
+    padding: 0;
+    color: #000;
+    font-family: sans-serif;
+}
+
+._container {
+    width: 90%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+._title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+}
+
+.header {
+    border-radius: 0 0 7px 7px;
+    border-bottom: 1px solid silver;
+}
+
+.header__wrapper {
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header__registration, .header__login, .header__targetInterface {
+    outline: none;
+    border: none;
+    padding: 10px;
+    background: greenyellow;
+    opacity: 0.8;
+    border-radius: 3px;
+}
+
+.header__registration {
+    margin-left: 15px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.content__wrapper {
+    height: 100%;
+}
+
+.footer-main {
+    background: greenyellow;
+    width: 100%;
+    text-align: center;
+    padding: 25px;
+    bottom: 0;
+}
+
+

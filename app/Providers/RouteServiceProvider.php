@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Appointment;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -11,13 +12,9 @@ use Illuminate\Support\Facades\Route;
 class RouteServiceProvider extends ServiceProvider
 {
     /**
-     * The path to the "home" route for your application.
-     *
-     * This is used by Laravel authentication to redirect users after login.
-     *
-     * @var string
+     * Домашний URL
      */
-    public const HOME = '/home';
+    public const HOME = '/';
 
     /**
      * The controller namespace for the application.
@@ -35,6 +32,11 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Route::model('userId', \App\Models\User::class);
+        Route::model('activityId', \App\Models\Activities::class);
+        Route::model('courseId', \App\Models\Courses::class);
+        Route::model('target_id', Appointment::class);
+
         $this->configureRateLimiting();
 
         $this->routes(function () {
