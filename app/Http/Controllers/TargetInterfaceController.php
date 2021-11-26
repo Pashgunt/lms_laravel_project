@@ -120,9 +120,12 @@ class TargetInterfaceController extends Controller
      */
     public function show()
     {
-        $appointments = $this->repository->paginate(10);
+        $appointments = $this->repository->orderByRaw('course_id')->paginate(10);
 
-        return view('appointmentsList', ['appointments' => $appointments]);
+        return view('appointmentsList', [
+            'appointments' => $appointments,
+            'current_course' => '',
+        ]);
     }
 
     /**
@@ -134,4 +137,6 @@ class TargetInterfaceController extends Controller
 
         return back();
     }
+
+
 }
