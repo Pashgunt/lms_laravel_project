@@ -40,7 +40,7 @@
             </div>
         </span>
         @if(isset($users))
-            <div class="d-flex align-content-start flex-wrap">
+            <div class="d-flex align-content-start flex-wrap target_user_append">
                 @foreach($users as $user)
                     <div class="btn btn-primary btn-sm mb-1 ms-1 user__draggable"
                          draggable="true" data-id="{{$user->id}}">{{$user->username}}</div>
@@ -84,7 +84,7 @@
             </div>
         </span>
         @if(isset($courses))
-            <div class="d-flex align-content-start flex-wrap">
+            <div class="d-flex align-content-start flex-wrap target_course_append">
                 @foreach($courses as $course)
                     <div class="btn btn-primary btn-sm mb-1 ms-1 course__draggable"
                          draggable="true" data-id="{{$course->id}}">{{$course->name}}</div>
