@@ -65,7 +65,7 @@ class ActivityRepository extends Repositories
         return $this->model->create([
             'course_id' => $course->getKey(),
             'text' => $data['activity_text'],
-            'activity_type' => $data['activity_type'],
+            'activity_type_id' => $data['activity_type'],
             'activity_title' => $data['activity_title'],
             'priority' => $this->getLastPriority($course)
         ]);

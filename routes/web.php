@@ -46,11 +46,14 @@ Route::get('/register', [PageRegisterUserController::class, 'create'])
 Route::post('/register', [RegisteredUserController::class, 'store'])
     ->middleware('guest');
 
-Route::get('/users/list/{page}', [\App\Http\Controllers\UsersListController::class, 'main']);
+Route::get('/users/list/{page}', [\App\Http\Controllers\UsersListController::class, 'main'])
+    ->middleware(['auth', 'role:admin|manager']);
 
-Route::get('/users/list', [\App\Http\Controllers\UsersListController::class, 'redirect']);
+Route::get('/users/list', [\App\Http\Controllers\UsersListController::class, 'redirect'])
+    ->middleware(['auth', 'role:admin|manager']);
 
-Route::post('/users/list/{page}', [\App\Http\Controllers\UsersListController::class, 'delete']);
+Route::post('/users/list/{page}', [\App\Http\Controllers\UsersListController::class, 'delete'])
+    ->middleware(['auth', 'role:admin|manager']);
 
 Route::get('/users/edit/{userId}', [\App\Http\Controllers\UsersListController::class, 'editPage'])
     ->middleware(['auth', 'role:admin']);
