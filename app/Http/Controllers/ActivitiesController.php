@@ -48,7 +48,7 @@ class ActivitiesController extends Controller
     {
         $this->repository->createActivity($request->all(), $course);
 
-        return redirect("/courses/$course->id}");
+        return redirect("/courses/$course->id");
     }
 
     /**
