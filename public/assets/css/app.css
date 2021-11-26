@@ -43,22 +43,6 @@ body {
     margin-left: 15px;
 }
 
-.footer {
-    bottom: 0;
-    left: 0;
-    margin-top: 25px;
-    width: 100%;
-    background: greenyellow;
-    opacity: 0.8;
-}
-
-.footer__wrapper {
-    height: 50px;
-    line-height: 50px;
-    text-align: center;
-
-}
-
 a {
     text-decoration: none;
     color: inherit;

@@ -26,6 +26,10 @@ $(() => {
                 }, 0)
             })
 
+            item.addEventListener('dblclick', () => {
+                let parentElement = item.parentElement;
+            })
+
             dragOver.addEventListener('dragover', e => {
                 e.preventDefault();
             })
@@ -107,7 +111,15 @@ $(() => {
             }
         })
 
-        targetAjax(objOfTarget, firstArg, secondArg);
+        let objectValues = Object.values(objOfTarget);
+
+        objectValues.forEach(item => {
+            if (item.length === 0) {
+                $('.success_target').html('Список назначений пуст');
+                return;
+            }
+            targetAjax(objOfTarget, firstArg, secondArg);
+        })
     })
 })
 
