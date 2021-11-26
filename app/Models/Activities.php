@@ -22,7 +22,7 @@ class Activities extends Authenticatable
     protected $fillable = [
         'course_id',
         'text',
-        'activity_type',
+        'activity_type_id',
         'activity_title',
         'link',
         'priority'
