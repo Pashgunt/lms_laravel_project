@@ -125,8 +125,8 @@ $(() => {
                 $('.success_target').html('Список назначений пуст');
                 return;
             }
-            targetAjax(objOfTarget, firstArg, secondArg);
         })
+        targetAjax(objOfTarget, firstArg, secondArg);
     })
 })
 
