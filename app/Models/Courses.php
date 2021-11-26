@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -30,8 +31,19 @@ class Courses extends Authenticatable
         'description'
     ];
 
-    public function author()
+    /**
+     * Отношение курса и автора
+     */
+    public function author(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /*
+     * возвращает название курса
+     */
+    public function getName(): string
+    {
+        return $this->fillable['name'];
     }
 }

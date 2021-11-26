@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\LMS\Repositories\ActivityRepository;
 use App\Models\Activities;
 use App\Models\Courses;
-use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\LMS\Repositories\CourseRepository;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Auth;
+
+/*
+ * Контроллер, реализующий CRUD-операции для курсов
+ */
 
 class CourseController extends Controller
 {
@@ -22,11 +24,11 @@ class CourseController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Отображает список курсов с шагом 10
      */
     public function index(): View
     {
-        $coursesList = $this->repository->all();
+        $coursesList = $this->repository->paginate(10);
 
         return view('coursesList', ['coursesList' => $coursesList]);
     }
@@ -46,21 +48,7 @@ class CourseController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\Models\Courses $course
-     * @return \Illuminate\Http\Response
+     * Отображает детальную страницу для курса
      */
     public function show(Courses $course): View
     {
@@ -82,13 +70,9 @@ class CourseController extends Controller
         return redirect()->to('/courses');
     }
 
-
-    public function update(Request $request, Courses $course)
-    {
-        //
-    }
-
-
+    /*
+     * Удаляет курс
+     */
     public function destroy(Courses $course): RedirectResponse
     {
         $course->delete();

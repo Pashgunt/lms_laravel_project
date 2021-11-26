@@ -84,4 +84,11 @@ abstract class Repositories
         return $this->model->find($id)->delete();
     }
 
+    /**
+     * Запрос с пагинацией
+     */
+    public function paginate(int $count)
+    {
+        return $this->model->paginate($count);
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\LMS\Repositories\AppointmentRepository;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -22,6 +23,7 @@ class DatabaseSeeder extends Seeder
             ActivitiesSeeder::class,
             AuthorSeeder::class,
             ActivitiesTypeSeeder::class,
+            AppointmentSeeder::class
         ]);
     }
 }

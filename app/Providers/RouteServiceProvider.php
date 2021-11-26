@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Appointment;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -34,6 +35,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::model('userId', \App\Models\User::class);
         Route::model('activityId', \App\Models\Activities::class);
         Route::model('courseId', \App\Models\Courses::class);
+        Route::model('target_id', Appointment::class);
 
         $this->configureRateLimiting();
 

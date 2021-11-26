@@ -2,25 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\LMS\Repositories\AppointmentRepository;
 use App\Http\Requests\ValidateRequest\SearchCourseRequest;
 use App\Http\Requests\ValidateRequest\SearchUserRequest;
 use App\LMS\Repositories\CourseRepository;
 use App\LMS\Repositories\UserRepository;
+use App\Models\Appointment;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 /**
- * Контроллер для назначения курсов
+ * Контроллер для управления назначениями курсов
  */
 class TargetInterfaceController extends Controller
 {
     protected UserRepository $userRepository;
     protected CourseRepository $courseRepository;
+    protected AppointmentRepository $repository;
 
-    public function __construct(UserRepository $userRepository, CourseRepository $courseRepository)
+    public function __construct(UserRepository $userRepository, CourseRepository $courseRepository,
+                                AppointmentRepository $repository)
     {
         $this->userRepository = $userRepository;
         $this->courseRepository = $courseRepository;
+        $this->repository = $repository;
     }
 
     /**
@@ -100,5 +106,35 @@ class TargetInterfaceController extends Controller
             'courses' => $this->courseRepository->searchCourse($value),
             'search_course' => $value,
         ]);
+    }
+
+    /**
+     * Сохраняет назначения в базу
+     */
+    public function createAppointment(Request $request): void
+    {
+        $this->repository->updateOrCreateAppointment($request);
+    }
+
+    /**
+     * Отображает перечень всех назначений
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|
+     * \Illuminate\Contracts\View\View
+     */
+    public function show()
+    {
+        $appointments = $this->repository->paginate(10);
+
+        return view('appointmentsList', ['appointments' => $appointments]);
+    }
+
+    /**
+     * Удаляет назначение из базы
+     */
+    public function destroy(Appointment $appointment): RedirectResponse
+    {
+        $appointment->delete();
+
+        return back();
     }
 }
