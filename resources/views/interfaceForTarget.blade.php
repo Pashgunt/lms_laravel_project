@@ -54,8 +54,6 @@
         @endif
     </div>
 
-    <div class="success_target"></div>
-
     <div class="container mt-4">
         <div class="row">
             <div class="col text-center bg-info p-2">Кому назначитть</div>
@@ -68,6 +66,8 @@
     </div>
 
     <div class="btn btn-success col-md-4 offset-md-4 mt-3 button_target">Назначить</div>
+    <div class="success_target col-md-4 offset-md-4 text-center"></div>
+
 @endsection
 
 @section('script')
