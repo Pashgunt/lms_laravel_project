@@ -17,7 +17,7 @@ class CreateActivitiesTable extends Migration
             $table->id();
             $table->integer('course_id');
             $table->longText('text');
-            $table->string('activity_type');
+            $table->integer('activity_type_id');
             $table->string('activity_title');
             $table->string('link')->nullable();
             $table->integer('priority');
