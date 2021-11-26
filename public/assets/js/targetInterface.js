@@ -28,6 +28,13 @@ $(() => {
 
             item.addEventListener('dblclick', () => {
                 let parentElement = item.parentElement;
+
+                if (parentElement.classList.contains('users__dragover')) {
+                    $('.target_user_append').append(item);
+                    return;
+                }
+
+                $('.target_course_append').append(item)
             })
 
             dragOver.addEventListener('dragover', e => {

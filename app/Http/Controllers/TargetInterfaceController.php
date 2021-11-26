@@ -21,7 +21,7 @@ class TargetInterfaceController extends Controller
     protected CourseRepository $courseRepository;
     protected AppointmentRepository $repository;
 
-    public function __construct(UserRepository $userRepository, CourseRepository $courseRepository,
+    public function __construct(UserRepository        $userRepository, CourseRepository $courseRepository,
                                 AppointmentRepository $repository)
     {
         $this->userRepository = $userRepository;
@@ -81,11 +81,10 @@ class TargetInterfaceController extends Controller
     /**
      * Метод для поиска по пользователям
      */
-    public function searchUser(SearchUserRequest $request): View
+    public function searchUser(Request $request): View
     {
-        $request->validated();
-
         $value = $request->input('search_user_field');
+
         return view('interfaceForTarget', [
             'users' => $this->userRepository->searchUser($value, 1),
             'courses' => $this->courseRepository->all(),
@@ -96,10 +95,8 @@ class TargetInterfaceController extends Controller
     /**
      * Метод для поиска по курсам
      */
-    public function searchCourses(SearchCourseRequest $request): View
+    public function searchCourses(Request $request): View
     {
-        $request->validated();
-
         $value = $request->input('search_course_field');
         return view('interfaceForTarget', [
             'users' => $this->userRepository->all(),
