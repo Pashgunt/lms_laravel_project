@@ -17,6 +17,7 @@
             @if (Illuminate\Support\Facades\Auth::check())
                 <a href="/courses" class="header__registration">Список курсов</a>
                 <a href="/users/list" class="header__registration">Список пользователей</a>
+                <a href="/target-interface/1/1" class="header__registration">Назначения</a>
                 <a href="/logout" class="header__registration">Выйти</a>
             @else
                 <a href="/login" class="header__registration">Авторизация</a>
