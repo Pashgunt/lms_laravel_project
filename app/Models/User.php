@@ -4,16 +4,20 @@ namespace App\Models;
 
 use App\Notifications\ResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Общая модель для пользователей
  */
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
 
     public $timestamps = false;
 
@@ -43,15 +47,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    /** Проверка, назначена ли пользователю конкретная роль */
-    public function hasRole(string $role): bool
+    /**
+     * Отношение курсов и автора
+     */
+    public function courses(): HasMany
     {
-        $userRole = Role::find($this->role_id);
-        if (strtolower($userRole->role_name) === $role) {
-            return true;
-        }
+        return $this->hasMany(Courses::class, 'author_id');
+    }
 
-        return false;
+    /*
+     * Отношение роли к пользователю
+     */
+    public function role(): HasOne
+    {
+        return $this->hasOne(Role::class, 'id', 'role_id');
     }
 
     /** Отправка токена письмом */

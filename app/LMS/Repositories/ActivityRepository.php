@@ -3,8 +3,8 @@
 namespace App\LMS\Repositories;
 
 use App\LMS\Abstracts\Repositories;
-use App\Models\Activities;
 use App\Models\Courses;
+use App\Models\Activities;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 

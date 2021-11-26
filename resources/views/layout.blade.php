@@ -6,6 +6,7 @@
     <title>LMS</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="/assets/css/app.css">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @yield ('style')
     @yield ('script')
 </head>
@@ -17,7 +18,7 @@
             @if (Illuminate\Support\Facades\Auth::check())
                 <a href="/courses" class="header__registration">Список курсов</a>
                 <a href="/users/list" class="header__registration">Список пользователей</a>
-                <a href="/target-interface/1/1" class="header__registration">Назначения</a>
+                <a href="/target" class="header__registration">Назначения</a>
                 <a href="/logout" class="header__registration">Выйти</a>
             @else
                 <a href="/login" class="header__registration">Авторизация</a>
@@ -31,9 +32,10 @@
         @yield('content')
     </section>
 </section>
-<footer class="footer">
-    <section class="footer__wrapper _container">
-    </section>
+<footer id="sticky-footer" class="flex-shrink-0 py-4 bg-dark text-white-50">
+    <div class="container text-center">
+        <small>Footer</small>
+    </div>
 </footer>
 </body>
 </html>

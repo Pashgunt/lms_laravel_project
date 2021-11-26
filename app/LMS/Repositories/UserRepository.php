@@ -33,6 +33,11 @@ class UserRepository extends Repositories
         return (new Paginate($this->model))->paginate($count, $page);
     }
 
+    public function getUserListWithConditional(int $page, int $count, int $id)
+    {
+        return (new Paginate($this->model))->paginateWithWhere($count, $page, $id);
+    }
+
     /** Редактирование информации о пользователе */
     public function editUserInfo(Request $request, User $user): bool
     {
@@ -41,10 +46,18 @@ class UserRepository extends Repositories
             ->update(['username' => $request->input('username'), 'email' => $request->input('email'), 'date_birth' => $request->input('date_birth')]);
     }
 
+    /**
+     * Метод для реализации поиска по пользователям
+     */
+    public function searchUser($request, $id)
+    {
+        return $this->model
+            ->where('username', 'LIKE', '%' . $request . '%')->where('role_id', '=', $id)->get();
+    }
+
     /** Генерация номеров страниц */
     public function generatePagesNumber(int $page, int $count)
     {
         return (new Paginate($this->model))->getPagesNumber($page, $count);
     }
-
 }

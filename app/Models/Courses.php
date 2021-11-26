@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -12,7 +14,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class Courses extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
+    use SoftDeletes;
 
     /**
      * Поля для заполнения
@@ -22,7 +27,23 @@ class Courses extends Authenticatable
         'created_at',
         'updated_at',
         'author_id',
-        'censorship',
+        'censorship_id',
         'description'
     ];
+
+    /**
+     * Отношение курса и автора
+     */
+    public function author(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /*
+     * возвращает название курса
+     */
+    public function getName(): string
+    {
+        return $this->fillable['name'];
+    }
 }

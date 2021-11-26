@@ -29,7 +29,7 @@ body {
     justify-content: space-between;
 }
 
-.header__registration, .header__login {
+.header__registration, .header__login, .header__targetInterface {
     outline: none;
     border: none;
     padding: 10px;
@@ -43,7 +43,6 @@ body {
 }
 
 .footer {
-    position: fixed;
     bottom: 0;
     left: 0;
     margin-top: 25px;
@@ -65,5 +64,6 @@ a {
 }
 
 .content__wrapper {
-    height: calc(100vh - 120px);
+    height: 100%;
 }
+

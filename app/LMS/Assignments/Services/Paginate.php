@@ -18,12 +18,17 @@ class Paginate
      * Count - кол-во выводимых элементов на страницу
      * Page - номер страницы
      */
-    public function paginate (int $count, int $page): LengthAwarePaginator
+    public function paginate(int $count, int $page): LengthAwarePaginator
     {
         return $this->model->paginate($count, '*', '', $page);
     }
 
-    public function getPagesNumber (int $page, int $count): array
+    public function paginateWithWhere(int $count, int $page, int $id)
+    {
+        return $this->model->where('role_id', '=', $id)->paginate($count, '*', '', $page);
+    }
+
+    public function getPagesNumber(int $page, int $count): array
     {
         $maxPage = ceil(count($this->model->select('id')->get()) / $count);
 

@@ -4,9 +4,8 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\TargetInterfaceController;
 use App\Http\Controllers\VideoController;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainPageController;
 use \App\Http\Controllers\CourseController;
@@ -31,13 +30,13 @@ Route::resource('/courses', CourseController::class)
     ->except(['destroy', 'edit'])
     ->middleware(['auth', 'role:admin|manager']);
 
-Route::get('/courses/{id}/destroy', [CourseController::class, 'destroy'])
+Route::get('/courses/{courseId}/destroy', [CourseController::class, 'destroy'])
     ->middleware(['auth', 'role:admin|manager']);
 
-Route::get('/courses/{id}/edit', [CourseController::class, 'edit'])
+Route::get('/courses/{courseId}/edit', [CourseController::class, 'edit'])
     ->middleware(['auth', 'role:admin|manager']);
 
-Route::post('/courses/{id}/edit', [CourseController::class, 'editCourse'])
+Route::post('/courses/{courseId}/edit', [CourseController::class, 'editCourse'])
     ->middleware(['auth', 'role:admin|manager']);
 
 Route::get('/register', [PageRegisterUserController::class, 'create'])
@@ -103,5 +102,17 @@ Route::post('/login', [AuthenticatedSessionController::class, 'store'])
 Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
+
+
+Route::get('/target-interface/{page_course}/{page_user}', [TargetInterfaceController::class, 'allInfo'])->middleware(['auth', 'role:admin|manager']);;
+
+Route::post('/target-interface/{page_course}/{page_user}', [TargetInterfaceController::class, 'createAppointment'])->middleware(['auth', 'role:admin|manager']);;
+
+Route::get('/target/user/search', [TargetInterfaceController::class, 'searchUser'])->middleware(['auth', 'role:admin|manager']);;
+
+Route::get('/target/course/search', [TargetInterfaceController::class, 'searchCourses'])->middleware(['auth', 'role:admin|manager']);;
+
+Route::get('/target', [TargetInterfaceController::class, 'show'])->middleware(['auth', 'role:admin|manager']);;
+Route::get('/target/{target_id}/destroy', [TargetInterfaceController::class, 'destroy'])->middleware(['auth', 'role:admin|manager']);;
 
 Route::get('/video', [VideoController::class, 'play']);

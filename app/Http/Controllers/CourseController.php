@@ -10,9 +10,10 @@ use Illuminate\Http\Request;
 use App\LMS\Repositories\CourseRepository;
 use Illuminate\Contracts\View\View;
 
-/**
- * Класс для работы с курсами
+/*
+ * Контроллер, реализующий CRUD-операции для курсов
  */
+
 class CourseController extends Controller
 {
     protected CourseRepository $repository;
@@ -23,65 +24,59 @@ class CourseController extends Controller
     }
 
     /**
-     * Отображение главное страницы с курсами
+     * Отображает список курсов с шагом 10
      */
     public function index(): View
     {
-        $coursesList = $this->repository->all();
+        $coursesList = $this->repository->paginate(10);
+
         return view('coursesList', ['coursesList' => $coursesList]);
     }
 
-    public function create()
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create(Request $request)
     {
-    }
+        if (!empty($request->nameCourse)) {
+            $this->repository->createNewCourse($request);
 
-    public function store(Request $request)
-    {
+            return redirect('/courses');
+        }
+
+        return view('courseEdit');
     }
 
     /**
-     * Отображение курса
+     * Отображает детальную страницу для курса
      */
     public function show(Courses $course): View
     {
-        $model = new Activities();
-
         return view('courseDetail', [
             'course' => $course,
-            'activities' => (new ActivityRepository($model))->getCourseActivities($course->id)
+            'activities' => (new ActivityRepository(new Activities()))->getCourseActivities($course),
         ]);
     }
 
-    /**
-     * Открытие окна редактирования курса
-     */
-    public function edit(int $id): View
+    public function edit(Courses $course): View
     {
-        $course = $this->repository->getById($id);
         return view('courseEdit', ['course' => $course]);
     }
 
-    /**
-     * Метод для редактирования данных о курсе
-     */
-    public function editCourse(CourseEditRequest $request, int $id): RedirectResponse
+    public function editCourse(Request $request, Courses $course): RedirectResponse
     {
-        $request->validated();
+        $this->repository->editCourseInfo($request, $course);
 
-        $this->repository->editCourseInfo($request, $id);
         return redirect()->to('/courses');
     }
 
-    public function update(Request $request, Courses $course)
-    {
-    }
-
-    /**
-     * Метод для удаления курса
+    /*
+     * Удаляет курс
      */
-    public function destroy(int $id): RedirectResponse
+    public function destroy(Courses $course): RedirectResponse
     {
-        $this->repository->delete($id);
+        $course->delete();
+
         return redirect()->to('/courses');
     }
 }

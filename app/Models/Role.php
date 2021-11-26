@@ -10,12 +10,4 @@ use Illuminate\Database\Eloquent\Model;
 class Role extends Model
 {
     protected $table = 'roles';
-
-    /**
-     * Возвращаем наименование роли
-     */
-    public function getRoleName(): string
-    {
-        return $this->role_name;
-    }
 }
