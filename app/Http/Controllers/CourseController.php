@@ -30,6 +30,10 @@ class CourseController extends Controller
     {
         $coursesList = $this->repository->paginate(10);
 
+        if ($coursesList->lastPage() < $coursesList->currentPage()) {
+            return view('errors.404');
+        }
+
         return view('coursesList', ['coursesList' => $coursesList]);
     }
 

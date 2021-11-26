@@ -9,7 +9,6 @@ class AppointmentRepository extends Repositories
 {
     public function updateOrCreateAppointment(Request $request): void
     {
-//        dd($request->arr);
         $data = json_decode($request->arr);
         foreach ($data->courses as $course) {
             foreach ($data->users as $user) {
