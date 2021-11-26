@@ -32,9 +32,10 @@
         @yield('content')
     </section>
 </section>
-<footer class="footer">
-    <section class="footer__wrapper _container">
-    </section>
+<footer id="sticky-footer" class="flex-shrink-0 py-4 bg-dark text-white-50">
+    <div class="container text-center">
+        <small>Footer</small>
+    </div>
 </footer>
 </body>
 </html>

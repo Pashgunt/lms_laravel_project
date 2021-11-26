@@ -62,6 +62,7 @@ $(() => {
                 'arr': JSON.stringify(objOfTarget)
             },
             success(response) {
+                $('.success_target').html('Успешно назначены курсы');
                 return response;
             }
         })

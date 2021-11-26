@@ -52,6 +52,8 @@
         @endif
     </div>
 
+    <div class="success_target"></div>
+
     <div class="container mt-4">
         <div class="row">
             <div class="col text-center bg-info p-2">Кому назначитть</div>
