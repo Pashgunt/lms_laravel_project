@@ -1,8 +1,10 @@
 # Stage Lms 2021
 
 #### Для запуска проекта, требуется выполнить следующие шаги:
+- установленные и настроенные nginx, php7.4, mysql, composer, npm
 - git clone https://git.devspark.ru/m_kultyshev/stage-lms-2021.git
 - composer install
+- npm install
 - переименовать файл .env.example в .env и произвести необходимые настройки
 
 Настройки почтового сервера:
@@ -30,10 +32,7 @@ php artisan db:seed --class=UserSeeder
 ### Видео Плеер
 Используется Video.js
 
-Для вставки видео:
-
 id=name для обработки плеера через js
-
 
 [Полная документация Video.js](https://docs.videojs.com)
 
