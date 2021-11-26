@@ -19,9 +19,28 @@
                     <input type="submit" value="Найти">
                 </form>
             </div>
+            <div class="pagination">
+                @if(isset($pagesForUser['min_page']))
+                    <a href="/target-interface/{{$pages['main_page']}}/{{$pagesForUser['min_page']}}">{{$pagesForUser['min_page']}} |</a>
+                @endif
+                @if(isset($pagesForUser['prev_page']))
+                    <a href="/target-interface/{{$pages['main_page']}}/{{$pagesForUser['prev_page']}}">
+                        <span style="padding: 0 5px"> < | </span>
+                    </a>
+                @endif
+                        <span style="padding: 0 5px"> {{$pagesForUser['main_page']}} </span>
+                @if(isset($pagesForUser['next_page']))
+                    <a href="/target-interface/{{$pages['main_page']}}/{{$pagesForUser['next_page']}}">
+                        <span style="padding: 0 5px">| > </span>
+                     </a>
+                @endif
+                @if(isset($pagesForUser['max_page']))
+                    <a href="/target-interface/{{$pages['main_page']}}/{{$pagesForUser['max_page']}}">| {{$pagesForUser['max_page']}}</a>
+                @endif
+            </div>
         </span>
         @if(isset($users))
-            <div class="d-flex align-content-start flex-wrap target_user_append">
+            <div class="d-flex align-content-start flex-wrap">
                 @foreach($users as $user)
                     <div class="btn btn-primary btn-sm mb-1 ms-1 user__draggable"
                          draggable="true" data-id="{{$user->id}}">{{$user->username}}</div>
@@ -29,7 +48,6 @@
             </div>
         @endif
     </div>
-
     <div class="target_courses_list">
         <h4 class="mb-1">Список курсов</h4>
         <span>
@@ -43,9 +61,30 @@
                     <input type="submit" value="Найти">
                 </form>
             </div>
+            <div class="pagination">
+            @if(isset($pages['min_page']))
+                    <a href="/target-interface/{{$pages['min_page']}}/{{$pagesForUser['main_page']}}">{{$pages['min_page']}} |</a>
+                @endif
+                @if(isset($pages['prev_page']))
+                    <a href="/target-interface/{{$pages['prev_page']}}/{{$pagesForUser['main_page']}}">
+                        <span style="padding: 0 5px"> < | </span>
+                </a>
+                @endif
+                <a href="/target-interface/{{$pages['main_page']}}/{{$pagesForUser['main_page']}}">
+                    <span style="padding: 0 5px"> {{$pages['main_page']}} </span>
+                </a>
+            @if(isset($pages['next_page']))
+                    <a href="/target-interface/{{$pages['next_page']}}/{{$pagesForUser['main_page']}}">
+                        <span style="padding: 0 5px">| > </span>
+                </a>
+                @endif
+                @if(isset($pages['max_page']))
+                    <a href="/target-interface/{{$pages['max_page']}}/{{$pagesForUser['main_page']}}">| {{$pages['max_page']}}</a>
+                @endif
+            </div>
         </span>
         @if(isset($courses))
-            <div class="d-flex align-content-start flex-wrap target_course_append">
+            <div class="d-flex align-content-start flex-wrap">
                 @foreach($courses as $course)
                     <div class="btn btn-primary btn-sm mb-1 ms-1 course__draggable"
                          draggable="true" data-id="{{$course->id}}">{{$course->name}}</div>
@@ -53,6 +92,8 @@
             </div>
         @endif
     </div>
+
+    <div class="success_target"></div>
 
     <div class="container mt-4">
         <div class="row">
@@ -66,8 +107,6 @@
     </div>
 
     <div class="btn btn-success col-md-4 offset-md-4 mt-3 button_target">Назначить</div>
-    <div class="success_target col-md-4 offset-md-4 text-center"></div>
-
 @endsection
 
 @section('script')
