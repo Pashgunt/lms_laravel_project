@@ -7,9 +7,12 @@
             <div class="mb-3">
                 <form action="/target/user/search" method="get">
                     @if(isset($search_user))
-                        <input type="text" name="search_user" value="{{$search_user}}">
+                        @error('search_user')
+                        <div class="alert-danger">{{ $message }}</div>
+                        @enderror
+                        <input type="text" name="search_user_field" value="{{$search_user}}">
                     @else
-                        <input type="text" name="search_user">
+                        <input type="text" name="search_user_field">
                     @endif
                     <input type="submit" value="Найти">
                 </form>
@@ -31,9 +34,9 @@
             <div class="mb-3">
                 <form action="/target/course/search" method="get">
                     @if(isset($search_course))
-                        <input type="text" name="search_course" value="{{$search_course}}">
+                        <input type="text" name="search_course_field" value="{{$search_course}}">
                     @else
-                        <input type="text" name="search_course">
+                        <input type="text" name="search_course_field">
                     @endif
                     <input type="submit" value="Найти">
                 </form>

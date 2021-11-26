@@ -29,7 +29,7 @@ body {
     justify-content: space-between;
 }
 
-.header__registration, .header__login {
+.header__registration, .header__login, .header__targetInterface {
     outline: none;
     border: none;
     padding: 10px;

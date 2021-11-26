@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ValidateRequest\SearchCourseRequest;
+use App\Http\Requests\ValidateRequest\SearchUserRequest;
 use App\LMS\Repositories\CourseRepository;
 use App\LMS\Repositories\UserRepository;
 use Illuminate\Http\Request;
@@ -73,9 +75,11 @@ class TargetInterfaceController extends Controller
     /**
      * Метод для поиска по пользователям
      */
-    public function searchUser(Request $request): View
+    public function searchUser(SearchUserRequest $request): View
     {
-        $value = $request->input('search_user');
+        $request->validated();
+
+        $value = $request->input('search_user_field');
         return view('interfaceForTarget', [
             'users' => $this->userRepository->searchUser($value, 1),
             'courses' => $this->courseRepository->all(),
@@ -86,18 +90,15 @@ class TargetInterfaceController extends Controller
     /**
      * Метод для поиска по курсам
      */
-    public function searchCourses(Request $request): View
+    public function searchCourses(SearchCourseRequest $request): View
     {
-        $value = $request->input('search_course');
+        $request->validated();
+
+        $value = $request->input('search_course_field');
         return view('interfaceForTarget', [
             'users' => $this->userRepository->all(),
             'courses' => $this->courseRepository->searchCourse($value),
             'search_course' => $value,
         ]);
-    }
-
-    public function abc(Request $request)
-    {
-        dd($request);
     }
 }

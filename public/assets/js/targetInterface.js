@@ -62,7 +62,7 @@ $(() => {
                 'arr': JSON.stringify(objOfTarget)
             },
             success(response) {
-                console.log(response)
+                return response;
             }
         })
     }
