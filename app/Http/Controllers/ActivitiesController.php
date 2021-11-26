@@ -38,15 +38,7 @@ class ActivitiesController extends Controller
     /** Добавление элемента */
     public function addActivity (Request $request, Courses $course)
     {
-        $priority = $this->repository->getLastPriority($course->id) + 1;
-
-        $this->repository->create([
-            'course_id' => $course->id,
-            'text' => $request->input('activity_text'),
-            'activity_type' => $request->input('activity_type'),
-            'activity_title' => $request->input('activity_title'),
-            'priority' => $priority
-        ]);
+        $this->repository->createActivity($request->all(), $course);
 
         return redirect("/courses/$course->id}");
     }

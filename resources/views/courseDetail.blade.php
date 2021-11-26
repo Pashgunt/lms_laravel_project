@@ -14,7 +14,9 @@
     @endif
     <div><b>Описание: </b> {{$course->description}}</div>
     <br>
-    <div><b>Содержание курса: </b>
+    <div>
+        <b>Содержание курса: </b>
+        <a href="/courses/{{$course->id}}/sort/priority"></a>
         <table class="table table-striped table-modify">
             <tr>
                 <td></td>
