@@ -21,13 +21,17 @@ class UsersListController extends Controller
         $this->repository = $userRepository;
     }
 
-    /** Перенаправление на нумерованную страницу */
+    /**
+     * Перенаправление на нумерованную страницу
+     */
     public function redirect (): View
     {
         return $this->main('1');
     }
 
-    /** Отображение страницы со списком пользователей */
+    /**
+     * Отображение страницы со списком пользователей
+     */
     public function main(string $page): View
     {
         if(!isset($page)){
@@ -63,7 +67,9 @@ class UsersListController extends Controller
         ]);
     }
 
-    /** Отображение страницы с формой редактирования информации о пользователе */
+    /**
+     * Отображение страницы с формой редактирования информации о пользователе
+     */
     public function editPage(User $user): View
     {
         return view('forms/editUserInfo', [
@@ -72,7 +78,9 @@ class UsersListController extends Controller
         ]);
     }
 
-    /** Обработка POST на редактирование информации о пользователе */
+    /**
+     * Обработка POST на редактирование информации о пользователе
+     */
     public function editInfo(EditUserRequest $request, User $user): View
     {
         $request->validated();
@@ -82,7 +90,9 @@ class UsersListController extends Controller
         return $this->editPage($this->repository->getById($user->id));
     }
 
-    /** Удаление пользователя */
+    /**
+     * Удаление пользователя
+     */
     public function delete(Request $request, int $page): View
     {
         $userId = $request->input('userId');

@@ -36,7 +36,7 @@ class ActivitiesController extends Controller
         return view('forms/addActivity', [
             'courseId' => $course->getKey(),
             'activitiesType' => [
-                'text' => 1
+                'Текст' => 1
             ]
         ]);
     }

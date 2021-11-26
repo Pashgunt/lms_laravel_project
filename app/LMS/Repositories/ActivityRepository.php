@@ -60,8 +60,12 @@ class ActivityRepository extends Repositories
     /**
      * Формирование массива на добавление элемента
      */
-    public function createActivity(array $data, Courses $course): Activities
+    public function createActivity(array $data, Courses $course): ?Activities
     {
+        if(!$this->checkPosts($data)) {
+            return null;
+        }
+
         return $this->model->create([
             'course_id' => $course->getKey(),
             'text' => $data['activity_text'],
@@ -88,5 +92,17 @@ class ActivityRepository extends Repositories
     public function getColumnNames ()
     {
         return Schema::getColumnListing('activities');
+    }
+
+    /**
+     * Сверка комплектности POST
+     */
+    private function checkPosts (array $data): bool
+    {
+        if(!isset($data['activity_text']) || !isset($data['activity_type']) || !isset($data['activity_tittle'])) {
+            return false;
+        }
+
+        return true;
     }
 }
