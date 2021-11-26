@@ -120,12 +120,13 @@ $(() => {
 
         let objectValues = Object.values(objOfTarget);
 
-        objectValues.forEach(item => {
-            if (item.length === 0) {
+        for (let i = 0; i<objectValues.length;i++){
+            if (objectValues[i].length === 0){
                 $('.success_target').html('Список назначений пуст');
                 return;
             }
-        })
+        }
+
         targetAjax(objOfTarget, firstArg, secondArg);
     })
 })
