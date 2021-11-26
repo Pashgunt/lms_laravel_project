@@ -4,7 +4,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <div class="target_user_list mt-3">
-        <h4 class="mb-1">Список пользоватлей</h4>
+        <h4 class="mb-1">Список пользователей</h4>
         <span>
             <div class="mb-3">
                 <form action="/target/user/search" method="get">
@@ -97,7 +97,7 @@
 
     <div class="container mt-4">
         <div class="row">
-            <div class="col text-center bg-info p-2">Кому назначитть</div>
+            <div class="col text-center bg-info p-2">Кому назначить</div>
             <div class="col text-center bg-info p-2 ms-3">Какие курсы назначить</div>
         </div>
         <div class="row">
