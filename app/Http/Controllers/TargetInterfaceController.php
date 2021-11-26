@@ -81,7 +81,7 @@ class TargetInterfaceController extends Controller
     /**
      * Метод для поиска по пользователям
      */
-    public function searchUser(Request $request): View
+    public function searchUser(Request $request, string $page_course, string $page_user): View
     {
         $value = $request->input('search_user_field');
 
@@ -89,9 +89,10 @@ class TargetInterfaceController extends Controller
             return view('interfaceForTarget', [
                 'users' => $this->userRepository->searchUser($value, 1),
                 'courses' => $this->courseRepository->all(),
-                'search_user' => $value,
+                'search_user' => $value
             ]);
         }
+
         return $this->allInfo('1', '1');
     }
 
@@ -102,13 +103,14 @@ class TargetInterfaceController extends Controller
     {
         $value = $request->input('search_course_field');
 
-        if ($value) {
+        if ($value){
             return view('interfaceForTarget', [
                 'users' => $this->userRepository->all(),
                 'courses' => $this->courseRepository->searchCourse($value),
                 'search_course' => $value,
             ]);
         }
+
         return $this->allInfo('1', '1');
     }
 

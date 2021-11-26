@@ -113,9 +113,9 @@ Route::get('/target-interface/{page_course}/{page_user}', [TargetInterfaceContro
 
 Route::post('/target-interface/{page_course}/{page_user}', [TargetInterfaceController::class, 'createAppointment'])->middleware(['auth', 'role:admin|manager']);;
 
-Route::get('/target/user/search', [TargetInterfaceController::class, 'searchUser'])->middleware(['auth', 'role:admin|manager']);;
+Route::get('/target-interface/search-user/{page_course}/{page_user}', [TargetInterfaceController::class, 'searchUser'])->middleware(['auth', 'role:admin|manager']);;
 
-Route::get('/target/course/search', [TargetInterfaceController::class, 'searchCourses'])->middleware(['auth', 'role:admin|manager']);;
+Route::get('/target-interface/search-courses/{page_course}/{page_user}', [TargetInterfaceController::class, 'searchCourses'])->middleware(['auth', 'role:admin|manager']);;
 
 Route::get('/target', [TargetInterfaceController::class, 'show'])->middleware(['auth', 'role:admin|manager']);;
 Route::get('/target/{target_id}/destroy', [TargetInterfaceController::class, 'destroy'])->middleware(['auth', 'role:admin|manager']);;
