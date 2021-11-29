@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
+use App\Notifications\ResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -56,4 +56,15 @@ class User extends Authenticatable
     {
         return $this->hasOne(Role::class, 'id', 'role_id');
     }
+
+    /**
+     * Отправка письма с токеном для восстановления пароля
+     *
+     * Использование кастомного восстановление пароля
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPassword($token));
+    }
+
 }
