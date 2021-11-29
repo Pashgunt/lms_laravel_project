@@ -35,7 +35,7 @@
                     </tr>
                 @endforeach
             </table>
-            <a href="{{$url}}" class = "btn btn-primary mb-3">Назад</a>
+            <a href="/" class = "btn btn-primary mb-3">Назад</a>
             {{ $appointments->links('vendor.pagination.bootstrap-4') }}
         @endif
     </div>

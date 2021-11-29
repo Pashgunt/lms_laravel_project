@@ -76,7 +76,6 @@ class TargetInterfaceController extends Controller
             'users' => $usersList,
             'pages' => $pages,
             'pagesForUser' => $pagesForUser,
-            'url' => URL::previous()
         ]);
     }
 

@@ -38,7 +38,6 @@ class CourseController extends Controller
 
         return view('coursesList', [
             'coursesList' => $coursesList,
-            'url' => URL::previous(),
         ]);
     }
 

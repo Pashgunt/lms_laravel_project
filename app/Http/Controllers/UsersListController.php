@@ -48,7 +48,6 @@ class UsersListController extends Controller
         return view('usersList', [
             'usersList' => $usersList,
             'page' => $page,
-            'url' => URL::previous(),
         ]);
     }
 
