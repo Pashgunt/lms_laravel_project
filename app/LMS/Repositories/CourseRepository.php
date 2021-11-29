@@ -16,14 +16,14 @@ class CourseRepository extends Repositories
     /**
      * Метод редактирования данных курса
      */
-    public function editCourseInfo(Request $request, Courses $course): void
+    public function editCourseInfo($request, Courses $course): void
     {
         $course->update(["name" => $request->nameCourse,
             "description" => strip_tags($request->descCourse),
         ]);
     }
 
-    public function createNewCourse(Request $request): void
+    public function createNewCourse( $request): void
     {
         $this->model->create([
             'author_id' => Auth::id(),

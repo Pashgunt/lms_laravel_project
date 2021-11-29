@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ValidateRequest\ActivityAddRequest;
 use App\LMS\Repositories\ActivityRepository;
 use App\Models\Activities;
 use App\Models\Courses;
@@ -44,8 +45,10 @@ class ActivitiesController extends Controller
     /**
      * Добавление элемента
      */
-    public function addActivity(Request $request, Courses $course)
+    public function addActivity(ActivityAddRequest $request, Courses $course)
     {
+        $request->validated();
+
         $this->repository->createActivity($request->all(), $course);
 
         return redirect("/courses/$course->id");
@@ -64,8 +67,11 @@ class ActivitiesController extends Controller
     /**
      * Редактирование элемента
      */
-    public function editActivity(Request $request, Activities $activity)
+    public function editActivity(ActivityAddRequest $request, Activities $activity)
     {
+
+        $request->validated();
+
         $this->repository->editActivity($request, $activity->id);
 
         return redirect("/courses/activity/$activity->id/edit");

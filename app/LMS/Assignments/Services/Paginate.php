@@ -36,7 +36,7 @@ class Paginate
             'main_page' => $page
         ];
 
-        if ($page > 1) {
+        if ($page > 2) {
             $pages['min_page'] = 1;
         }
 
@@ -44,7 +44,7 @@ class Paginate
             $pages['max_page'] = $maxPage;
         }
 
-        if ($page - 1 > 1) {
+        if ($page - 1 >= 1) {
             $pages['prev_page'] = $page - 1;
         }
 

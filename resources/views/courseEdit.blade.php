@@ -14,11 +14,12 @@
             @error('nameCourse')
             <div class="alert-danger">{{ $message }}</div>
             @enderror
-            <input type="text" value="{{$course->name}}" class="form-control form-control-lg" name="nameCourse">
+            <input type="text" value="{{old('nameCourse', $course->name)}}" class="form-control form-control-lg"
+                   name="nameCourse">
             @error('descCourse')
             <div class="alert-danger">{{ $message }}</div>
             @enderror
-            <textarea id="basic-wysiwyg" name="descCourse">{{$course->description}}</textarea>
+            <textarea id="basic-wysiwyg" name="descCourse">{{old('descCourse', $course->description)}}</textarea>
             <input type="submit" value="Изменить" class="btn btn-success">
         </form>
     @else
@@ -31,6 +32,7 @@
             <input type="submit" value="Сохранить" class="btn btn-success">
         </form>
     @endif
+    <a href="{{$url}}" class = "btn btn-primary mb-3">Назад</a>
 
 @endsection
 

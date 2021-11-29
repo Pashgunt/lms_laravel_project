@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ValidateRequest\CourseEditRequest;
 use App\LMS\Repositories\ActivityRepository;
 use App\Models\Activities;
 use App\Models\Courses;
@@ -9,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\LMS\Repositories\CourseRepository;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\URL;
 
 /*
  * Контроллер, реализующий CRUD-операции для курсов
@@ -24,17 +26,19 @@ class CourseController extends Controller
     }
 
     /**
-     * Отображает список курсов с шагом 10
+     * Отображает список курсов
      */
     public function index(): View
     {
-        $coursesList = $this->repository->paginate(10);
+        $coursesList = $this->repository->paginate(config('pagination.course'));
 
         if ($coursesList->lastPage() < $coursesList->currentPage()) {
             return view('errors.404');
         }
 
-        return view('coursesList', ['coursesList' => $coursesList]);
+        return view('coursesList', [
+            'coursesList' => $coursesList,
+        ]);
     }
 
     /**
@@ -45,10 +49,11 @@ class CourseController extends Controller
         if (!empty($request->nameCourse)) {
             $this->repository->createNewCourse($request);
 
+
             return redirect('/courses');
         }
 
-        return view('courseEdit', ['title' => 'Создание нового курса']);
+        return view('courseEdit', ['url' => URL::previous()]);
     }
 
     /**
@@ -64,17 +69,20 @@ class CourseController extends Controller
 
     public function edit(Courses $course): View
     {
-        return view('courseEdit', ['course' => $course, 'title' => 'Редактирование курса ' . $course->name]);
+        return view('courseEdit', ['course' => $course, 'url' => URL::previous()]);
     }
 
-    public function editCourse(Request $request, Courses $course): RedirectResponse
+    public function editCourse(CourseEditRequest $request, Courses $course): RedirectResponse
     {
+
+        $request->validated();
+
         $this->repository->editCourseInfo($request, $course);
 
         return redirect()->to('/courses');
     }
 
-    /*
+    /**
      * Удаляет курс
      */
     public function destroy(Courses $course): RedirectResponse

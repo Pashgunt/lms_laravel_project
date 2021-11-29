@@ -7,6 +7,7 @@ use App\LMS\Repositories\UserRepository;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 use Illuminate\View\View;
 
 /**
@@ -24,7 +25,7 @@ class UsersListController extends Controller
     /**
      * Перенаправление на нумерованную страницу
      */
-    public function redirect (): View
+    public function redirect(): View
     {
         return $this->main('1');
     }
@@ -32,39 +33,18 @@ class UsersListController extends Controller
     /**
      * Отображение страницы со списком пользователей
      */
-    public function main(string $page): View
+    public function main(): View
     {
-        if(!isset($page)){
-            $page = 1;
+        $usersList = $this->repository->getUsersList(config('pagination.user'));
+        $page = $_GET['page'] ?? 1;
+
+        if ($usersList->lastPage() < $usersList->currentPage()) {
+            return view('errors.404');
         }
-
-        try {
-            $page = $page * 1;
-        } catch (\Exception $e) {
-            $page = 1;
-        }
-
-        if(!is_int($page)) {
-            $page = 1;
-        }
-
-        /** Кол-во выводимых пользователей на страницу */
-        $count = 4;
-
-        $maxPage = ceil(count($this->repository->all()) / 4);
-
-        if ($page > $maxPage) {
-            $page = $maxPage;
-        }
-
-        $usersList = $this->repository->getUsersList($count, $page);
-
-        $pages = $this->repository->generatePagesNumber($page, $count);
 
         return view('usersList', [
             'usersList' => $usersList,
-            'pages' => $pages,
-            'breadcrumbs' => ['' => 'Список пользователей'],
+            'page' => $page,
         ]);
     }
 
@@ -73,12 +53,9 @@ class UsersListController extends Controller
      */
     public function editPage(User $user): View
     {
-        $breadcrumbs = array_merge($user->breadcrumbs, ['' => 'Редактирование пользователя ' . $user->username]);
-
         return view('forms/editUserInfo', [
             'user' => $user,
-            'roles' => (new Role())->all(),
-            'breadcrumbs' => $breadcrumbs
+            'roles' => (new Role())->all()
         ]);
     }
 

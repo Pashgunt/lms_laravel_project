@@ -11,22 +11,22 @@
         <form action="/users/edit/{{$user->id}}" method="post">
             @csrf
             <label>
-                Логин - <input type="text" name="username" value="{{$user->username}}">
                 @error('username')
                 <div class="alert-danger">{{ $message }}</div>
                 @enderror
+                Логин - <input type="text" name="username" value="{{$user->username}}">
             </label><br>
             <label>
-                Почта - <input type="text" name="email" value="{{$user->email}}">
                 @error('email')
                 <div class="alert-danger">{{ $message }}</div>
                 @enderror
+                Почта - <input type="text" name="email" value="{{$user->email}}">
             </label><br>
             <label>
-                Дата рождения - <input type="text" name="date_birth" value="{{$user->date_birth}}">
                 @error('date_birth')
                 <div class="alert-danger">{{ $message }}</div>
                 @enderror
+                Дата рождения - <input type="text" name="date_birth" value="{{$user->date_birth}}">
             </label><br>
             <select name="role_id">
                 @foreach($roles as $role)

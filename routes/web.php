@@ -1,17 +1,17 @@
 <?php
 
+use App\Http\Controllers\ActivitiesController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\TargetInterfaceController;
+use App\Http\Controllers\UsersListController;
 use App\Http\Controllers\VideoController;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainPageController;
 use \App\Http\Controllers\CourseController;
 use App\Http\Controllers\Auth\PageRegisterUserController;
-use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,105 +28,104 @@ Route::get('/', [MainPageController::class, 'main'])
     ->middleware(['auth'])
     ->name('index');
 
-Route::resource('/courses', CourseController::class)
-    ->except(['destroy', 'edit'])
-    ->middleware(['auth', 'role:admin|manager']);
-
-Route::get('/courses/{courseId}/destroy', [CourseController::class, 'destroy'])
-    ->middleware(['auth', 'role:admin|manager']);
-
-Route::get('/courses/{courseId}/edit', [CourseController::class, 'edit'])
-    ->middleware(['auth', 'role:admin|manager']);
-
-Route::post('/courses/{courseId}/edit', [CourseController::class, 'editCourse'])
-    ->middleware(['auth', 'role:admin|manager']);
-
-Route::get('/register', [PageRegisterUserController::class, 'create'])
-    ->middleware('guest')
-    ->name('register');
-
-Route::post('/register', [RegisteredUserController::class, 'store']);
-
-Route::get('register/confirm/{email_verify_token}', [RegisteredUserController::class, 'confirmEmail']);
-
-
-Route::get('/users/list/{page}', [\App\Http\Controllers\UsersListController::class, 'main'])
-    ->middleware(['auth', 'role:admin|manager'])->name('users');
-
-Route::get('/users/list', [\App\Http\Controllers\UsersListController::class, 'redirect'])
-    ->middleware(['auth', 'role:admin|manager']);
-
-Route::post('/users/list/{page}', [\App\Http\Controllers\UsersListController::class, 'delete'])
-    ->middleware(['auth', 'role:admin|manager']);
-
-Route::get('/users/edit/{userId}', [\App\Http\Controllers\UsersListController::class, 'editPage'])
-    ->middleware(['auth', 'role:admin']);
-
-Route::post('/users/edit/{userId}', [\App\Http\Controllers\UsersListController::class, 'editInfo'])
-    ->middleware(['auth', 'role:admin']);
-
-Route::get('/courses/activity/{activityId}', [\App\Http\Controllers\ActivitiesController::class, 'info']);
-
-Route::get('/courses/activity/{activityId}/edit', [\App\Http\Controllers\ActivitiesController::class, 'editPage']);
-
-Route::get('/courses/{courseId}/sort/{column}/{sort_type}', [\App\Http\Controllers\ActivitiesController::class, 'getSortedList']);
-
-Route::post('/courses/activity/{activityId}/edit', [\App\Http\Controllers\ActivitiesController::class, 'editActivity']);
-
-Route::get('/courses/activity/{activityId}/delete', [\App\Http\Controllers\ActivitiesController::class, 'delete'])
-    ->middleware(['auth', 'role:admin|manager']);
-
-Route::get('/courses/{courseId}/activity/add', [\App\Http\Controllers\ActivitiesController::class, 'addPage'])
-    ->middleware(['auth', 'role:admin|manager']);
-
-Route::post('/courses/{courseId}/activity/add', [\App\Http\Controllers\ActivitiesController::class, 'addActivity'])
-    ->middleware(['auth', 'role:admin|manager']);
-
-Route::get('/courses/{courseId}/activity/add', [\App\Http\Controllers\ActivitiesController::class, 'addPage'])
-    ->middleware(['auth', 'role:admin|manager']);
-
-Route::get('/courses/activity/{activityId}/{event}', [\App\Http\Controllers\ActivitiesController::class, 'changePriority'])
-    ->middleware(['auth', 'role:admin|manager']);
-
-Route::get('/recovery', [PasswordResetLinkController::class, 'create'])
-    ->middleware('guest')
-    ->name('password.request');
-
-Route::post('/recovery', [PasswordResetLinkController::class, 'store'])
-    ->middleware('guest')
-    ->name('password.email');
-
-Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])
-    ->middleware('guest')
-    ->name('password.reset');
-
-Route::post('/reset-password', [NewPasswordController::class, 'store'])
-    ->middleware('guest')
-    ->name('password.update');
-
+/**
+ * Маршруты авторизации
+ */
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
     ->middleware('guest')
     ->name('login');
-
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])
     ->middleware('guest');
-
 Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
 
+/**
+ * Маршруты регистрации
+ */
+Route::get('/register', [PageRegisterUserController::class, 'create'])
+    ->middleware('guest')
+    ->name('register');
+Route::post('/register', [RegisteredUserController::class, 'store'])
+    ->middleware('guest');
+Route::get('register/confirm/{email_verify_token}', [RegisteredUserController::class, 'confirmEmail'])
+    ->middleware('guest');
 
-Route::get('/target-interface/{page_course}/{page_user}', [TargetInterfaceController::class, 'allInfo'])->middleware(['auth', 'role:admin|manager']);;
+/**
+ * Маршруты восстановления пароля
+ */
+Route::get('/recovery', [PasswordResetLinkController::class, 'create'])
+    ->middleware('guest')
+    ->name('password.request');
+Route::post('/recovery', [PasswordResetLinkController::class, 'store'])
+    ->middleware('guest')
+    ->name('password.email');
+Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])
+    ->middleware('guest')
+    ->name('password.reset');
+Route::post('/reset-password', [NewPasswordController::class, 'store'])
+    ->middleware('guest')
+    ->name('password.update');
 
-Route::post('/target-interface/{page_course}/{page_user}', [TargetInterfaceController::class, 'createAppointment'])->middleware(['auth', 'role:admin|manager']);;
+/**
+ * Маршруты курсов
+ */
+Route::middleware(['auth', 'role:admin|manager'])->prefix('courses')->group(function () {
+    Route::resource('', CourseController::class)->except(['destroy', 'edit']);
+    Route::get('/{courseId}/destroy', [CourseController::class, 'destroy']);
+    Route::get('/{courseId}/edit', [CourseController::class, 'edit']);
+    Route::post('/{courseId}/edit', [CourseController::class, 'editCourse']);
+    Route::get('/activity/{activityId}', [ActivitiesController::class, 'info']);
+    Route::get('/activity/{activityId}/edit', [ActivitiesController::class, 'editPage']);
+    Route::get('/{courseId}/sort/{column}/{sort_type}', [ActivitiesController::class, 'getSortedList']);
+    Route::post('/activity/{activityId}/edit', [ActivitiesController::class, 'editActivity']);
+    Route::get('/activity/{activityId}/delete', [ActivitiesController::class, 'delete']);
+    Route::get('/{courseId}/activity/add', [ActivitiesController::class, 'addPage']);
+    Route::post('/{courseId}/activity/add', [ActivitiesController::class, 'addActivity']);
+    Route::get('/{courseId}/activity/add', [ActivitiesController::class, 'addPage']);
+    Route::get('/activity/{activityId}/{event}', [ActivitiesController::class, 'changePriority']);
+});
 
-Route::get('/target-interface/search-user/{page_course}/{page_user}', [TargetInterfaceController::class, 'searchUser'])->middleware(['auth', 'role:admin|manager']);;
+/**
+ * Маршруты пользователей
+ */
+Route::middleware(['auth', 'role:admin|manager'])->prefix('users')->group(function () {
+    Route::get('/list', [UsersListController::class, 'main']);
+    Route::post('/list/{page}', [UsersListController::class, 'delete']);
+    Route::get('/edit/{userId}', [UsersListController::class, 'editPage']);
+    Route::post('/edit/{userId}', [UsersListController::class, 'editInfo']);
+});
 
-Route::get('/target-interface/search-courses/{page_course}/{page_user}', [TargetInterfaceController::class, 'searchCourses'])->middleware(['auth', 'role:admin|manager']);;
+/**
+ * Маршруты назначений
+ */
+Route::middleware(['auth', 'role:admin|manager'])->prefix('target')->group(function () {
+    Route::get('', [TargetInterfaceController::class, 'show']);
+    Route::get('/{target_id}/destroy', [TargetInterfaceController::class, 'destroy']);
+});
 
-Route::get('/target', [TargetInterfaceController::class, 'show'])->middleware(['auth', 'role:admin|manager']);;
-Route::get('/target/{target_id}/destroy', [TargetInterfaceController::class, 'destroy'])->middleware(['auth', 'role:admin|manager']);;
+/**
+ * Маршруты назначений 2
+ */
+Route::middleware(['auth', 'role:admin|manager'])->prefix('target-interface')->group(function () {
+    Route::get('/{page_course}/{page_user}', [TargetInterfaceController::class, 'allInfo']);
+    Route::post('/{page_course}/{page_user}', [TargetInterfaceController::class, 'createAppointment']);
+    Route::get('/search-user/{page_course}/{page_user}', [TargetInterfaceController::class, 'searchUser']);
+    Route::get('/search-courses/{page_course}/{page_user}', [TargetInterfaceController::class, 'searchCourses']);
+});
 
-Route::get('/video', [VideoController::class, 'play']);
-
-Route::get('/admin', [MainPageController::class, 'admin'])->middleware(['auth', 'role:admin'])->name('admin');;
+/**
+ * Маршруты видео
+ */
+Route::prefix('video')->group(function () {
+    // Тестовое видео
+    Route::get('', [VideoController::class, 'play']);
+    // Список загруженных видео
+    Route::get('/list', [VideoController::class, 'list']);
+    // Удаление видео по id
+    Route::post('/delete/{id}', [VideoController::class, 'destroy'])
+        ->middleware('auth')->middleware(['auth', 'role:admin|manager']);
+    // Добавление видео
+    Route::post('/add', [VideoController::class, 'store'])
+        ->middleware('auth')->middleware(['auth', 'role:admin|manager']);
+});

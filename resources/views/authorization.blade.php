@@ -6,7 +6,7 @@
 @endsection
 
 @section ('content')
-    <section class="registration">
+    <section class="registration mt-5">
         <section class="registration__wrapper _container">
             <form action="/login" method="post">
                 @csrf

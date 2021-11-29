@@ -3,6 +3,7 @@
 namespace App\Http\Requests\ValidateRequest;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Carbon;
 
 class EditUserRequest extends FormRequest
 {
@@ -19,10 +20,18 @@ class EditUserRequest extends FormRequest
      */
     public function rules(): array
     {
+
+        $date = Carbon::now()->subYears(5);
+
         return [
-            'email' => 'required|email',
-            'username' => 'required|regex:/[a-z0-9]{4,}/i',
-            'date_birth' => 'required|date'
+            'email' => 'required|
+                        email',
+            'username' => 'required|
+                           string|
+                           min:10',
+            'date_birth' => 'required|
+                             date|
+                             before_or_equal:' . $date
         ];
     }
 
@@ -45,11 +54,14 @@ class EditUserRequest extends FormRequest
     {
         return [
             'email.required' => 'Поле обязательно к заполнению',
+            'email.email' => 'Проверьте введенные данные',
+            'email.unique' => 'Пользователь с таким Email же зарегестрирован',
             'username.required' => 'Поле обязательно к заполнению',
-            'username.regex' => 'Проверьте введенные вами данные',
+            'username.min' => 'Поле должно быть не менее 10 символов',
+            'username.string' => 'Поле должно состоять из стрококвых символов',
             'date_birth.required' => 'Поле обязательно к заполнению',
-            'date_birth.date' => 'Проверьте введенные вами данные',
-            'email.email' => 'Проверьте введенные данные'
+            'date_birth.date' => 'Введенные данные должны соответствовать типу даты',
+            'date_birth.before_or_equal' => 'Вам должно быть больше 18 лет',
         ];
     }
 }

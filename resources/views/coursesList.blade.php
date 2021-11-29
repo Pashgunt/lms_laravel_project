@@ -44,6 +44,7 @@
                     </tr>
                 @endforeach
             </table>
+            <a href="/" class = "btn btn-primary mb-3">Назад</a>
             {{ $coursesList->links('vendor.pagination.bootstrap-4') }}
         @endif
     </div>

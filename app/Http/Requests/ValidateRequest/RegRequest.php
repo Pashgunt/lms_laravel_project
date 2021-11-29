@@ -34,7 +34,8 @@ class RegRequest extends FormRequest
                         unique:users',
             'username' => 'required|
                            string|
-                           min:10',
+                           min:10|
+                           not_regex:/(?=.*[!@#$%^&*"])/',
             'password' => Password::min(8)
                 ->letters()
                 ->mixedCase()
@@ -73,6 +74,7 @@ class RegRequest extends FormRequest
             'email.email' => 'Проверьте введенные данные',
             'email.unique' => 'Пользователь с таким Email же зарегестрирован',
             'username.required' => 'Поле обязательно к заполнению',
+            'username.not_regex' => 'Не должно быть спецсимволов',
             'username.min' => 'Поле должно быть не менее 10 символов',
             'username.string' => 'Поле должно состоять из стрококвых символов',
             'password.min' => 'Минимум 8 символов',
