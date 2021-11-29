@@ -11,8 +11,9 @@
                 на введенную Вами почту {{$user->email}}</div>
             <div class="text-center mt-3">Пройдите по ссылке, отправленной в письме и завершите регистрацию</div>
             <div class="text-center mt-3">Если в течении минуты ничего не пришло
-                <a href="/register" style="pointer-events: none"
-                   class="repeat_message ms-3 btn btn-outline-primary">Вернуться на страницу регистрации</a>
+                <a style="pointer-events: none" class="repeat_message ms-3 btn btn-outline-primary">
+                    Отправить письмо еще раз
+                </a>
                 <span class="timer_confirm"></span>
             </div>
             <div class="mt-3 text-center">

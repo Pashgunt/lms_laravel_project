@@ -26,12 +26,15 @@ $(() => {
         let timeinterval = setInterval(updateClock, 1000);
     }
 
-    let deadline = new Date(Date.parse(new Date()) + 5 * 1000);
+    let deadline = new Date(Date.parse(new Date()) + 60 * 1000);
 
     initializeClock(deadline);
 
     setTimeout(() => {
         document.querySelector('.repeat_message').style.pointerEvents = 'auto';
-        $('.timer_confirm').html('Жми')
-    }, 5000)
+        $('.repeat_message').on('click', () => {
+            location.reload();
+        })
+        $('.timer_confirm').hide();
+    }, 60000)
 })
