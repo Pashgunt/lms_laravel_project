@@ -1,4 +1,5 @@
 $(() => {
+    $('.success_target').hide();
 
     let allUsersDraggable = document.querySelectorAll('.user__draggable');
     let allCoursesDraggable = document.querySelectorAll('.course__draggable');
@@ -73,6 +74,7 @@ $(() => {
                 'arr': JSON.stringify(objOfTarget)
             },
             success(response) {
+                $('.success_target').show();
                 $('.success_target').html('Успешно назначены курсы');
                 return response;
             }
@@ -120,8 +122,9 @@ $(() => {
 
         let objectValues = Object.values(objOfTarget);
 
-        for (let i = 0; i<objectValues.length;i++){
-            if (objectValues[i].length === 0){
+        for (let i = 0; i < objectValues.length; i++) {
+            if (objectValues[i].length === 0) {
+                $('.success_target').show();
                 $('.success_target').html('Список назначений пуст');
                 return;
             }

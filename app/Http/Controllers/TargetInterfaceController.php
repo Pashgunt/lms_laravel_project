@@ -10,6 +10,7 @@ use App\LMS\Repositories\UserRepository;
 use App\Models\Appointment;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 use Illuminate\View\View;
 
 /**
@@ -74,7 +75,8 @@ class TargetInterfaceController extends Controller
             'courses' => $coursesList,
             'users' => $usersList,
             'pages' => $pages,
-            'pagesForUser' => $pagesForUser
+            'pagesForUser' => $pagesForUser,
+            'url' => URL::previous()
         ]);
     }
 
@@ -89,7 +91,8 @@ class TargetInterfaceController extends Controller
             return view('interfaceForTarget', [
                 'users' => $this->userRepository->searchUser($value, 1),
                 'courses' => $this->courseRepository->all(),
-                'search_user' => $value
+                'search_user' => $value,
+                'url' => URL::previous()
             ]);
         }
 
@@ -103,11 +106,12 @@ class TargetInterfaceController extends Controller
     {
         $value = $request->input('search_course_field');
 
-        if ($value){
+        if ($value) {
             return view('interfaceForTarget', [
                 'users' => $this->userRepository->all(),
                 'courses' => $this->courseRepository->searchCourse($value),
                 'search_course' => $value,
+                'url' => URL::previous()
             ]);
         }
 
@@ -138,6 +142,7 @@ class TargetInterfaceController extends Controller
         return view('appointmentsList', [
             'appointments' => $appointments,
             'current_course' => '',
+            'url' => URL::previous(),
         ]);
     }
 

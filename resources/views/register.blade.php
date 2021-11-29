@@ -65,7 +65,7 @@
                     <br><input name="rePassword" type="password">
                 </label>
                 <input type="submit" value="Зарегестрироваться" name="register">
-                <div class = "register__helper__button">Подсказка к регистрации</div>
+                <div class = "register__helper__button btn btn-secondary mt-3">Подсказка к регистрации</div>
             </form>
         </section>
     </section>

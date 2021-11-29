@@ -4,7 +4,7 @@ namespace App\Http\Requests\ValidateRequest;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CourseEditRequest extends FormRequest
+class ActivityAddRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -19,12 +19,12 @@ class CourseEditRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nameCourse' => 'required|
+            'activity_title' => 'required|
                             string|
                             min:10|
                             max:50|
                             not_regex:/(?=.*[!@#$%^&*"])/',
-            'descCourse' => 'required|
+            'activity_text' => 'required|
                              string|
                              min:50|
                              max:255',
@@ -49,15 +49,15 @@ class CourseEditRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'nameCourse.required' => 'Поле обязательно к заполнению',
-            'nameCourse.not_regex' => 'Не должно быть спецсимволов',
-            'descCourse.required' => 'Поле обязательно к заполнению',
-            'nameCourse.regex' => 'Проверьте введенные вами данные',
-            'descCourse.regex' => 'Проверьте введенные вами данные',
-            'nameCourse.min' => 'Минимум 10 символов',
-            'descCourse.min' => 'Минимум 50 символов',
-            'nameCourse.max' => 'Максимум 50 символов',
-            'descCourse.max' => 'Максимум 255 символов',
+            'activity_title.required' => 'Поле обязательно к заполнению',
+            'activity_title.not_regex' => 'Не должно быть спецсимволов',
+            'activity_text.required' => 'Поле обязательно к заполнению',
+            'activity_title.regex' => 'Проверьте введенные вами данные',
+            'activity_text.regex' => 'Проверьте введенные вами данные',
+            'activity_title.min' => 'Минимум 10 символов',
+            'activity_text.min' => 'Минимум 50 символов',
+            'activity_title.max' => 'Максимум 50 символов',
+            'activity_text.max' => 'Максимум 255 символов',
         ];
     }
 }

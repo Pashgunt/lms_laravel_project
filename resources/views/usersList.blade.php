@@ -38,6 +38,7 @@
             @endforeach
         @endif
     </table>
+    <a href="{{$url}}" class = "btn btn-primary mb-3">Назад</a>
     {{ $usersList->links('vendor.pagination.bootstrap-4') }}
 </div>
 <script src="/assets/js/delete-confirm.js"></script>

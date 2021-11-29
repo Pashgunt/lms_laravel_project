@@ -10,13 +10,18 @@
         @csrf
         <label>
             Заголовок <br>
-            <textarea name="activity_title" cols="40" rows="1">{{$activity->activity_title}}</textarea>
+            @error('activity_title')
+            <div class="alert-danger">{{ $message }}</div>
+            @enderror
+            <textarea name="activity_title" cols="40"
+                      rows="1">{{old('activity_title', $activity->activity_title)}}</textarea>
         </label><br>
         <label style="margin-top: 20px">
             Контент
-            <textarea name="activity_text" id="basic-wysiwyg">
-                {{$activity->text}}
-            </textarea>
+            @error('activity_text')
+            <div class="alert-danger">{{ $message }}</div>
+            @enderror
+            <textarea name="activity_text" id="basic-wysiwyg">{{old('activity_text', $activity->text)}}</textarea>
         </label><br>
         <a href="/courses/activity/{{$activity->id}}" class="btn btn-primary" style="margin-top: 20px">Назад</a>
         <input type="submit" name="edit_activity" value="Сохранить" class="btn btn-success" style="margin-top: 20px">
