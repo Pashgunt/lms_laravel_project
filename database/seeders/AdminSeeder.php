@@ -20,6 +20,14 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::table('users')->insert([
+            'username' => 'Администратор',
+            'email' => 'admin@devspark.ru',
+            'password' => Hash::make('I4jSQm2!ndw6s'),
+            'date_birth' => date('Y-m-d'),
+            'role_id' => 3,
+        ]);
+
         foreach ($this->admins as $admin) {
             DB::table('users')->insert([
                 'username' => $admin,
