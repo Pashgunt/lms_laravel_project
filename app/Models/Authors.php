@@ -12,7 +12,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class Authors extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
 
     public $timestamps = false;
 
