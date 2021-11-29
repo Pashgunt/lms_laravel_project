@@ -1,19 +1,14 @@
 <?php
 
-namespace App\Models;
+namespace App\LMS\Repositories;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-/**
- * Общая модель для пользователей
- */
-class User extends Authenticatable
+class UsersTemporary extends Authenticatable
 {
     use HasApiTokens;
     use HasFactory;
@@ -30,7 +25,7 @@ class User extends Authenticatable
         'password',
         'date_birth',
         'role_id',
-        'email_verified_at'
+        'email_verify_token'
     ];
 
     /**
@@ -42,18 +37,14 @@ class User extends Authenticatable
     ];
 
     /**
-     * Отношение курсов и автора
+     * Создание токена для пдтверждения почты
      */
-    public function courses(): HasMany
+    public static function boot()
     {
-        return $this->hasMany(Courses::class, 'author_id');
-    }
+        parent::boot();
 
-    /**
-     * Отношение роли к пользователю
-     */
-    public function role(): HasOne
-    {
-        return $this->hasOne(Role::class, 'id', 'role_id');
+        static::creating(function ($usersTemporary) {
+            $usersTemporary->email_verify_token = Str::random(30);
+        });
     }
 }

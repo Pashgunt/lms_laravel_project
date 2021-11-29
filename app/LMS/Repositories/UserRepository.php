@@ -16,15 +16,21 @@ class UserRepository extends Repositories
 {
 
     /** Добавление пользователя */
-    public function insertNewUser($request): User
+    public function updateOrCreate($request)
     {
-        return User::create([
-            'username' => $request->input('username'),
-            'email' => $request->input('email'),
-            'password' => Hash::make($request->input('password')),
-            'date_birth' => $request->input('date_birth'),
-            'role_id' => 1,
-        ]);
+        $user = UsersTemporary::where('email', $request->input('email'))->first();
+
+        if ($user !== null) {
+            return $user;
+        } else {
+            return UsersTemporary::create([
+                'username' => $request->input('username'),
+                'email' => $request->input('email'),
+                'password' => Hash::make($request->input('password')),
+                'date_birth' => $request->input('date_birth'),
+                'role_id' => 1,
+            ]);
+        }
     }
 
     /** Получение списка пользователей через пагинацию */
@@ -59,5 +65,27 @@ class UserRepository extends Repositories
     public function generatePagesNumber(int $page, int $count)
     {
         return (new Paginate($this->model))->getPagesNumber($page, $count);
+    }
+
+    /**
+     * Проверка на токен пользователя
+     */
+    public function whereToken($token)
+    {
+        $user = UsersTemporary::query()->where('email_verify_token', '=', $token)->first();
+
+        if ($user !== null) {
+            User::create([
+                'username' => $user['username'],
+                'email' => $user['email'],
+                'password' => $user['password'],
+                'date_birth' => $user['date_birth'],
+                'role_id' => 1,
+                'email_verified_at' => '' . getdate()['mday'] . '.' . getdate()['mon'] . '.' . getdate()['year'],
+            ]);
+            UsersTemporary::query()->where('email_verify_token', '=', $token)->delete();
+        }
+
+        return redirect('/login');
     }
 }

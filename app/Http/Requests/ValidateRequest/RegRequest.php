@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\ValidateRequest;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password;
 
 class RegRequest extends FormRequest
 {
@@ -23,12 +25,27 @@ class RegRequest extends FormRequest
      */
     public function rules(): array
     {
+
+        $date = Carbon::now()->subYears(5);
+
         return [
-            'email' => 'required|email|unique:users',
-            'username' => 'required|unique:users|regex:/[a-z0-9]{4,}/i|not_regex:/["]/|not_regex:/(?=.*[!@#$%^&*])/',
-            'password' => 'required|min:6|max:30',
-            'rePassword' => 'required|same:password',
-            'date_birth' => 'required|date'
+            'email' => 'required|
+                        email|
+                        unique:users',
+            'username' => 'required|
+                           string|
+                           min:10',
+            'password' => Password::min(8)
+                ->letters()
+                ->mixedCase()
+                ->numbers()
+                ->symbols()
+                ->uncompromised(),
+            'rePassword' => 'required|
+                             same:password',
+            'date_birth' => 'required|
+                             date|
+                             before_or_equal:' . $date
         ];
     }
 
@@ -53,17 +70,21 @@ class RegRequest extends FormRequest
     {
         return [
             'email.required' => 'Поле обязательно к заполнению',
-            'username.required' => 'Поле обязательно к заполнению',
-            'username.not_regex' => 'Уберите ковычки',
-            'username.unique' => 'Пользователь с таким Именем же зарегестрирован',
-            'username.regex' => 'Проверьте введенные вами данные',
-            'password.required' => 'Поле обязательно к заполнению',
-            'rePassword.required' => 'Поле обязательно к заполнению',
-            'date_birth.required' => 'Поле обязательно к заполнению',
-            'date_birth.date' => 'Проверьте введенные вами данные',
             'email.email' => 'Проверьте введенные данные',
             'email.unique' => 'Пользователь с таким Email же зарегестрирован',
+            'username.required' => 'Поле обязательно к заполнению',
+            'username.min' => 'Поле должно быть не менее 10 символов',
+            'username.string' => 'Поле должно состоять из стрококвых символов',
+            'password.min' => 'Минимум 8 символов',
+            'password.letters' => 'Пароль должен содержать буквы',
+            'password.mixedCase' => 'Пароль должен содержать буквы верхнего и нижнего регистра',
+            'password.numbers' => 'Пароль должен содержать цифры',
+            'password.symbol' => 'Пароль должен содержать символы',
+            'rePassword.required' => 'Поле обязательно к заполнению',
             'rePassword.same' => 'Поле должно совадать с Паролем',
+            'date_birth.required' => 'Поле обязательно к заполнению',
+            'date_birth.date' => 'Введенные данные должны соответствовать типу даты',
+            'date_birth.before_or_equal' => 'Вам должно быть больше 18 лет',
         ];
     }
 }
