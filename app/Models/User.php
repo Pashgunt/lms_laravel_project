@@ -56,4 +56,12 @@ class User extends Authenticatable
     {
         return $this->hasOne(Role::class, 'id', 'role_id');
     }
+
+    /**
+     * Отношение студента к назначениям
+     */
+    public function appointments(): HasMany
+    {
+        return $this->hasMany(Appointment::class, 'user_id', 'id');
+    }
 }
