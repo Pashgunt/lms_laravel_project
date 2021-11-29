@@ -3,20 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Общая модель для активити элементов
  */
-class Activities extends Authenticatable
+class Activities extends Model
 {
-    use HasApiTokens;
     use HasFactory;
-    use Notifiable;
-
-    public $timestamps = false;
 
     /**
      * Поля для заполнения
