@@ -9,5 +9,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Role extends Model
 {
+    public const ROLE_ADMIN = 'admin';
+    public const ROLE_MANAGER = 'manager';
+    public const ROLE_USER = 'user';
+
     protected $table = 'roles';
 }

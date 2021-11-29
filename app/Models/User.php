@@ -67,4 +67,12 @@ class User extends Authenticatable
         $this->notify(new ResetPassword($token));
     }
 
+
+    /**
+     * Отношение студента к назначениям
+     */
+    public function appointments(): HasMany
+    {
+        return $this->hasMany(Appointment::class, 'user_id', 'id');
+    }
 }
