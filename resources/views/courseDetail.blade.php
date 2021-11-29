@@ -24,11 +24,20 @@
                 <td></td>
                 <td>Название</td>
                 <td></td>
+                <td></td>
             </tr>
             @foreach ($activities as $activity)
                 <tr>
                     <td>{{$activity->priority}}</td>
                     <td>{{$activity->activity_title}}</td>
+                    <td class="priority-change">
+                        <a href="/courses/activity/{{$activity->id}}/up" class="btn arrow">
+                            <img src="/assets/img/icons/arrow.png" alt="Up" class="revers-arrow">
+                        </a>
+                        <a href="/courses/activity/{{$activity->id}}/down" class="btn arrow">
+                            <img src="/assets/img/icons/arrow.png" alt="Down">
+                        </a>
+                    </td>
                     <td>
                         <a href="/courses/activity/{{$activity->id}}" class="btn btn-primary">Перейти</a>
                         <a href="/courses/activity/{{$activity->id}}/delete" class="btn btn-danger">Удалить</a>

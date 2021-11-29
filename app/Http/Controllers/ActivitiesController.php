@@ -101,4 +101,14 @@ class ActivitiesController extends Controller
         ]);
     }
 
+    /**
+     * Смена приоритетности вложенных элементов курса
+     */
+    public function changePriority(Activities $activity, string $eventType)
+    {
+        $this->repository->changePriority($activity, $eventType);
+
+        return redirect("/courses/$activity->course_id");
+    }
+
 }

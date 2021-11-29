@@ -94,4 +94,30 @@ class ActivityRepository extends Repositories
     {
         return Schema::getColumnListing('activities');
     }
+
+    /**
+     * Смена приоритетности вложенных элементов курса
+     */
+    public function changePriority(Activities $activity, string $eventType): void
+    {
+        switch ($eventType) {
+            case 'up':
+                $param = $activity->priority - 1;
+                break;
+            case 'down':
+                $param = $activity->priority + 1;
+                break;
+        }
+
+        $this->model
+            ->where('priority','=',$param)
+            ->update([
+                'priority' => $activity->priority
+            ]);
+        $this->model
+            ->where('id','=',$activity->getKey())
+            ->update([
+                'priority' => $param
+            ]);
+    }
 }

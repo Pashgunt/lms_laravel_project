@@ -81,6 +81,12 @@ Route::post('/courses/{courseId}/activity/add', [\App\Http\Controllers\Activitie
 Route::get('/courses/{courseId}/activity/add', [\App\Http\Controllers\ActivitiesController::class, 'addPage'])
     ->middleware(['auth', 'role:admin|manager']);
 
+Route::get('/courses/activity/{activityId}/{event}', [\App\Http\Controllers\ActivitiesController::class, 'changePriority'])
+    ->middleware(['auth', 'role:admin|manager']);
+
+
+
+
 Route::get('/recovery', [PasswordResetLinkController::class, 'create'])
     ->middleware('guest')
     ->name('password.request');
