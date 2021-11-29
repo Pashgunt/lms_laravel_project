@@ -49,11 +49,7 @@ Route::post('/register', [RegisteredUserController::class, 'store']);
 
 Route::get('register/confirm/{email_verify_token}', [RegisteredUserController::class, 'confirmEmail']);
 
-
-Route::get('/users/list/{page}', [\App\Http\Controllers\UsersListController::class, 'main'])
-    ->middleware(['auth', 'role:admin|manager']);
-
-Route::get('/users/list', [\App\Http\Controllers\UsersListController::class, 'redirect'])
+Route::get('/users/list', [\App\Http\Controllers\UsersListController::class, 'main'])
     ->middleware(['auth', 'role:admin|manager']);
 
 Route::post('/users/list/{page}', [\App\Http\Controllers\UsersListController::class, 'delete'])

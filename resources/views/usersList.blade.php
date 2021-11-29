@@ -2,6 +2,7 @@
 
 @section('style')
     <link rel="stylesheet" href="/assets/css/usersList.css">
+    <link rel="stylesheet" href="/assets/css/pagination.css">
 @endsection
 
 @section('content')
@@ -27,7 +28,7 @@
                         </a>
                     </td>
                     <td>
-                        <form action="/users/list/{{$pages['main_page']}}" method="post">
+                        <form action="/users/list/?page={{$page}}" method="post">
                             @csrf
                             <input type="hidden" name="userId" value="{{$user->id}}">
                             <input type="submit" name="deleteUser" value="Удалить" class="confirm_delete btn btn-danger">
@@ -37,27 +38,7 @@
             @endforeach
         @endif
     </table>
-    <div class="pagination">
-        @if(isset($pages['min_page']))
-            <a href="/users/list/{{$pages['min_page']}}"><b>Начало</b></a>
-        @endif
-            @if(isset($pages['prev_page']))
-                <a href="/users/list/{{$pages['prev_page']}}">
-                    <span style="padding: 0 5px">Назад</span>
-                </a>
-            @endif
-        <a href="/users/list/{{$pages['main_page']}}">
-            <span style="padding: 0 5px"> {{$pages['main_page']}} </span>
-        </a>
-        @if(isset($pages['next_page']))
-            <a href="/users/list/{{$pages['next_page']}}">
-                <span style="padding: 0 5px"> - Следующая -</span>
-            </a>
-        @endif
-        @if(isset($pages['max_page']))
-            <a href="/users/list/{{$pages['max_page']}}"><b> Конец</b></a>
-        @endif
-    </div>
+    {{ $usersList->links('vendor.pagination.bootstrap-4') }}
 </div>
 <script src="/assets/js/delete-confirm.js"></script>
 @endsection

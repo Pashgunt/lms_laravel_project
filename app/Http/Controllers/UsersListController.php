@@ -24,7 +24,7 @@ class UsersListController extends Controller
     /**
      * Перенаправление на нумерованную страницу
      */
-    public function redirect (): View
+    public function redirect(): View
     {
         return $this->main('1');
     }
@@ -32,38 +32,21 @@ class UsersListController extends Controller
     /**
      * Отображение страницы со списком пользователей
      */
-    public function main(string $page): View
+    public function main(): View
     {
-        if(!isset($page)){
-            $page = 1;
-        }
-
-        try {
-            $page = $page * 1;
-        } catch (\Exception $e) {
-            $page = 1;
-        }
-
-        if(!is_int($page)) {
-            $page = 1;
-        }
-
         /** Кол-во выводимых пользователей на страницу */
         $count = 4;
 
-        $maxPage = ceil(count($this->repository->all()) / 4);
+        $usersList = $this->repository->getUsersList($count);
+        $page = $_GET['page'] ?? 1;
 
-        if ($page > $maxPage) {
-            $page = $maxPage;
+        if ($usersList->lastPage() < $usersList->currentPage()) {
+            return view('errors.404');
         }
-
-        $usersList = $this->repository->getUsersList($count, $page);
-
-        $pages = $this->repository->generatePagesNumber($page, $count);
 
         return view('usersList', [
             'usersList' => $usersList,
-            'pages' => $pages
+            'page' => $page
         ]);
     }
 
