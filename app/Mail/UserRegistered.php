@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-use App\LMS\Repositories\UsersTemporary;
+use App\Models\UsersTemporary;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;

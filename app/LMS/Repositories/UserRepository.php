@@ -5,8 +5,8 @@ namespace App\LMS\Repositories;
 use App\LMS\Abstracts\Repositories;
 use App\LMS\Assignments\Services\Paginate;
 use App\Models\User;
+use App\Models\UsersTemporary;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Hash;
 
 /**

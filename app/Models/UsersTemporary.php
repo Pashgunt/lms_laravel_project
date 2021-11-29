@@ -1,14 +1,14 @@
 <?php
 
-namespace App\LMS\Repositories;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 
-class UsersTemporary extends Authenticatable
+class UsersTemporary extends Model
 {
     use HasApiTokens;
     use HasFactory;
@@ -37,7 +37,7 @@ class UsersTemporary extends Authenticatable
     ];
 
     /**
-     * Создание токена для пдтверждения почты
+     * Создание токена для подтверждения почты
      */
     public static function boot()
     {
