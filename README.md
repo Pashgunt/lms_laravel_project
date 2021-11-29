@@ -43,3 +43,9 @@ id=name для обработки плеера через js
 
 [Полная документация TinyMCE](https://git.devspark.ru/m_kultyshev/stage-lms-2021/-/blob/5_videoPlayer/wydiwyg.md)
 
+### Подтверждение при удалении
+Присваиваем объекту класс - class="confirm_delete"
+Внизу подключаемого шаблона подключаем скрипт - 
+<script src="/assets/js/delete-confirm.js"></script>
+При нажатии на объект - требуется подтверждение
+

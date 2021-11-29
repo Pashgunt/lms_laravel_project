@@ -30,7 +30,7 @@
                             <td>
                                 {{($appointment->student->first()->username)}}</td>
                             <td>
-                                <a class="btn btn-danger" href="/target/{{$appointment->id}}/destroy">Удалить</a>
+                                <a class="confirm_delete btn btn-danger" href="/target/{{$appointment->id}}/destroy">Удалить</a>
                             </td>
                     </tr>
                 @endforeach
@@ -39,4 +39,5 @@
             {{ $appointments->links('vendor.pagination.bootstrap-4') }}
         @endif
     </div>
+    <script src="/assets/js/delete-confirm.js"></script>
 @endsection

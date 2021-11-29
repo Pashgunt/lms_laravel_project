@@ -17,9 +17,9 @@
     <div>
         <b>Содержание курса: </b><br>
         Приоритетность:
-        <a href="/courses/{{$course->id}}/sort/priority/asc" style="color: blue">По возрастанию</a>
+        <a href="/courses/{{$course->id}}/sort/priority/asc" style="color: blue">По возрастанию</a> /
         <a href="/courses/{{$course->id}}/sort/priority/desc" style="color: blue">По убыванию</a>
-        <table class="table table-striped table-modify">
+        <table class="table">
             <tr>
                 <td></td>
                 <td>Название</td>
@@ -29,7 +29,10 @@
             @foreach ($activities as $activity)
                 <tr>
                     <td>{{$activity->priority}}</td>
-                    <td>{{$activity->activity_title}}</td>
+                    <td><a href="/courses/activity/{{$activity->id}}">
+                            {{$activity->activity_title}}
+                        </a>
+                    </td>
                     <td class="priority-change">
                         <a href="/courses/activity/{{$activity->id}}/up" class="btn arrow">
                             <img src="/assets/img/icons/arrow.png" alt="Up" class="revers-arrow">
@@ -39,18 +42,15 @@
                         </a>
                     </td>
                     <td>
-                        <a href="/courses/activity/{{$activity->id}}" class="btn btn-primary">Перейти</a>
-                        <a href="/courses/activity/{{$activity->id}}/delete" class="btn btn-danger">Удалить</a>
+                        <a href="/courses/activity/{{$activity->id}}/delete" class="confirm_delete">
+                            <img src="/assets/img/icons/delete.png" alt="Delete" class="delete-icon">
+                        </a>
                     </td>
                 </tr>
             @endforeach
         </table>
+        <a href="/courses" class="btn btn-primary">Назад</a>
         <a href="/courses/{{$course->id}}/activity/add" class="btn btn-success">Добавить</a>
     </div>
-
-    <br>
-
-    <a href="/courses" class="btn btn-primary">
-        Назад
-    </a>
+    <script src="/assets/js/delete-confirm.js"></script>
 @endsection

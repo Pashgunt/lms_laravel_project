@@ -30,7 +30,7 @@
                         <form action="/users/list/{{$pages['main_page']}}" method="post">
                             @csrf
                             <input type="hidden" name="userId" value="{{$user->id}}">
-                            <input type="submit" name="deleteUser" value="Удалить" class="btn btn-danger">
+                            <input type="submit" name="deleteUser" value="Удалить" class="confirm_delete btn btn-danger">
                         </form>
                     </td>
                 </tr>
@@ -59,4 +59,5 @@
         @endif
     </div>
 </div>
+<script src="/assets/js/delete-confirm.js"></script>
 @endsection
