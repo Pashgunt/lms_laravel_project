@@ -6,10 +6,12 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\TargetInterfaceController;
 use App\Http\Controllers\VideoController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainPageController;
 use \App\Http\Controllers\CourseController;
 use App\Http\Controllers\Auth\PageRegisterUserController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,8 +45,10 @@ Route::get('/register', [PageRegisterUserController::class, 'create'])
     ->middleware('guest')
     ->name('register');
 
-Route::post('/register', [RegisteredUserController::class, 'store'])
-    ->middleware('guest');
+Route::post('/register', [RegisteredUserController::class, 'store']);
+
+Route::get('register/confirm/{email_verify_token}', [RegisteredUserController::class, 'confirmEmail']);
+
 
 Route::get('/users/list/{page}', [\App\Http\Controllers\UsersListController::class, 'main'])
     ->middleware(['auth', 'role:admin|manager']);
