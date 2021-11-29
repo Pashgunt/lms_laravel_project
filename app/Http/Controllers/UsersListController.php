@@ -63,7 +63,8 @@ class UsersListController extends Controller
 
         return view('usersList', [
             'usersList' => $usersList,
-            'pages' => $pages
+            'pages' => $pages,
+            'breadcrumbs' => ['' => 'Список пользователей'],
         ]);
     }
 
@@ -72,9 +73,12 @@ class UsersListController extends Controller
      */
     public function editPage(User $user): View
     {
+        $breadcrumbs = array_merge($user->breadcrumbs, ['' => 'Редактирование пользователя ' . $user->username]);
+
         return view('forms/editUserInfo', [
             'user' => $user,
-            'roles' => (new Role())->all()
+            'roles' => (new Role())->all(),
+            'breadcrumbs' => $breadcrumbs
         ]);
     }
 

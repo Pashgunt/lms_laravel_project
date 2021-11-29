@@ -1,11 +1,13 @@
 @extends('layout')
+@section('title', 'LMS - управление курсами')
 
 @section('style')
     <link rel="stylesheet" href="/assets/css/usersList.css">
 @endsection
 
 @section('content')
-    <h4>Список курсов</h4>
+    @include('admin')
+    <h1>Список курсов</h1>
 
     <a href="/courses/create" class="btn btn-primary">
         Создать новый курс

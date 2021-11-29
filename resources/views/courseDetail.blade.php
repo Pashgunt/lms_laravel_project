@@ -1,4 +1,5 @@
 @extends('layout')
+@section('title', 'LMS - информация о курсе ' . $course->name)
 
 @section('style')
     <link rel="stylesheet" href="/assets/css/courseInfo.css">

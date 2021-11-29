@@ -1,4 +1,5 @@
 @extends('layout')
+@section('title', 'LMS - управление назначениями')
 
 @section('content')
     <meta name="csrf-token" content="{{ csrf_token() }}">

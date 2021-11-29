@@ -1,4 +1,5 @@
 @extends('layout')
+@section('title', 'LMS - редактирование пользователя ' . $user->username)
 
 @section('style')
     <link rel="stylesheet" href="/assets/css/usersList.css">

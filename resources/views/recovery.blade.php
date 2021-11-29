@@ -1,4 +1,5 @@
 @extends('layout')
+@section('title', 'LMS - восстановление пароля')
 
 @section('style')
     <link rel="stylesheet" href="assets/css/reg.css">

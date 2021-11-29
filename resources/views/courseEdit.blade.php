@@ -1,4 +1,5 @@
 @extends('layout')
+@section('title', $title)
 
 @section('content')
     @if(isset($course))

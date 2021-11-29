@@ -48,7 +48,7 @@ class CourseController extends Controller
             return redirect('/courses');
         }
 
-        return view('courseEdit');
+        return view('courseEdit', ['title' => 'Создание нового курса']);
     }
 
     /**
@@ -64,7 +64,7 @@ class CourseController extends Controller
 
     public function edit(Courses $course): View
     {
-        return view('courseEdit', ['course' => $course]);
+        return view('courseEdit', ['course' => $course, 'title' => 'Редактирование курса ' . $course->name]);
     }
 
     public function editCourse(Request $request, Courses $course): RedirectResponse

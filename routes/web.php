@@ -51,7 +51,7 @@ Route::get('register/confirm/{email_verify_token}', [RegisteredUserController::c
 
 
 Route::get('/users/list/{page}', [\App\Http\Controllers\UsersListController::class, 'main'])
-    ->middleware(['auth', 'role:admin|manager']);
+    ->middleware(['auth', 'role:admin|manager'])->name('users');
 
 Route::get('/users/list', [\App\Http\Controllers\UsersListController::class, 'redirect'])
     ->middleware(['auth', 'role:admin|manager']);
@@ -87,9 +87,6 @@ Route::get('/courses/{courseId}/activity/add', [\App\Http\Controllers\Activities
 
 Route::get('/courses/activity/{activityId}/{event}', [\App\Http\Controllers\ActivitiesController::class, 'changePriority'])
     ->middleware(['auth', 'role:admin|manager']);
-
-
-
 
 Route::get('/recovery', [PasswordResetLinkController::class, 'create'])
     ->middleware('guest')
@@ -131,3 +128,5 @@ Route::get('/target', [TargetInterfaceController::class, 'show'])->middleware(['
 Route::get('/target/{target_id}/destroy', [TargetInterfaceController::class, 'destroy'])->middleware(['auth', 'role:admin|manager']);;
 
 Route::get('/video', [VideoController::class, 'play']);
+
+Route::get('/admin', [MainPageController::class, 'admin'])->middleware(['auth', 'role:admin'])->name('admin');;
