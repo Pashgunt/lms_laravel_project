@@ -35,10 +35,7 @@ class UsersListController extends Controller
      */
     public function main(): View
     {
-        /** Кол-во выводимых пользователей на страницу */
-        $count = 4;
-
-        $usersList = $this->repository->getUsersList($count);
+        $usersList = $this->repository->getUsersList(config('pagination.user'));
         $page = $_GET['page'] ?? 1;
 
         if ($usersList->lastPage() < $usersList->currentPage()) {

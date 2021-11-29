@@ -26,11 +26,11 @@ class CourseController extends Controller
     }
 
     /**
-     * Отображает список курсов с шагом 10
+     * Отображает список курсов
      */
     public function index(): View
     {
-        $coursesList = $this->repository->paginate(10);
+        $coursesList = $this->repository->paginate(config('pagination.course'));
 
         if ($coursesList->lastPage() < $coursesList->currentPage()) {
             return view('errors.404');
