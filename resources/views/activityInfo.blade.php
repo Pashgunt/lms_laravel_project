@@ -5,6 +5,7 @@
 @endsection
 
 @section ('content')
+    @include('admin')
     <h4>{{$activity->activity_title}}</h4>
     <p>{!! $activity->text !!}</p>
     <a href="/courses/activity/{{$activity->id}}/edit" class="btn btn-warning">Редактировать</a>

@@ -131,7 +131,7 @@ class TargetInterfaceController extends Controller
      */
     public function show()
     {
-        $appointments = $this->repository->orderByRaw('course_id')->paginate(10);
+        $appointments = $this->repository->orderByRaw('course_id')->paginate(config('pagination.appointment'));
 
         if ($appointments->lastPage() < $appointments->currentPage()) {
             return view('errors.404');
