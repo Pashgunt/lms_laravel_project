@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Appointment extends Model
@@ -19,22 +20,21 @@ class Appointment extends Model
         'user_id',
         'created_at',
         'updated_at',
-        'author_id',
     ];
 
     /*
-     * Отношение курсов к назначениям
+     * "У назначения 1 курс"
      */
-    public function course(): HasMany
+    public function course()
     {
-        return $this->hasMany(Courses::class, 'id', 'course_id');
+        return $this->hasOne(Courses::class, 'id', 'course_id');
     }
 
     /*
-     * Отношение студентов к назначениям
+     * "У назначения 1 студент"
      */
-    public function student(): HasMany
+    public function student()
     {
-        return $this->hasMany(User::class, 'id', 'user_id');
+        return $this->hasOne(User::class, 'id', 'user_id');
     }
 }
