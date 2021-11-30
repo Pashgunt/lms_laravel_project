@@ -28,6 +28,11 @@ Route::get('/', [MainPageController::class, 'main'])
     ->middleware(['auth'])
     ->name('index');
 
+Route::resource('/courses', CourseController::class)
+    ->except(['destroy', 'edit'])
+    ->middleware(['auth', 'role:admin|manager']);
+
+
 /**
  * Маршруты авторизации
  */
@@ -71,7 +76,6 @@ Route::post('/reset-password', [NewPasswordController::class, 'store'])
  * Маршруты курсов
  */
 Route::middleware(['auth', 'role:admin|manager'])->prefix('courses')->group(function () {
-    Route::resource('', CourseController::class)->except(['destroy', 'edit']);
     Route::get('/{courseId}/destroy', [CourseController::class, 'destroy']);
     Route::get('/{courseId}/edit', [CourseController::class, 'edit']);
     Route::post('/{courseId}/edit', [CourseController::class, 'editCourse']);
