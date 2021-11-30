@@ -7,8 +7,8 @@
 
 @section('content')
     @include('admin')
-    <h1>Список назначений</h1>
     {{ DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs::render('target') }}
+    <h1>Список назначений</h1>
 
     <a href="/target-interface/1/1" class="btn btn-primary">
         Создать назначение
