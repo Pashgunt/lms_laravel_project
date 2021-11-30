@@ -6,6 +6,7 @@
 @endsection
 
 @section('content')
+    @include('admin')
     {{ DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs::render('courseDetail', $course) }}
 
     <h1>{{$course->name}}</h1>

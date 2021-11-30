@@ -2,6 +2,7 @@
 @section('title', 'LMS - управление назначениями')
 
 @section('content')
+    @include('admin')
     <meta name="csrf-token" content="{{ csrf_token() }}">
     {{ DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs::render('createTarget', $pages['main_page'], $pagesForUser['main_page']) }}
 
