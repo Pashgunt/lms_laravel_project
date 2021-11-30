@@ -74,11 +74,11 @@ class UsersListController extends Controller
     /**
      * Удаление пользователя
      */
-    public function delete(Request $request, int $page): View
+    public function delete(Request $request): View
     {
         $userId = $request->input('userId');
         $this->repository->delete($userId);
 
-        return $this->main($page);
+        return $this->main();
     }
 }

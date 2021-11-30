@@ -36,7 +36,7 @@
                     @endif
                 @endforeach
             </select><br>
-            <a href="/users/list/1" class="btn btn-primary">Назад</a>
+            <a href="/users/list/?page=1" class="btn btn-primary">Назад</a>
             <input type="submit" name="editUserInfo" value="Сохранить" class="btn btn-success">
         </form>
     </div>

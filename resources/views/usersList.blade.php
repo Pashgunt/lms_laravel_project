@@ -2,7 +2,6 @@
 
 @section('style')
     <link rel="stylesheet" href="/assets/css/usersList.css">
-    <link rel="stylesheet" href="/assets/css/pagination.css">
 @endsection
 
 @section('content')

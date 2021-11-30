@@ -91,7 +91,7 @@ Route::middleware(['auth', 'role:admin|manager'])->prefix('courses')->group(func
  */
 Route::middleware(['auth', 'role:admin|manager'])->prefix('users')->group(function () {
     Route::get('/list', [UsersListController::class, 'main']);
-    Route::post('/list/{page}', [UsersListController::class, 'delete']);
+    Route::post('/list', [UsersListController::class, 'delete']);
     Route::get('/edit/{userId}', [UsersListController::class, 'editPage']);
     Route::post('/edit/{userId}', [UsersListController::class, 'editInfo']);
 });

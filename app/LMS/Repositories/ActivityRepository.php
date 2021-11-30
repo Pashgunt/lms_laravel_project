@@ -114,6 +114,7 @@ class ActivityRepository extends Repositories
             ->update([
                 'priority' => $activity->priority
             ]);
+
         $this->model
             ->where('id','=',$activity->getKey())
             ->update([
