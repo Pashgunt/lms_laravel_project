@@ -26,6 +26,7 @@ class CourseEditRequest extends FormRequest
                             not_regex:/(=[@#$%^&*])/',
             'descCourse' => 'required|
                              string|
+                             min:50|
                              max:255',
         ];
     }

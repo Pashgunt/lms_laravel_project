@@ -19,7 +19,7 @@ class CourseRepository extends Repositories
     public function editCourseInfo($request, Courses $course): void
     {
         $course->update(["name" => $request->nameCourse,
-            "description" => strip_tags($request->descCourse),
+            "description" => $request->descCourse,
         ]);
     }
 
@@ -29,7 +29,7 @@ class CourseRepository extends Repositories
             'author_id' => Auth::id(),
             'censorship_id' => 1,
             'name' => $request->nameCourse,
-            'description' => strip_tags($request->descCourse),
+            'description' => $request->descCourse,
         ]);
 
         return $course->id;

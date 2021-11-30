@@ -1,4 +1,4 @@
-<div class="admin_content">
+<div class="admin_content mt-3">
     @if (mb_strtolower(Auth::user()->role->role_name) === \App\Models\Role::ROLE_ADMIN)
     <a href="/users/list" class="btn btn-primary" role="button">Управление пользователями</a>
     @endif

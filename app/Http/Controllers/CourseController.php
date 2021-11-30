@@ -7,11 +7,8 @@ use App\LMS\Repositories\ActivityRepository;
 use App\Models\Activities;
 use App\Models\Courses;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use App\LMS\Repositories\CourseRepository;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\Validator;
 
 /*
  * Контроллер, реализующий CRUD-операции для курсов

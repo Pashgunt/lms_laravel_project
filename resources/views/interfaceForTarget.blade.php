@@ -8,43 +8,43 @@
 
 
     <div class="target_user_list mt-3">
-        <h4 class="mb-1">Список пользователей</h4>
+        <h4 class="mb-1 fs-1">Список пользователей</h4>
         <span>
             <div class="mb-3">
-                <form action="/target-interface/search-user/1/1" method="get">
+                <form action="/target-interface/search-user/1/1" method="get" class="d-flex">
                     @if(isset($search_user))
                         @error('search_user')
                         <div class="alert-danger">{{ $message }}</div>
                         @enderror
-                        <input type="text" name="search_user_field" value="{{$search_user}}">
+                        <input type="text" name="search_user_field" value="{{$search_user}}" class="form-control form-control-md w-25">
                     @else
-                        <input type="text" name="search_user_field">
+                        <input type="text" name="search_user_field" class="form-control form-control-md w-25">
                     @endif
-                    <input type="submit" value="Найти">
+                    <input type="submit" value="Найти" class="btn btn-secondary ms-2">
                 </form>
             </div>
-            @if(isset($pagesForUser))
-                <div class="pagination">
+        </span>
+        @if(isset($pagesForUser))
+            <div class="pagination">
                 @if(isset($pagesForUser['min_page']))
-                        <a href="/target-interface/{{$pages['main_page']}}/{{$pagesForUser['min_page']}}">{{$pagesForUser['min_page']}} |</a>
-                    @endif
-                    @if(isset($pagesForUser['prev_page']))
-                        <a href="/target-interface/{{$pages['main_page']}}/{{$pagesForUser['prev_page']}}">
+                    <a href="/target-interface/{{$pages['main_page']}}/{{$pagesForUser['min_page']}}">{{$pagesForUser['min_page']}} |</a>
+                @endif
+                @if(isset($pagesForUser['prev_page']))
+                    <a href="/target-interface/{{$pages['main_page']}}/{{$pagesForUser['prev_page']}}">
                         <span style="padding: 0 5px"> < | </span>
                     </a>
-                    @endif
-                        <span style="padding: 0 5px"> {{$pagesForUser['main_page']}} </span>
+                @endif
+                <span style="padding: 0 5px"> {{$pagesForUser['main_page']}} </span>
                 @if(isset($pagesForUser['next_page']))
-                        <a href="/target-interface/{{$pages['main_page']}}/{{$pagesForUser['next_page']}}">
+                    <a href="/target-interface/{{$pages['main_page']}}/{{$pagesForUser['next_page']}}">
                         <span style="padding: 0 5px">| > </span>
-                     </a>
-                    @endif
-                    @if(isset($pagesForUser['max_page']))
-                        <a href="/target-interface/{{$pages['main_page']}}/{{$pagesForUser['max_page']}}">| {{$pagesForUser['max_page']}}</a>
-                    @endif
+                    </a>
+                @endif
+                @if(isset($pagesForUser['max_page']))
+                    <a href="/target-interface/{{$pages['main_page']}}/{{$pagesForUser['max_page']}}">| {{$pagesForUser['max_page']}}</a>
+                @endif
             </div>
-            @endif
-        </span>
+        @endif
         @if(isset($users))
             <div class="d-flex align-content-start flex-wrap target_user_append">
                 @foreach($users as $user)
@@ -55,42 +55,42 @@
         @endif
     </div>
     <div class="target_courses_list">
-        <h4 class="mb-1">Список курсов</h4>
+        <h4 class="mb-1 fs-1">Список курсов</h4>
         <span>
             <div class="mb-3">
-                <form action="/target-interface/search-courses/1/1" method="get">
+                <form action="/target-interface/search-courses/1/1" method="get" class="d-flex">
                     @if(isset($search_course))
-                        <input type="text" name="search_course_field" value="{{$search_course}}">
+                        <input type="text" name="search_course_field" value="{{$search_course}}" class="form-control form-control-md w-25">
                     @else
-                        <input type="text" name="search_course_field">
+                        <input type="text" name="search_course_field" class="form-control form-control-md w-25">
                     @endif
-                    <input type="submit" value="Найти">
+                    <input type="submit" value="Найти" class="btn btn-secondary ms-2">
                 </form>
             </div>
-            @if(isset($pages))
-                <div class="pagination">
-            @if(isset($pages['min_page']))
-                        <a href="/target-interface/{{$pages['min_page']}}/{{$pagesForUser['main_page']}}">{{$pages['min_page']}} |</a>
-                    @endif
-                    @if(isset($pages['prev_page']))
-                        <a href="/target-interface/{{$pages['prev_page']}}/{{$pagesForUser['main_page']}}">
+        </span>
+        @if(isset($pages))
+            <div class="pagination">
+                @if(isset($pages['min_page']))
+                    <a href="/target-interface/{{$pages['min_page']}}/{{$pagesForUser['main_page']}}">{{$pages['min_page']}} |</a>
+                @endif
+                @if(isset($pages['prev_page']))
+                    <a href="/target-interface/{{$pages['prev_page']}}/{{$pagesForUser['main_page']}}">
                         <span style="padding: 0 5px"> < | </span>
-                </a>
-                    @endif
+                    </a>
+                @endif
                 <a href="/target-interface/{{$pages['main_page']}}/{{$pagesForUser['main_page']}}">
                     <span style="padding: 0 5px"> {{$pages['main_page']}} </span>
                 </a>
-            @if(isset($pages['next_page']))
-                        <a href="/target-interface/{{$pages['next_page']}}/{{$pagesForUser['main_page']}}">
+                @if(isset($pages['next_page']))
+                    <a href="/target-interface/{{$pages['next_page']}}/{{$pagesForUser['main_page']}}">
                         <span style="padding: 0 5px">| > </span>
-                </a>
-                    @endif
-                    @if(isset($pages['max_page']))
-                        <a href="/target-interface/{{$pages['max_page']}}/{{$pagesForUser['main_page']}}">| {{$pages['max_page']}}</a>
-                    @endif
+                    </a>
+                @endif
+                @if(isset($pages['max_page']))
+                    <a href="/target-interface/{{$pages['max_page']}}/{{$pagesForUser['main_page']}}">| {{$pages['max_page']}}</a>
+                @endif
             </div>
-            @endif
-        </span>
+        @endif
         @if(isset($courses))
             <div class="d-flex align-content-start flex-wrap target_course_append">
                 @foreach($courses as $course)
