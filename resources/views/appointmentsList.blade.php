@@ -18,28 +18,31 @@
         @if (isset($appointments))
             <table class="table table-striped table-modify">
                 <tr>
+                    <th></th>
                     <th>Название курса</th>
+                    <th>Id курса</th>
                     <th>Студент</th>
+                    <th>Id студента</th>
+                    <th></th>
                     <th></th>
                 </tr>
+
                 @foreach($appointments as $appointment)
                     <tr>
-                        @if ($appointment->course->first()->name !== $current_course)
-                            <td>{{$appointment->course->first()->name}}</td>
-                            @php ($current_course = $appointment->course->first()->name)
-                        @else
-                            <td></td>
-                        @endif
-                            <td>
-                                {{($appointment->student->first()->username)}}</td>
-                            <td>
-                                <a class="confirm_delete btn btn-danger" href="/target/{{$appointment->id}}/destroy">Удалить</a>
-                            </td>
+                        <td>{{$appointment->id}}</td>
+                        <td>{{$appointment->course->name ?? ''}}</td>
+                        <td>{{$appointment->course->id ?? ''}}</td>
+                        <td>{{$appointment->student->username ?? ''}}</td>
+                        <td>{{$appointment->student->id ?? ''}}</td>
+                        <td>
+                            <a class="confirm_delete btn btn-danger"
+                               href="/target/{{$appointment->id}}/destroy">Удалить</a>
+                        </td>
                     </tr>
                 @endforeach
             </table>
             {{ $appointments->links('vendor.pagination.bootstrap-4') }}
-            <a href="/" class = "btn btn-primary mb-3">На главную</a>
+            <a href="/" class="btn btn-primary mb-3">На главную</a>
         @endif
     </div>
     <script src="/assets/js/delete-confirm.js"></script>

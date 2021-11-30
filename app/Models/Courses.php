@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -32,18 +33,18 @@ class Courses extends Authenticatable
     ];
 
     /**
-     * Отношение курса и автора
+     * "У курса 1 автор"
      */
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    /*
-     * возвращает название курса
+    /**
+     * "У курса может быть много назначений"
      */
-    public function getName(): string
+    public function appointments(): HasMany
     {
-        return $this->fillable['name'];
+        return $this->hasMany(Appointment::class, 'course_id');
     }
 }

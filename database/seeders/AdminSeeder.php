@@ -26,6 +26,8 @@ class AdminSeeder extends Seeder
             'password' => Hash::make('I4jSQm2!ndw6s'),
             'date_birth' => date('Y-m-d'),
             'role_id' => 3,
+            'created_at' => date('Y-m-d h:m:s'),
+            'updated_at' => date('Y-m-d h:m:s'),
         ]);
 
         foreach ($this->admins as $admin) {
@@ -35,6 +37,8 @@ class AdminSeeder extends Seeder
                 'password' => Hash::make('12345678'),
                 'date_birth' => date('Y-m-d'),
                 'role_id' => 3,
+                'created_at' => date('Y-m-d h:m:s'),
+                'updated_at' => date('Y-m-d h:m:s'),
             ]);
         }
     }

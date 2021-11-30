@@ -27,11 +27,12 @@
                         <td>{{$user->date_birth}}</td>
                         <td><a href="/users/edit/{{$user->id}}" class="btn btn-primary">Информация</a></td>
                         <td>
-                            <form action="/users/list/?page={{$page}}" method="post">
+                            <form action="/users/list/{{$user->id}}" method="get">
                                 @csrf
                                 <input type="hidden" name="userId" value="{{$user->id}}">
                                 <input type="submit" name="deleteUser" value="Удалить"
-                                       class="confirm_delete btn btn-danger">
+                                       class="confirm_delete btn btn-danger"
+                                        @if (Auth::user()->id === $user->id) disabled @endif>
                             </form>
                         </td>
                     </tr>

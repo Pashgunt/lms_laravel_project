@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+    @include('admin')
     {{ DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs::render('user', $user) }}
 
     <h1 class="head">Редактирование информации о пользователе</h1>
