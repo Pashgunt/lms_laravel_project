@@ -6,6 +6,7 @@
 @endsection
 
 @section('content')
+    @include('admin')
     <h1>Список назначений</h1>
     {{ DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs::render('target') }}
 
