@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\LMS\Repositories\AppointmentRepository;
-use App\Http\Requests\ValidateRequest\SearchCourseRequest;
-use App\Http\Requests\ValidateRequest\SearchUserRequest;
 use App\LMS\Repositories\CourseRepository;
 use App\LMS\Repositories\UserRepository;
 use App\Models\Appointment;
@@ -76,6 +74,7 @@ class TargetInterfaceController extends Controller
             'users' => $usersList,
             'pages' => $pages,
             'pagesForUser' => $pagesForUser,
+            'url' => URL::previous()
         ]);
     }
 
@@ -141,7 +140,6 @@ class TargetInterfaceController extends Controller
         return view('appointmentsList', [
             'appointments' => $appointments,
             'current_course' => '',
-            'url' => URL::previous(),
         ]);
     }
 
