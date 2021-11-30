@@ -13,7 +13,7 @@ class RoleMiddleware
 {
     /**
      * Проверка ролей пользователя
-     * @return \Illuminate\Contracts\Foundation\Application|RedirectResponse|
+     * @return \never
      * \Illuminate\Routing\Redirector|mixed
      */
     public function handle(Request $request, Closure $next, string $role)
@@ -26,6 +26,6 @@ class RoleMiddleware
             }
         }
 
-        return redirect('index');
+        return abort(404);
     }
 }

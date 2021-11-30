@@ -1,7 +1,4 @@
 @extends("layout")
-@section('style')
-    <link rel="stylesheet" href="/assets/css/usersList.css">
-@endsection
 
 @section('content')
     <section class="registration__wrapper _container">

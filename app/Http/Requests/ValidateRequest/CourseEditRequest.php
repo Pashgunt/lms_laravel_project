@@ -21,12 +21,11 @@ class CourseEditRequest extends FormRequest
         return [
             'nameCourse' => 'required|
                             string|
-                            min:10|
+                            min:4|
                             max:50|
-                            not_regex:/(?=.*[!@#$%^&*"])/',
+                            not_regex:/(=[@#$%^&*])/',
             'descCourse' => 'required|
                              string|
-                             min:50|
                              max:255',
         ];
     }
@@ -52,12 +51,12 @@ class CourseEditRequest extends FormRequest
             'nameCourse.required' => 'Поле обязательно к заполнению',
             'nameCourse.not_regex' => 'Не должно быть спецсимволов',
             'descCourse.required' => 'Поле обязательно к заполнению',
-            'nameCourse.regex' => 'Проверьте введенные вами данные',
-            'descCourse.regex' => 'Проверьте введенные вами данные',
-            'nameCourse.min' => 'Минимум 10 символов',
-            'descCourse.min' => 'Минимум 50 символов',
-            'nameCourse.max' => 'Максимум 50 символов',
-            'descCourse.max' => 'Максимум 255 символов',
+            'nameCourse.regex' => 'Проверьте введенные данные ',
+            'descCourse.regex' => 'Проверьте введенные данные',
+            'nameCourse.min' => 'Минимум 10 символов в названии курса',
+            'descCourse.min' => 'Минимум 50 символов в описании курса',
+            'nameCourse.max' => 'Максимум 50 символов в названии курса',
+            'descCourse.max' => 'Максимум 255 символов в описании курса',
         ];
     }
 }

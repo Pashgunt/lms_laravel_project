@@ -1,7 +1,10 @@
 @extends('layout')
+@section('title', 'LMS - управление назначениями')
 
 @section('content')
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    {{ DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs::render('createTarget', $pages['main_page'], $pagesForUser['main_page']) }}
+
 
     <div class="target_user_list mt-3">
         <h4 class="mb-1">Список пользователей</h4>
@@ -107,9 +110,9 @@
             <div class="col mx-auto border border-primary ms-3 courses__dragover" style="min-height: 200px"></div>
         </div>
     </div>
-
-    <div class="btn btn-success col-md-4 offset-md-4 mt-3 button_target">Назначить</div>
-    <a href="{{$url}}" class = "btn btn-primary mt-3 mb-3 block col-md-2 offset-md-5">Назад</a>
+    <br>
+    <a class="btn btn-success col-md-4 offset-md-4 mt-3 button_target">Назначить</a>
+    <a href="/target" class = "btn btn-primary mt-3 mb-3 block col-md-2 offset-md-5">Вернуться к списку назначений</a>
     <div class="success_target col-md-4 offset-md-4 mt-3 alert alert-secondary text-center"></div>
 @endsection
 

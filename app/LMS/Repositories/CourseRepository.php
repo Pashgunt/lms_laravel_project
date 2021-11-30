@@ -23,14 +23,16 @@ class CourseRepository extends Repositories
         ]);
     }
 
-    public function createNewCourse( $request): void
+    public function createNewCourse(Request $request): int
     {
-        $this->model->create([
+        $course = $this->model->create([
             'author_id' => Auth::id(),
             'censorship_id' => 1,
             'name' => $request->nameCourse,
             'description' => strip_tags($request->descCourse),
         ]);
+
+        return $course->id;
     }
 
     /**

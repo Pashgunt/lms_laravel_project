@@ -1,38 +1,30 @@
 @extends('layout')
+@section('title', $title)
 
 @section('content')
     @if(isset($course))
-        <h4>Редактирование курса</h4>
-    @else
-        <h4>Создание курса</h4>
-    @endif
-
-    @if(isset($course))
+        {{ DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs::render('editCourse', $course) }}
+        <h1>Редактирование курса</h1>
         <form action="/courses/{{$course->id}}/edit" method="post">
+    @else
+        {{ DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs::render('createCourse') }}
+        <h1>Создание курса</h1>
+        <form action="/courses" method="post">
+    @endif
             @csrf
             @error('nameCourse')
             <div class="alert-danger">{{ $message }}</div>
             @enderror
-            <input type="text" value="{{old('nameCourse', $course->name)}}" class="form-control form-control-lg"
+            <input type="text" value="{{old('nameCourse', isset($course->name)?:'')}}" class="form-control form-control-lg"
                    name="nameCourse">
             @error('descCourse')
             <div class="alert-danger">{{ $message }}</div>
             @enderror
-            <textarea id="basic-wysiwyg" name="descCourse">{{old('descCourse', $course->description)}}</textarea>
-            <input type="submit" value="Изменить" class="btn btn-success">
+            <textarea id="basic-wysiwyg"
+                      name="descCourse">{{old('descCourse', isset($course->description)?:'')}}</textarea>
+            <br/>
+            <input type="submit" value="Сохранить изменения" class="btn btn-success">
         </form>
-    @else
-        <form action="/courses/create" method="get">
-            @csrf
-            <input placeholder="Название курса" type="text" value="" class="form-control form-control-lg"
-                   name="nameCourse">
-            <textarea placeholder="Описание курса" id="basic-wysiwyg" name="descCourse"></textarea>
-            <br>
-            <input type="submit" value="Сохранить" class="btn btn-success">
-        </form>
-    @endif
-    <a href="{{$url}}" class = "btn btn-primary mb-3">Назад</a>
-
 @endsection
 
 @section('script')

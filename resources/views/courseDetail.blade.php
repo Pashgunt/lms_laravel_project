@@ -1,11 +1,14 @@
 @extends('layout')
+@section('title', 'LMS - информация о курсе ' . $course->name)
 
 @section('style')
     <link rel="stylesheet" href="/assets/css/courseInfo.css">
 @endsection
 
 @section('content')
-    <h4>{{$course->name}}</h4>
+    {{ DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs::render('courseDetail', $course) }}
+
+    <h1>{{$course->name}}</h1>
     <br>
     <div><b>Автор: </b> {{$course->author->username}}</div>
     <div><b>Дата создания: </b> {{$course->created_at}}</div>
@@ -49,8 +52,9 @@
                 </tr>
             @endforeach
         </table>
-        <a href="/courses" class="btn btn-primary">Назад</a>
+        <a href="/courses" class="btn btn-primary">Вернуться к списку курсов</a>
         <a href="/courses/{{$course->id}}/activity/add" class="btn btn-success">Добавить</a>
     </div>
+    <br/>
     <script src="/assets/js/delete-confirm.js"></script>
 @endsection

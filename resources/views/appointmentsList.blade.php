@@ -1,11 +1,13 @@
 @extends('layout')
+@section('title', 'LMS - управление назначениями')
 
 @section('style')
     <link rel="stylesheet" href="/assets/css/usersList.css">
 @endsection
 
 @section('content')
-    <h4>Список назначений</h4>
+    <h1>Список назначений</h1>
+    {{ DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs::render('target') }}
 
     <a href="/target-interface/1/1" class="btn btn-primary">
         Создать назначение
@@ -35,8 +37,8 @@
                     </tr>
                 @endforeach
             </table>
-            <a href="/" class = "btn btn-primary mb-3">Назад</a>
             {{ $appointments->links('vendor.pagination.bootstrap-4') }}
+            <a href="/" class = "btn btn-primary mb-3">На главную</a>
         @endif
     </div>
     <script src="/assets/js/delete-confirm.js"></script>

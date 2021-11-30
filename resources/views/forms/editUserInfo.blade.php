@@ -5,7 +5,9 @@
 @endsection
 
 @section('content')
-    <h4 class="head">Редактирование информации о пользователе</h4>
+    {{ DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs::render('user', $user) }}
+
+    <h1 class="head">Редактирование информации о пользователе</h1>
     <div class="editUserInfo">
         <form action="/users/edit/{{$user->id}}" method="post">
             @csrf
