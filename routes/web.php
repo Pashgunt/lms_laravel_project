@@ -23,7 +23,6 @@ use App\Http\Controllers\Auth\PageRegisterUserController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', [MainPageController::class, 'main'])
     ->middleware(['auth'])
     ->name('index');
@@ -71,9 +70,11 @@ Route::post('/reset-password', [NewPasswordController::class, 'store'])
  * Маршруты курсов
  */
 Route::middleware(['auth', 'role:admin|manager'])->prefix('courses')->group(function () {
-    Route::resource('', CourseController::class)->except(['destroy', 'edit']);
+    Route::resource('', CourseController::class)->except(['destroy', 'edit', 'show'])
+        ->names(['index' => 'courses', 'create' => 'createCourse']);
+    Route::get('/{courseId}', [CourseController::class, 'show'])->name('courseDetail');
     Route::get('/{courseId}/destroy', [CourseController::class, 'destroy']);
-    Route::get('/{courseId}/edit', [CourseController::class, 'edit']);
+    Route::get('/{courseId}/edit', [CourseController::class, 'edit'])->name('editCourse');
     Route::post('/{courseId}/edit', [CourseController::class, 'editCourse']);
     Route::get('/activity/{activityId}', [ActivitiesController::class, 'info']);
     Route::get('/activity/{activityId}/edit', [ActivitiesController::class, 'editPage']);
@@ -89,10 +90,10 @@ Route::middleware(['auth', 'role:admin|manager'])->prefix('courses')->group(func
 /**
  * Маршруты пользователей
  */
-Route::middleware(['auth', 'role:admin|manager'])->prefix('users')->group(function () {
-    Route::get('/list', [UsersListController::class, 'main']);
+Route::middleware(['auth', 'role:admin'])->prefix('users')->group(function () {
+    Route::get('/list', [UsersListController::class, 'main'])->name('users');
     Route::post('/list/{page}', [UsersListController::class, 'delete']);
-    Route::get('/edit/{userId}', [UsersListController::class, 'editPage']);
+    Route::get('/edit/{userId}', [UsersListController::class, 'editPage'])->name('userDetail');
     Route::post('/edit/{userId}', [UsersListController::class, 'editInfo']);
 });
 
@@ -100,7 +101,7 @@ Route::middleware(['auth', 'role:admin|manager'])->prefix('users')->group(functi
  * Маршруты назначений
  */
 Route::middleware(['auth', 'role:admin|manager'])->prefix('target')->group(function () {
-    Route::get('', [TargetInterfaceController::class, 'show']);
+    Route::get('', [TargetInterfaceController::class, 'show'])->name('target');
     Route::get('/{target_id}/destroy', [TargetInterfaceController::class, 'destroy']);
 });
 
@@ -108,7 +109,8 @@ Route::middleware(['auth', 'role:admin|manager'])->prefix('target')->group(funct
  * Маршруты назначений 2
  */
 Route::middleware(['auth', 'role:admin|manager'])->prefix('target-interface')->group(function () {
-    Route::get('/{page_course}/{page_user}', [TargetInterfaceController::class, 'allInfo']);
+    Route::get('/{page_course}/{page_user}', [TargetInterfaceController::class, 'allInfo'])
+        ->name('createTarget');
     Route::post('/{page_course}/{page_user}', [TargetInterfaceController::class, 'createAppointment']);
     Route::get('/search-user/{page_course}/{page_user}', [TargetInterfaceController::class, 'searchUser']);
     Route::get('/search-courses/{page_course}/{page_user}', [TargetInterfaceController::class, 'searchCourses']);

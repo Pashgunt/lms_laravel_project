@@ -5,8 +5,11 @@
     <link rel="stylesheet" href="/assets/css/usersList.css">
 @endsection
 
+
 @section('content')
     @include('admin')
+    {{ DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs::render('courses') }}
+
     <h1>Список курсов</h1>
 
     <a href="/courses/create" class="btn btn-primary">
@@ -44,8 +47,9 @@
                     </tr>
                 @endforeach
             </table>
-            <a href="/" class = "btn btn-primary mb-3">Назад</a>
             {{ $coursesList->links('vendor.pagination.bootstrap-4') }}
+        <br>
+            <a href="/" class = "btn btn-primary mb-3">На главную</a>
         @endif
     </div>
     <script src="/assets/js/delete-confirm.js"></script>

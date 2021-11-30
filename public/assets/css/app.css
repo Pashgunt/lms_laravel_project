@@ -80,3 +80,8 @@ a {
     bottom: 0;
 }
 
+.rabbit {
+    display: block;
+    text-align: center;
+}
+

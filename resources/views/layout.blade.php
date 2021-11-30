@@ -22,7 +22,10 @@
                 {{Auth::user()->username}}
                 @if (mb_strtolower(Auth::user()->role->role_name) === \App\Models\Role::ROLE_ADMIN)
                     <a href="/users/list" class="header__registration" role="button">Панель администратора</a>
+                @elseif (mb_strtolower(Auth::user()->role->role_name) === \App\Models\Role::ROLE_MANAGER)
+                    <a href="/courses" class="header__registration" role="button">Панель менеджера курсов</a>
                 @endif
+
                 <a href="/logout" class="header__registration">Выйти</a>
             @else
                 <a href="/login" class="header__registration">Авторизация</a>
@@ -33,19 +36,6 @@
 </header>
 <section class="content">
     <section class="content__wrapper _container">
-        <div class="breadcrumbs">
-            @if (isset($breadcrumbs))
-                <a href="/">Главная</a>
-                @foreach ($breadcrumbs as $link => $breadcrumb)
-                    →
-                    @if ($link)
-                        <a href="{{$link}}"> {{$breadcrumb}}</a>
-                    @else
-                        {{$breadcrumb}}
-                    @endif
-                @endforeach
-            @endif
-        </div>
         @yield('content')
     </section>
 </section>

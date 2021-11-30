@@ -17,6 +17,7 @@ class MainPageController
     {
         $user = Auth::user();
         $appointmentCourses = [];
+
         if (mb_strtolower($user->role->role_name) === Role::ROLE_USER) {
             foreach ($user->appointments as $appointment) {
                 $appointmentCourses[] = $appointment->course->first();
@@ -27,10 +28,5 @@ class MainPageController
             'user' => $user,
             'appointmentCourses' => $appointmentCourses,
         ]);
-    }
-
-    public function admin(): RedirectResponse
-    {
-        return redirect('users');
     }
 }
