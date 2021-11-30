@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\LMS\Repositories\CourseRepository;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Validator;
 
 /*
  * Контроллер, реализующий CRUD-операции для курсов
@@ -36,24 +37,25 @@ class CourseController extends Controller
             return view('errors.404');
         }
 
-        return view('coursesList', [
-            'coursesList' => $coursesList,
-        ]);
+        return view('coursesList', ['coursesList' => $coursesList]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Отображает форму создания курса
      */
-    public function create(Request $request)
+    public function create(): View
     {
-        if (!empty($request->nameCourse)) {
-            $this->repository->createNewCourse($request);
+        return view('courseEdit', ['title' => 'LMS - создание нового курса']);
+    }
 
+    /**
+     * Сохраняет провалидированные данные в базу после метода create
+     */
+    public function store(CourseEditRequest $request): RedirectResponse
+    {
+        $request->validated();
 
-            return redirect('/courses');
-        }
-
-        return view('courseEdit', ['url' => URL::previous()]);
+        return redirect('/courses/' . $this->repository->createNewCourse($request));
     }
 
     /**
@@ -67,19 +69,27 @@ class CourseController extends Controller
         ]);
     }
 
+    /**
+     * Отображает форму изменения курса
+     */
     public function edit(Courses $course): View
     {
-        return view('courseEdit', ['course' => $course, 'url' => URL::previous()]);
+        return view('courseEdit', [
+            'course' => $course,
+            'title' => 'LMS - редактирование курса ' . $course->name
+        ]);
     }
 
+    /**
+     * Валидирует данные для изменения курса
+     */
     public function editCourse(CourseEditRequest $request, Courses $course): RedirectResponse
     {
-
         $request->validated();
 
         $this->repository->editCourseInfo($request, $course);
 
-        return redirect()->to('/courses');
+        return redirect()->to('/courses/' . $course->id);
     }
 
     /**

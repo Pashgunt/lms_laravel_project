@@ -20,8 +20,6 @@ class User extends Authenticatable
     use Notifiable;
 
     public $timestamps = false;
-    public array $breadcrumbs = ['/users/list/' => 'Список пользователей'];
-    public string $genitive = 'пользователя';
 
     /**
      * The attributes that are mass assignable.
