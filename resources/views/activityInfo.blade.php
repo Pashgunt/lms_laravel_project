@@ -6,8 +6,10 @@
 
 @section ('content')
     @include('admin')
-    <h4>{{$activity->activity_title}}</h4>
-    <p>{!! $activity->text !!}</p>
-    <a href="/courses/activity/{{$activity->id}}/edit" class="btn btn-warning">Редактировать</a>
-    <a href="/courses/{{$activity->course_id}}" class="btn btn-primary">Назад</a>
+    @foreach($activities as $activity)
+        <h4>{{$activity->title}}</h4>
+        <p>{!! $activity->content !!}</p>
+        <a href="/courses/activity/{{$activity->id}}/edit-page" class="btn btn-warning">Редактировать</a>
+        <a href="/courses/{{$courseId[0]->course_id}}" class="btn btn-primary">Назад</a>
+    @endforeach
 @endsection

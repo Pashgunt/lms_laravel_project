@@ -77,11 +77,11 @@ Route::middleware(['auth', 'role:admin|manager'])->prefix('courses')->group(func
     Route::get('/{courseId}/destroy', [CourseController::class, 'destroy']);
     Route::get('/{courseId}/edit', [CourseController::class, 'edit'])->name('editCourse');
     Route::post('/{courseId}/edit', [CourseController::class, 'editCourse']);
-    Route::get('/activity/{activityId}', [ActivitiesController::class, 'info']);
-    Route::get('/activity/{activityId}/edit', [ActivitiesController::class, 'editPage']);
-    Route::get('/{courseId}/sort/{column}/{sort_type}', [ActivitiesController::class, 'getSortedList']);
+    Route::get('/activity/{contentId}/edit-page', [ActivitiesController::class, 'editPage']);
+    Route::get('/activity/{activityType}/{contentId}', [ActivitiesController::class, 'info']);
     Route::post('/activity/{activityId}/edit', [ActivitiesController::class, 'editActivity']);
-    Route::get('/activity/{activityId}/delete', [ActivitiesController::class, 'delete']);
+    Route::get('/{courseId}/sort/{column}/{sort_type}', [ActivitiesController::class, 'getSortedList']);
+    Route::get('/activity/{activityType}/{contentId}/delete', [ActivitiesController::class, 'delete']);
     Route::get('/{courseId}/activity/add', [ActivitiesController::class, 'addPage']);
     Route::post('/{courseId}/activity/add', [ActivitiesController::class, 'addActivity']);
     Route::get('/{courseId}/activity/add', [ActivitiesController::class, 'addPage']);

@@ -15,7 +15,6 @@ class ActivitiesText extends Migration
     {
         Schema::create('activities_text', function (Blueprint $table) {
             $table->id();
-            $table->integer('activity_id');
             $table->mediumText('title');
             $table->longText('content');
         });

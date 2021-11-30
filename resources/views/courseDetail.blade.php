@@ -33,8 +33,8 @@
             @foreach ($activities as $activity)
                 <tr>
                     <td>{{$activity->priority}}</td>
-                    <td><a href="/courses/activity/{{$activity->id}}">
-                            {{$activity->activity_title}}
+                    <td><a href="/courses/activity/{{$activity->type_id}}/{{$activity->content_id}}">
+                            {{$activity->title}}
                         </a>
                     </td>
                     <td class="priority-change">
@@ -46,7 +46,7 @@
                         </a>
                     </td>
                     <td>
-                        <a href="/courses/activity/{{$activity->id}}/delete" class="confirm_delete">
+                        <a href="/courses/activity/{{$activity->type_id}}/{{$activity->content_id}}/delete" class="confirm_delete">
                             <img src="/assets/img/icons/delete.png" alt="Delete" class="delete-icon">
                         </a>
                     </td>

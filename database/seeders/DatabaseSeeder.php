@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
             ActivitiesSeeder::class,
             AuthorSeeder::class,
             ActivitiesTypeSeeder::class,
-            AppointmentSeeder::class
+            AppointmentSeeder::class,
+            ActivitiesTextSeeder::class
         ]);
     }
 }

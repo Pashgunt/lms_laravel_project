@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ValidateRequest\ActivityAddRequest;
+use App\LMS\Repositories\ActivitiesTextRepository;
 use App\LMS\Repositories\ActivityRepository;
 use App\Models\Activities;
+use App\Models\ActivitiesText;
 use App\Models\Courses;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 /** Контроллер для CRUD вложенных элементов курса (Activities)  */
@@ -21,10 +24,14 @@ class ActivitiesController extends Controller
     /**
      * Отображение страницы с информацией об элементе
      */
-    public function info(Activities $activity)
+    public function info(string $activityType, string $contentId)
     {
         return view('activityInfo', [
-                'activity' => $activity
+                'activities' => $this
+                    ->getRepository($activityType)
+                    ->getActivityInfo($contentId),
+                'courseId' => $this->repository->getCourseId($activityType, $contentId),
+                'activityTypeId' => $activityType
             ]
         );
     }
@@ -45,11 +52,16 @@ class ActivitiesController extends Controller
     /**
      * Добавление элемента
      */
-    public function addActivity(ActivityAddRequest $request, Courses $course)
+    public function addActivity(Request $request, Courses $course)
     {
-        $request->validated();
+        $repository = $this->getRepository($request->input('type_id'));
+        $repository->create([
+            'title' => $request->input('title'),
+            'content' => $request->input('content')
+        ]);
+        $contentId = $repository->getLastId();
 
-        $this->repository->createActivity($request->all(), $course);
+        $this->repository->createActivity($request->all(), $course, $contentId[0]['id']);
 
         return redirect("/courses/$course->id");
     }
@@ -57,34 +69,35 @@ class ActivitiesController extends Controller
     /**
      * Отображение формы редактирования элемента
      */
-    public function editPage(Activities $activity)
+    public function editPage(string $contentId)
     {
         return view('forms/editActivityInfo', [
-            'activity' => $activity
+            'activities' => $this->repository->getActivityInfo($contentId)
         ]);
     }
 
     /**
      * Редактирование элемента
      */
-    public function editActivity(ActivityAddRequest $request, Activities $activity)
+    public function editActivity(Request $request, Activities $activity)
     {
+        $this->getRepository($activity->type_id)->editActivity($request, $activity);
 
-        $request->validated();
-
-        $this->repository->editActivity($request, $activity->id);
-
-        return redirect("/courses/activity/$activity->id/edit");
+        return $this->editPage($activity->content_id);
     }
 
     /**
      * Удаление элемента
      */
-    public function delete(Activities $activity)
+    public function delete(string $type, string $contentId)
     {
-        $this->repository->delete($activity->getKey());
+        $this->getRepository((int)$type)->delete((int)$contentId);
+        $collections = $this->repository->getCourseId($type, $contentId);
+        foreach ($collections as $item) {
+            $id = $item->course_id;
+        }
 
-        return redirect("/courses/$activity->course_id");
+        return redirect("/courses/$id");
     }
 
     /**
@@ -115,6 +128,17 @@ class ActivitiesController extends Controller
         $this->repository->changePriority($activity, $eventType);
 
         return redirect("/courses/$activity->course_id");
+    }
+
+    /**
+     * Получение нужного репозитория по type_id
+     */
+    private function getRepository(int $type_id)
+    {
+        switch ($type_id) {
+            case 1:
+                return new ActivitiesTextRepository(new ActivitiesText());
+        }
     }
 
 }

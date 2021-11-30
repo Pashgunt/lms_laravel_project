@@ -15,13 +15,40 @@ use Illuminate\Support\Facades\Schema;
 class ActivityRepository extends Repositories
 {
     /**
+     * Получение информации об элементе
+     */
+    public function getActivityInfo(string $contentId)
+    {
+        return $this->model
+            ->select(['activities.id', 'activities.course_id', 'activities.content_id', 'activities.type_id', 'activities.priority', 'activities_text.title', 'activities_text.content'])
+            ->where('activities.content_id', '=', $contentId)
+            ->join('activities_text', 'activities_text.id', '=', 'activities.content_id')
+            ->get();
+    }
+
+    /**
      * Получение коллекции элементов курса
      */
     public function getCourseActivities(Courses $course): Collection
     {
         return $this->model
+            ->select(['activities.id', 'activities.course_id', 'activities.content_id', 'activities.type_id', 'activities.priority', 'activities_text.title', 'activities_text.content'])
             ->where('course_id', '=', $course->getKey())
             ->orderBy('priority', 'asc')
+            ->join('activities_text', 'activities_text.id', '=', 'activities.content_id')
+            ->get();
+    }
+
+    /**
+     * Получение сортированной коллекции
+     */
+    public function getSortedList(Courses $course, string $param, string $type): Collection
+    {
+        return $this->model
+            ->select(['activities.id', 'activities.course_id', 'activities.content_id', 'activities.type_id', 'activities.priority', 'activities_text.title', 'activities_text.content'])
+            ->where('course_id', '=', $course->getKey())
+            ->orderBy($param, $type)
+            ->join('activities_text', 'activities_text.id', '=', 'activities.content_id')
             ->get();
     }
 
@@ -44,47 +71,16 @@ class ActivityRepository extends Repositories
     }
 
     /**
-     * Редактирование информации вложенного элемента курса
-     */
-    public function editActivity(Request $request, int $activityId): void
-    {
-        $this->model
-            ->where('id', '=', $activityId)
-            ->update([
-                'text' => $request->input('activity_text'),
-                'activity_title' => $request->input('activity_title'),
-                'link' => $request->input('activity_link')
-            ]);
-    }
-
-    /**
      * Формирование массива на добавление элемента
      */
-    public function createActivity(array $data, Courses $course): ?Activities
+    public function createActivity(array $data, Courses $course, int $contentId): Activities
     {
-        if (isset($data['activity_text']) && isset($data['activity_type']) && isset($data['activity_title'])) {
-            return $this->model->create([
-                'course_id' => $course->getKey(),
-                'text' => $data['activity_text'],
-                'activity_type_id' => $data['activity_type'],
-                'activity_title' => $data['activity_title'],
-                'priority' => $this->getLastPriority($course) + 1
-            ]);
-        }
-
-        return null;
-
-    }
-
-    /**
-     * Получение сортированной коллекции
-     */
-    public function getSortedList(Courses $course, string $param, string $type): Collection
-    {
-        return $this->model
-            ->where('course_id', '=', $course->getKey())
-            ->orderBy($param, $type)
-            ->get();
+        return $this->model->create([
+            'course_id' => $course->getKey(),
+            'type_id' => $data['type_id'],
+            'priority' => $this->getLastPriority($course) + 1,
+            'content_id' => $contentId
+        ]);
     }
 
     /**
@@ -110,15 +106,24 @@ class ActivityRepository extends Repositories
         }
 
         $this->model
-            ->where('priority','=',$param)
+            ->where('priority', '=', $param)
             ->update([
                 'priority' => $activity->priority
             ]);
 
         $this->model
-            ->where('id','=',$activity->getKey())
+            ->where('id', '=', $activity->getKey())
             ->update([
                 'priority' => $param
             ]);
+    }
+
+    public function getCourseId(string $type, string $contentId)
+    {
+        return $this->model
+            ->select('course_id')
+            ->where('type_id', '=', $type)
+            ->where('content_id', '=', $contentId)
+            ->get();
     }
 }

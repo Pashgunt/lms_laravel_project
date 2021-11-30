@@ -10,7 +10,7 @@
         @csrf
         <label>
             Тип -
-            <select name="activity_type" style="margin-bottom: 20px">
+            <select name="type_id" style="margin-bottom: 20px">
                 @foreach($activitiesType as $type => $id)
                     <option value="{{$id}}">{{$type}}</option>
                 @endforeach
@@ -21,11 +21,11 @@
             @error('activity_title')
             <div class="alert-danger">{{ $message }}</div>
             @enderror
-            <input type="text" name="activity_title" placeholder="Заголовок" style="margin-bottom: 20px" value="{{ old('activity_title') }}">
+            <input type="text" name="title" placeholder="Заголовок" style="margin-bottom: 20px" value="{{ old('activity_title') }}">
             @error('activity_text')
             <div class="alert-danger">{{ $message }}</div>
             @enderror
-            <textarea name="activity_text" id="basic-wysiwyg" value="{{ old('activity_text') }}">
+            <textarea name="content" id="basic-wysiwyg" value="{{ old('activity_text') }}">
             </textarea>
         </label> <br>
         <a href="/courses/{{$courseId}}" class="btn btn-primary" style="margin-top: 20px">Назад</a>
