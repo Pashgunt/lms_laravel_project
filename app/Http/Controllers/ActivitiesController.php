@@ -24,14 +24,16 @@ class ActivitiesController extends Controller
     /**
      * Отображение страницы с информацией об элементе
      */
-    public function info(string $activityType, string $contentId)
+    public function info(Activities $activities)
     {
+        $activity_type = $activities->type_id;
+
         return view('activityInfo', [
                 'activities' => $this
-                    ->getRepository($activityType)
-                    ->getActivityInfo($contentId),
-                'courseId' => $this->repository->getCourseId($activityType, $contentId),
-                'activityTypeId' => $activityType
+                    ->getRepository($activity_type)
+                    ->getActivityInfo($activities->content_id),
+                'courseId' => $activities->course_id,
+                'activityTypeId' => $activity_type
             ]
         );
     }
@@ -89,15 +91,11 @@ class ActivitiesController extends Controller
     /**
      * Удаление элемента
      */
-    public function delete(string $type, string $contentId)
+    public function delete(Activities $activities)
     {
-        $this->getRepository((int)$type)->delete((int)$contentId);
-        $collections = $this->repository->getCourseId($type, $contentId);
-        foreach ($collections as $item) {
-            $id = $item->course_id;
-        }
+        $this->getRepository($activities->type_id)->delete($activities->content_id);
 
-        return redirect("/courses/$id");
+        return redirect("/courses/$activities->course_id");
     }
 
     /**

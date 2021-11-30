@@ -78,10 +78,10 @@ Route::middleware(['auth', 'role:admin|manager'])->prefix('courses')->group(func
     Route::get('/{courseId}/edit', [CourseController::class, 'edit'])->name('editCourse');
     Route::post('/{courseId}/edit', [CourseController::class, 'editCourse']);
     Route::get('/activity/{contentId}/edit-page', [ActivitiesController::class, 'editPage']);
-    Route::get('/activity/{activityType}/{contentId}', [ActivitiesController::class, 'info']);
+    Route::get('/activity/{activityId}', [ActivitiesController::class, 'info']);
     Route::post('/activity/{activityId}/edit', [ActivitiesController::class, 'editActivity']);
     Route::get('/{courseId}/sort/{column}/{sort_type}', [ActivitiesController::class, 'getSortedList']);
-    Route::get('/activity/{activityType}/{contentId}/delete', [ActivitiesController::class, 'delete']);
+    Route::get('/activity/{activityId}/delete', [ActivitiesController::class, 'delete']);
     Route::get('/{courseId}/activity/add', [ActivitiesController::class, 'addPage']);
     Route::post('/{courseId}/activity/add', [ActivitiesController::class, 'addActivity']);
     Route::get('/{courseId}/activity/add', [ActivitiesController::class, 'addPage']);
@@ -93,9 +93,9 @@ Route::middleware(['auth', 'role:admin|manager'])->prefix('courses')->group(func
  */
 Route::middleware(['auth', 'role:admin'])->prefix('users')->group(function () {
     Route::get('/list', [UsersListController::class, 'main'])->name('users');
-    Route::post('/list/{page}', [UsersListController::class, 'delete']);
+    Route::post('/list', [UsersListController::class, 'delete']);
     Route::get('/edit/{userId}', [UsersListController::class, 'editPage'])->name('userDetail');
-    Route::post('/edit/{userId}', [UsersListController::class, 'editInfo']);
+    Route::post('/edit/{userId}', [UsersListController::class, 'editInfo'])->name('userDetail');
 });
 
 /**

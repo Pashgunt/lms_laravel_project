@@ -23,14 +23,6 @@ class UsersListController extends Controller
     }
 
     /**
-     * Перенаправление на нумерованную страницу
-     */
-    public function redirect(): View
-    {
-        return $this->main('1');
-    }
-
-    /**
      * Отображение страницы со списком пользователей
      */
     public function main(): View

@@ -26,7 +26,7 @@
                 <textarea name="content"
                           id="basic-wysiwyg">{{old('content', $activity->content)}}</textarea>
             </label><br>
-            <a href="/courses/activity/{{$activity->type_id}}/{{$activity->id}}" class="btn btn-primary" style="margin-top: 20px">Назад</a>
+            <a href="/courses/activity/{{$activity->id}}" class="btn btn-primary" style="margin-top: 20px">Назад</a>
             <input type="submit" name="edit_activity" value="Сохранить" class="btn btn-success"
                    style="margin-top: 20px">
         </form>
