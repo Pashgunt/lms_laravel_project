@@ -36,7 +36,7 @@ class Courses extends Authenticatable
      */
     public function author(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'author_id');
     }
 
     /**

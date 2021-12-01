@@ -6,6 +6,8 @@ use App\LMS\Repositories\AppointmentRepository;
 use App\LMS\Repositories\CourseRepository;
 use App\LMS\Repositories\UserRepository;
 use App\Models\Appointment;
+use App\Models\Courses;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -128,7 +130,8 @@ class TargetInterfaceController extends Controller
         return view('appointments' . ucfirst($filter) . 'sList', [
             'appointments' => $appointments,
             'searchResult' => $searchResult,
-            'searchParam' => $searchParam
+            'searchParam' => $searchParam,
+            'url' => URL::previous()
         ]);
     }
 
@@ -149,6 +152,25 @@ class TargetInterfaceController extends Controller
     public function students(Request $request)
     {
         return $this->show($request, 'user');
+    }
+
+    /*
+     * Детальный перечень назначений для курса
+     */
+    public function showCourseDetail(Courses $course, string $filter = 'course'): View
+    {
+        return view('appointments' . ucfirst($filter) . 'ListDetail', [
+            'course' => $course,
+            'url' => URL::previous()
+        ]);
+    }
+
+    public function showStudentDetail(User $user, string $filter = 'user'): View
+    {
+        return view('appointments' . ucfirst($filter) . 'ListDetail', [
+            'user' => $user,
+            'url' => URL::previous()
+        ]);
     }
 
 

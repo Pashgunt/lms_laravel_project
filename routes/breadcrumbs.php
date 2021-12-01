@@ -37,6 +37,22 @@ Breadcrumbs::for('target', function ($trail) {
 });
 
 /*
+ * Детальная информация по назначениям к курсу
+ */
+Breadcrumbs::for('target.course', function ($trail, $course) {
+    $trail->parent('target');
+    $trail->push('Список назначений для курса ' . $course->name, route('target.course', $course->id));
+});
+
+/*
+ * Детальная информация по назначениям для студента
+ */
+Breadcrumbs::for('target.student', function ($trail, $user) {
+    $trail->parent('target');
+    $trail->push('Список назначений для студента ' . $user->username, route('target.student', $user->id));
+});
+
+/*
  * Список назначений по студентам
  */
 Breadcrumbs::for('students', function ($trail) {

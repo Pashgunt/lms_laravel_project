@@ -16,17 +16,15 @@ class MainPageController
     public function main(): View
     {
         $user = Auth::user();
-        $appointmentCourses = [];
+        $appointments = [];
 
         if (mb_strtolower($user->role->role_name) === Role::ROLE_USER) {
-            foreach ($user->appointments as $appointment) {
-                $appointmentCourses[] = $appointment->course->first();
-            }
+            $appointments = $user->appointments;
         }
 
         return view('index', [
             'user' => $user,
-            'appointmentCourses' => $appointmentCourses,
+            'appointments' => $appointments,
         ]);
     }
 }
