@@ -19,17 +19,20 @@ class CourseRepository extends Repositories
     public function editCourseInfo($request, Courses $course): void
     {
         $course->update(["name" => $request->nameCourse,
-            "description" => strip_tags($request->descCourse),
+            "description" => $request->descCourse,
         ]);
     }
 
+    /**
+     * Метод для создания новго курса
+     */
     public function createNewCourse(Request $request): int
     {
         $course = $this->model->create([
             'author_id' => Auth::id(),
             'censorship_id' => 1,
             'name' => $request->nameCourse,
-            'description' => strip_tags($request->descCourse),
+            'description' => $request->descCourse,
         ]);
 
         return $course->id;
@@ -44,13 +47,9 @@ class CourseRepository extends Repositories
             ->where('name', 'LIKE', '%' . $request . '%')->get();
     }
 
-    public function getCourseList(int $page, int $count)
+    /** Получение списка курсов через пагинацию для страницы назначений*/
+    public function getCourseList(int $count)
     {
-        return (new Paginate($this->model))->paginate($count, $page);
-    }
-
-    public function generatePageNumbersForUsers(int $page, int $count)
-    {
-        return (new Paginate($this->model))->getPagesNumber($page, $count);
+        return $this->paginateForCourse($count);
     }
 }

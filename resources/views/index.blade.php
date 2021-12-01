@@ -17,7 +17,7 @@
                 @foreach($appointmentCourses as $course)
                     <tr>
                         <td>{{$course->name}}</td>
-                        <td>{{$course->description}}</td>
+                        <td>{!! $course->description !!}</td>
                         <td><a href="/" class="btn btn-primary">Перейти к обучению</a>></td>
                     </tr>
                 @endforeach

@@ -16,7 +16,7 @@
     @isset($course->updated_at)
         <div><b>Дата последнего редактирования: </b> {{$course->updated_at}}</div>
     @endif
-    <div><b>Описание: </b> {{$course->description}}</div>
+    <div><b>Описание: </b> {!!$course->description!!}</div>
     <br>
     <div>
         <b>Содержание курса: </b><br>
