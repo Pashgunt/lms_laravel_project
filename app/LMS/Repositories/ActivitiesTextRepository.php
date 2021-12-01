@@ -14,12 +14,11 @@ class ActivitiesTextRepository extends Repositories
     /**
      * Добавление элемента
      */
-    public function createActivity(Request $request){
+    public function createActivity(Request $request)
+    {
         $this->create([
-            [
-                'title' => $request->input('title'),
-                'content' => $request->input('content')
-            ]
+            'title' => $request->input('title'),
+            'content' => $request->input('content')
         ]);
     }
 
@@ -43,7 +42,7 @@ class ActivitiesTextRepository extends Repositories
     {
         return $this->model
             ->select('id')
-            ->orderBy('id','desc')
+            ->orderBy('id', 'desc')
             ->limit(1)
             ->get();
     }
@@ -51,7 +50,7 @@ class ActivitiesTextRepository extends Repositories
     /**
      * Получение информации по id элемента
      */
-    public function getActivityInfo (string $id)
+    public function getActivityInfo(string $id)
     {
         return $this->model->where('id', '=', "$id")->get();
     }

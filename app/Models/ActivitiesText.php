@@ -9,7 +9,7 @@ class ActivitiesText extends Model
 {
     use HasFactory;
 
-    protected $table = 'activities_text';
+    public $table = 'activities_text';
 
     public $timestamps = false;
 
