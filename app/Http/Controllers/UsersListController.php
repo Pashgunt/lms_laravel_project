@@ -7,7 +7,6 @@ use App\LMS\Repositories\UserRepository;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\URL;
 use Illuminate\View\View;
 
 /**

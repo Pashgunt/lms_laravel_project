@@ -39,9 +39,10 @@ class UserRepository extends Repositories
         return $this->paginate($count);
     }
 
-    public function getUserListWithConditional(int $page, int $count, int $id)
+    /** Получение списка пользователей через пагинацию для страницы назначений*/
+    public function getSpecialUserListController(int $count)
     {
-        return (new Paginate($this->model))->paginateWithWhere($count, $page, $id);
+        return $this->paginateForUsers($count);
     }
 
     /** Редактирование информации о пользователе */
@@ -54,12 +55,11 @@ class UserRepository extends Repositories
 
     /**
      * Метод для реализации поиска по пользователям
-     * @return mixed
      */
-    public function searchUser(string $request, int $id = 1)
+    public function searchUser($request)
     {
         return $this->model
-            ->where('username', 'LIKE', '%' . $request . '%')->where('role_id', '=', $id)->get();
+            ->where('username', 'LIKE', '%' . $request . '%')->get();
     }
 
     /** Генерация номеров страниц */
