@@ -23,10 +23,9 @@
             @include('forms/activities/addTestActivity')
             @include('forms/activities/addVideoActivity')
             @include('forms/activities/addImageActivity')
+            <a href="/courses/{{$courseId}}" class="btn btn-primary" style="margin-top: 20px">Назад</a>
+            <input type="submit" name="add_activity" value="Добавить" class="btn btn-success" style="margin-top: 20px">
         </div>
-        <br>
-        <a href="/courses/{{$courseId}}" class="btn btn-primary" style="margin-top: 20px">Назад</a>
-        <input type="submit" name="add_activity" value="Добавить" class="btn btn-success" style="margin-top: 20px">
     </form>
     <script src="/assets/js/ActivitiesAddForm.js"></script>
     <script src="/assets/js/activities_test.js"></script>

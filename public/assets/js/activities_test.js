@@ -15,7 +15,7 @@ add_q_button.addEventListener('click', function () {
             + `<input type="text" name="answer2" placeholder="Ответ 2"><br>`
             + `<input type="text" name="answer3" placeholder="Ответ 3"><br>`
             + `<input type="text" name="answer4" placeholder="Ответ 4"><br>`
-            + `<label>Правильный ответ<input type="number" min="1" max="4" value="1"></label>`
+            + `<label>Правильный ответ<input type="number" name='trueAnswer${i}' min="1" max="4" value="1"></label>`
             + `</div><br>`;
         $('.added_question').append(form);
     }
