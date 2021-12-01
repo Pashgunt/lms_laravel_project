@@ -28,7 +28,6 @@ class Courses extends Authenticatable
         'created_at',
         'updated_at',
         'author_id',
-        'censorship_id',
         'description'
     ];
 

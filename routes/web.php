@@ -103,6 +103,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('users')->group(function () {
  */
 Route::middleware(['auth', 'role:admin|manager'])->prefix('target')->group(function () {
     Route::get('', [TargetInterfaceController::class, 'show'])->name('target');
+    Route::get('/students', [TargetInterfaceController::class, 'students'])->name('students');
     Route::get('/{target_id}/destroy', [TargetInterfaceController::class, 'destroy']);
 });
 

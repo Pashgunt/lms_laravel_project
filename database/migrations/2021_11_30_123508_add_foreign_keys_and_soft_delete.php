@@ -21,6 +21,8 @@ class AddForeignKeysAndSoftDelete extends Migration
             $table->unsignedBigInteger('role_id');
             $table->foreign('role_id')->references('id')->on('roles');
 
+            $table->index('username');
+
             $table->timestamp('created_at');
             $table->timestamp('updated_at');
             $table->timestamp('deleted_at')->nullable();
@@ -39,6 +41,8 @@ class AddForeignKeysAndSoftDelete extends Migration
         Schema::table('courses', function (Blueprint $table) {
             $table->unsignedBigInteger('author_id')->after('name');
             $table->foreign('author_id')->references('id')->on('users');
+
+            $table->index('name');
 
             $table->timestamp('created_at');
             $table->timestamp('updated_at');
@@ -59,9 +63,15 @@ class AddForeignKeysAndSoftDelete extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropForeign('users_role_id_foreign');
+            $table->dropIndex('users_username_index');
             $table->dropColumn('created_at');
             $table->dropColumn('updated_at');
             $table->dropColumn('deleted_at');
         });
+
+        Schema::table('courses', function (Blueprint $table) {
+            $table->dropIndex('courses_name_index');
+        });
     }
 }
+
