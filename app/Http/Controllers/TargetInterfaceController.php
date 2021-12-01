@@ -8,6 +8,8 @@ use App\LMS\Repositories\UserRepository;
 use App\Models\Appointment;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\View\View;
 
@@ -20,7 +22,8 @@ class TargetInterfaceController extends Controller
     protected CourseRepository $courseRepository;
     protected AppointmentRepository $repository;
 
-    public function __construct(UserRepository        $userRepository, CourseRepository $courseRepository,
+    public function __construct(UserRepository        $userRepository,
+                                CourseRepository      $courseRepository,
                                 AppointmentRepository $repository)
     {
         $this->userRepository = $userRepository;
@@ -31,49 +34,27 @@ class TargetInterfaceController extends Controller
     /**
      * Вывод всех допустимых пользователей и курсов
      */
-    public function allInfo(string $page_course, string $page_user): View
+    public function allInfo(): View
     {
-        try {
-            $page_course = $page_course * 1;
-            $page_user = $page_user * 1;
-        } catch (\Exception $e) {
-            $page_course = 1;
-            $page_user = 1;
+        $coursesList = $this->courseRepository->getCourseList(config('pagination.course'));
+        $usersList = $this->userRepository->getSpecialUserListController(config('pagination.user'));
+
+        $page_for_course = $_GET['page_course'] ?? 1;
+        $page_for_user = $_GET['page_user'] ?? 1;
+
+        if ($coursesList->lastPage() < $coursesList->currentPage()) {
+            return view('errors.404');
         }
 
-        if (!is_int($page_course)) {
-            $page_course = 1;
+        if ($usersList->lastPage() < $usersList->currentPage()) {
+            return view('errors.404');
         }
-
-        if (!is_int($page_user)) {
-            $page_user = 1;
-        }
-
-        /** Кол-во выводимых пользователей на страницу */
-        $count = 8;
-
-        $maxPage = ceil(count($this->courseRepository->all()) / $count);
-        $maxPageForUser = ceil(count($this->userRepository->all()) / $count);
-
-        if ($page_course > $maxPage) {
-            $page_course = $maxPage;
-        }
-
-        if ($page_user > $maxPageForUser) {
-            $page_user = $maxPageForUser;
-        }
-
-        $coursesList = $this->courseRepository->getCourseList($page_course, $count);
-        $usersList = $this->userRepository->getUserListWithConditional($page_user, $count, 1);
-
-        $pages = $this->courseRepository->generatePageNumbersForUsers($page_course, $count);
-        $pagesForUser = $this->userRepository->generatePagesNumber($page_user, $count);
 
         return view('interfaceForTarget', [
-            'courses' => $coursesList,
-            'users' => $usersList,
-            'pages' => $pages,
-            'pagesForUser' => $pagesForUser,
+            'coursesList' => $coursesList,
+            'usersList' => $usersList,
+            'pages_for_users' => $page_for_user,
+            'pages_for_courses' => $page_for_course,
             'url' => URL::previous()
         ]);
     }
@@ -81,39 +62,37 @@ class TargetInterfaceController extends Controller
     /**
      * Метод для поиска по пользователям
      */
-    public function searchUser(Request $request, string $page_course, string $page_user): View
+    public function searchUser(Request $request)
     {
-        $value = $request->input('search_user_field');
-
-        if ($value) {
-            return view('interfaceForTarget', [
-                'users' => $this->userRepository->searchUser($value, 1),
-                'courses' => $this->courseRepository->all(),
-                'search_user' => $value,
-                'url' => URL::previous()
-            ]);
+        if ($request->ajax()) {
+            $output = [];
+            $products = $this->userRepository->searchUser($request->search);
+            if ($products) {
+                foreach ($products as $key => $product) {
+                    array_push($output, ['name' => $product->username, 'id' => $product->id]);
+                }
+            }
         }
-
-        return $this->allInfo('1', '1');
+        $output_json = json_encode($output);
+        return $output_json;
     }
 
     /**
      * Метод для поиска по курсам
      */
-    public function searchCourses(Request $request): View
+    public function searchCourses(Request $request)
     {
-        $value = $request->input('search_course_field');
-
-        if ($value) {
-            return view('interfaceForTarget', [
-                'users' => $this->userRepository->all(),
-                'courses' => $this->courseRepository->searchCourse($value),
-                'search_course' => $value,
-                'url' => URL::previous()
-            ]);
+        if ($request->ajax()) {
+            $output = [];
+            $products = $this->courseRepository->searchCourse($request->search);
+            if ($products) {
+                foreach ($products as $key => $product) {
+                    array_push($output, ['name' => $product->name, 'id' => $product->id]);
+                }
+            }
         }
-
-        return $this->allInfo('1', '1');
+        $output_json = json_encode($output);
+        return $output_json;
     }
 
     /**
@@ -126,8 +105,6 @@ class TargetInterfaceController extends Controller
 
     /**
      * Отображает перечень всех назначений
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|
-     * \Illuminate\Contracts\View\View
      */
     public function show()
     {

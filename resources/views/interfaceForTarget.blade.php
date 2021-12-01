@@ -4,101 +4,79 @@
 @section('content')
     @include('admin')
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    {{ DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs::render('createTarget', $pages['main_page'], $pagesForUser['main_page']) }}
-
 
     <div class="target_user_list mt-3">
         <h4 class="mb-1 fs-1">Список пользователей</h4>
         <span>
             <div class="mb-3">
-                <form action="/target-interface/search-user/1/1" method="get" class="d-flex">
+                <div class = "users_error_message alert-danger"></div>
+                <div class="d-flex position-relative">
                     @if(isset($search_user))
-                        @error('search_user')
-                        <div class="alert-danger">{{ $message }}</div>
-                        @enderror
-                        <input type="text" name="search_user_field" value="{{$search_user}}" class="form-control form-control-md w-25">
+                        <input type="text" name="search_user_field" value="{{$search_user}}"
+                               class="form-control form-control-md w-100 search_user_field">
                     @else
-                        <input type="text" name="search_user_field" class="form-control form-control-md w-25">
+                        <input type="text" name="search_user_field"
+                               class="form-control form-control-md w-100 search_user_field">
                     @endif
-                    <input type="submit" value="Найти" class="btn btn-secondary ms-2">
-                </form>
+                    <div class="search_items_user position-absolute top-100 start-0 w-100 bg-light p-3"
+                         style="z-index: 100">
+                        <div class="position-relative">
+                            <div class="position-absolute top-100 start-100 translate-middle close_search_users">
+                                <img src="/assets/img/icons/close.png" alt=""
+                                     style="object-fit: cover; width: 20px; height: 20px"></div>
+                            <div class="search_items_user_wrapper position-relative"></div>
+                        </div>
+
+                    </div>
+
+                </div>
             </div>
         </span>
-        @if(isset($pagesForUser))
-            <div class="pagination">
-                @if(isset($pagesForUser['min_page']))
-                    <a href="/target-interface/{{$pages['main_page']}}/{{$pagesForUser['min_page']}}">{{$pagesForUser['min_page']}} |</a>
-                @endif
-                @if(isset($pagesForUser['prev_page']))
-                    <a href="/target-interface/{{$pages['main_page']}}/{{$pagesForUser['prev_page']}}">
-                        <span style="padding: 0 5px"> < | </span>
-                    </a>
-                @endif
-                <span style="padding: 0 5px"> {{$pagesForUser['main_page']}} </span>
-                @if(isset($pagesForUser['next_page']))
-                    <a href="/target-interface/{{$pages['main_page']}}/{{$pagesForUser['next_page']}}">
-                        <span style="padding: 0 5px">| > </span>
-                    </a>
-                @endif
-                @if(isset($pagesForUser['max_page']))
-                    <a href="/target-interface/{{$pages['main_page']}}/{{$pagesForUser['max_page']}}">| {{$pagesForUser['max_page']}}</a>
-                @endif
-            </div>
-        @endif
-        @if(isset($users))
+        @if(isset($usersList))
             <div class="d-flex align-content-start flex-wrap target_user_append">
-                @foreach($users as $user)
+                @foreach($usersList as $user)
                     <div class="btn btn-primary btn-sm mb-1 ms-1 user__draggable"
                          draggable="true" data-id="{{$user->id}}">{{$user->username}}</div>
                 @endforeach
             </div>
         @endif
+        {{ $usersList->links('vendor.pagination.bootstrap-4') }}
     </div>
     <div class="target_courses_list">
         <h4 class="mb-1 fs-1">Список курсов</h4>
         <span>
             <div class="mb-3">
-                <form action="/target-interface/search-courses/1/1" method="get" class="d-flex">
+                <div class = "course_error_message alert-danger"></div>
+                <div class="d-flex position-relative">
                     @if(isset($search_course))
-                        <input type="text" name="search_course_field" value="{{$search_course}}" class="form-control form-control-md w-25">
+                        <input type="text" name="search_course_field" value="{{$search_course}}"
+                               class="form-control form-control-md w-100 search_course_field">
                     @else
-                        <input type="text" name="search_course_field" class="form-control form-control-md w-25">
+                        <input type="text" name="search_course_field"
+                               class="form-control form-control-md w-100 search_course_field">
                     @endif
-                    <input type="submit" value="Найти" class="btn btn-secondary ms-2">
-                </form>
+                    <div class="search_items_course position-absolute top-100 start-0 w-100 bg-light p-3"
+                         style="z-index: 100">
+                        <div class="position-relative">
+                            <div class="position-absolute top-100 start-100 translate-middle close_search_courses"
+                            ><img src="/assets/img/icons/close.png" alt=""
+                                  style="object-fit: cover; width: 20px; height: 20px"></div>
+                            <div class="search_items_course_wrapper position-relative"></div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </span>
-        @if(isset($pages))
-            <div class="pagination">
-                @if(isset($pages['min_page']))
-                    <a href="/target-interface/{{$pages['min_page']}}/{{$pagesForUser['main_page']}}">{{$pages['min_page']}} |</a>
-                @endif
-                @if(isset($pages['prev_page']))
-                    <a href="/target-interface/{{$pages['prev_page']}}/{{$pagesForUser['main_page']}}">
-                        <span style="padding: 0 5px"> < | </span>
-                    </a>
-                @endif
-                <a href="/target-interface/{{$pages['main_page']}}/{{$pagesForUser['main_page']}}">
-                    <span style="padding: 0 5px"> {{$pages['main_page']}} </span>
-                </a>
-                @if(isset($pages['next_page']))
-                    <a href="/target-interface/{{$pages['next_page']}}/{{$pagesForUser['main_page']}}">
-                        <span style="padding: 0 5px">| > </span>
-                    </a>
-                @endif
-                @if(isset($pages['max_page']))
-                    <a href="/target-interface/{{$pages['max_page']}}/{{$pagesForUser['main_page']}}">| {{$pages['max_page']}}</a>
-                @endif
-            </div>
-        @endif
-        @if(isset($courses))
+        @if(isset($coursesList))
             <div class="d-flex align-content-start flex-wrap target_course_append">
-                @foreach($courses as $course)
+                @foreach($coursesList as $course)
                     <div class="btn btn-primary btn-sm mb-1 ms-1 course__draggable"
                          draggable="true" data-id="{{$course->id}}">{{$course->name}}</div>
                 @endforeach
             </div>
         @endif
+        {{ $coursesList->links('vendor.pagination.bootstrap-4') }}
     </div>
 
     <div class="container mt-4">
@@ -113,7 +91,7 @@
     </div>
     <br>
     <a class="btn btn-success col-md-4 offset-md-4 mt-3 button_target">Назначить</a>
-    <a href="/target" class = "btn btn-primary mt-3 mb-3 block col-md-2 offset-md-5">Вернуться к списку назначений</a>
+    <a href="/target" class="btn btn-primary mt-3 mb-3 block col-md-2 offset-md-5">Вернуться к списку назначений</a>
     <div class="success_target col-md-4 offset-md-4 mt-3 alert alert-secondary text-center"></div>
 @endsection
 

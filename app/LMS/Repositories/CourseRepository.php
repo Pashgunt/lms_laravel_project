@@ -23,6 +23,9 @@ class CourseRepository extends Repositories
         ]);
     }
 
+    /**
+     * Метод для создания новго курса
+     */
     public function createNewCourse(Request $request): int
     {
         $course = $this->model->create([
@@ -44,13 +47,9 @@ class CourseRepository extends Repositories
             ->where('name', 'LIKE', '%' . $request . '%')->get();
     }
 
-    public function getCourseList(int $page, int $count)
+    /** Получение списка курсов через пагинацию для страницы назначений*/
+    public function getCourseList(int $count)
     {
-        return (new Paginate($this->model))->paginate($count, $page);
-    }
-
-    public function generatePageNumbersForUsers(int $page, int $count)
-    {
-        return (new Paginate($this->model))->getPagesNumber($page, $count);
+        return $this->paginateForCourse($count);
     }
 }

@@ -110,11 +110,12 @@ Route::middleware(['auth', 'role:admin|manager'])->prefix('target')->group(funct
  * Маршруты назначений 2
  */
 Route::middleware(['auth', 'role:admin|manager'])->prefix('target-interface')->group(function () {
+    Route::get('', [TargetInterfaceController::class, 'allInfo']);
     Route::get('/{page_course}/{page_user}', [TargetInterfaceController::class, 'allInfo'])
         ->name('createTarget');
     Route::post('/{page_course}/{page_user}', [TargetInterfaceController::class, 'createAppointment']);
-    Route::get('/search-user/{page_course}/{page_user}', [TargetInterfaceController::class, 'searchUser']);
-    Route::get('/search-courses/{page_course}/{page_user}', [TargetInterfaceController::class, 'searchCourses']);
+    Route::get('/search-users', [TargetInterfaceController::class, 'searchUser']);
+    Route::get('/search-courses', [TargetInterfaceController::class, 'searchCourses']);
 });
 
 /**
