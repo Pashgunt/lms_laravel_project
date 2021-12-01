@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ValidateRequest\ActivityAddRequest;
+use App\LMS\Repositories\ActivitiesTestRepository;
 use App\LMS\Repositories\ActivitiesTextRepository;
 use App\LMS\Repositories\ActivitiesTypeRepository;
 use App\LMS\Repositories\ActivityRepository;
 use App\Models\Activities;
+use App\Models\ActivitiesTest;
 use App\Models\ActivitiesText;
 use App\Models\ActivitiesType;
 use App\Models\Courses;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 /** Контроллер для CRUD операции по вложенным элементам курса (Activities)  */

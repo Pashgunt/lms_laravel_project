@@ -9,7 +9,7 @@
     </label><br>
     <label>
         Количество вопросов -
-        <input type="number" min="1" max="12" class="count_questions" value="1">
+        <input type="number" name='test_count' min="1" max="12" class="count_questions" value="1">
         <div class="add_question btn btn-success">Добавить</div>
         <div class="questions_list">
             <form action="" method="post">
