@@ -2,6 +2,7 @@
 
 @section('style')
     <link rel="stylesheet" href="/assets/css/courseInfo.css">
+    <link rel="stylesheet" href="/assets/css/test-constructor.css">
 @endsection
 
 @section ('content')
@@ -28,6 +29,7 @@
         <input type="submit" name="add_activity" value="Добавить" class="btn btn-success" style="margin-top: 20px">
     </form>
     <script src="/assets/js/ActivitiesAddForm.js"></script>
+    <script src="/assets/js/activities_test.js"></script>
 @endsection
 
 @section('script')

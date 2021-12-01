@@ -8,7 +8,6 @@
         @error('activity_text')
         <div class="alert-danger">{{ $message }}</div>
         @enderror
-        <textarea name="content" id="basic-wysiwyg" value="{{ old('activity_text') }}">
-            </textarea>
+        <textarea name="content" id="basic-wysiwyg" value="{{ old('activity_text') }}"></textarea>
     </label>
 </div>

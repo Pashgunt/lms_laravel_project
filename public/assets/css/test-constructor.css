@@ -1,0 +1,13 @@
+.question {
+    border: 1px solid lightslategrey;
+    padding: 15px;
+    margin: 20px 0;
+}
+.question input {
+    width: 300px;
+    margin: 10px 0;
+}
+.question input:last-child {
+    width: auto;
+    margin: 10px 0;
+}
