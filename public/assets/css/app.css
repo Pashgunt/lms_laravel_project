@@ -16,6 +16,11 @@ div.breadcrumbs {
     margin-bottom: 10px;
 }
 
+div.search_form {
+    display: block;
+    margin-top: 20px;
+}
+
 div.breadcrumbs a {
     text-decoration: underline;
     color: #0d6efd;
@@ -84,4 +89,10 @@ a {
     display: block;
     text-align: center;
 }
+
+.center {
+    text-align: center;
+}
+
+
 

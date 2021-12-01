@@ -66,10 +66,13 @@ class UsersListController extends Controller
     /**
      * Удаление пользователя
      */
-    public function delete(Request $request): View
+    public function delete(User $user): View
     {
-        $userId = $request->input('userId');
-        $this->repository->delete($userId);
+        $appoinments = $user->appointments;
+        foreach ($appoinments as $appoinment) {
+            $appoinment->delete();
+        }
+        $user->delete();
 
         return $this->main();
     }

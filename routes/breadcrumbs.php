@@ -29,11 +29,19 @@ Breadcrumbs::for('courses', function ($trail) {
 });
 
 /*
- * Список назначений
+ * Список назначений по курсам
  */
 Breadcrumbs::for('target', function ($trail) {
     $trail->parent('home');
-    $trail->push('Список назначений', route('target'));
+    $trail->push('Список назначений по курсами', route('target'));
+});
+
+/*
+ * Список назначений по студентам
+ */
+Breadcrumbs::for('students', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Список назначений для студентов', route('students'));
 });
 
 /*

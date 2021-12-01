@@ -54,8 +54,9 @@ class UserRepository extends Repositories
 
     /**
      * Метод для реализации поиска по пользователям
+     * @return mixed
      */
-    public function searchUser($request, $id)
+    public function searchUser(string $request, int $id = 1)
     {
         return $this->model
             ->where('username', 'LIKE', '%' . $request . '%')->where('role_id', '=', $id)->get();

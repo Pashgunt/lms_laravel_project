@@ -19,7 +19,7 @@ class User extends Authenticatable
     use HasFactory;
     use Notifiable;
 
-    public $timestamps = false;
+//    public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.
@@ -30,19 +30,21 @@ class User extends Authenticatable
         'password',
         'date_birth',
         'role_id',
-        'email_verified_at'
+        'email_verified_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
      * The attributes that should be hidden for serialization.
      */
-    protected $hidden = [
-        'password',
-        'role_id'
-    ];
+//    protected $hidden = [
+//        'password',
+//        'role_id'
+//    ];
 
     /**
-     * Отношение курсов и автора
+     * "У автора может быть много курсов"
      */
     public function courses(): HasMany
     {
@@ -50,7 +52,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Отношение роли к пользователю
+     * "У пользователя одна роль"
      */
     public function role(): HasOne
     {
@@ -67,9 +69,8 @@ class User extends Authenticatable
         $this->notify(new ResetPassword($token));
     }
 
-
     /**
-     * Отношение студента к назначениям
+     * "У студента может быть много назначений"
      */
     public function appointments(): HasMany
     {

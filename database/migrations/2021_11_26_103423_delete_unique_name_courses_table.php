@@ -27,8 +27,8 @@ class DeleteUniqueNameCoursesTable extends Migration
      */
     public function down()
     {
-        Schema::table('courses', function (Blueprint $table) {
-            $table->string('name')->unique()->change();
-        });
+//        Schema::table('courses', function (Blueprint $table) {
+//            $table->unique('name');
+//        });
     }
 }

@@ -97,8 +97,12 @@ class CourseController extends Controller
      */
     public function destroy(Courses $course): RedirectResponse
     {
+        $appoinments = $course->appointments;
+        foreach ($appoinments as $appoinment) {
+            $appoinment->delete();
+        }
         $course->delete();
 
-        return redirect()->to('/courses');
+        return redirect()->back();
     }
 }
