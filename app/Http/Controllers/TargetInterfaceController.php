@@ -129,17 +129,29 @@ class TargetInterfaceController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|
      * \Illuminate\Contracts\View\View
      */
-    public function show()
+    public function show(Request $request, string $filter = 'course'): View
     {
-        $appointments = $this->repository->orderByRaw('course_id')->paginate(config('pagination.appointment'));
+        $searchParam = $request->input('search_' . $filter . '_field');
+        $searchResult = [];
+        $appointments = [];
 
-        if ($appointments->lastPage() < $appointments->currentPage()) {
-            return view('errors.404');
+        if ($searchParam) {
+            $repository = $filter . 'Repository';
+            $method = 'search' . ucfirst($filter);
+            $searchResult = $this->$repository->$method($searchParam);
+        } else {
+            $appointments = $this->repository->orderByRaw($filter . '_id')
+                ->paginate(config('pagination.appointment'));
+
+            if ($appointments->lastPage() < $appointments->currentPage()) {
+                return view('errors.404');
+            }
         }
 
-        return view('appointmentsList', [
+        return view('appointments' . ucfirst($filter) . 'sList', [
             'appointments' => $appointments,
-            'current_course' => '',
+            'searchResult' => $searchResult,
+            'searchParam' => $searchParam
         ]);
     }
 
@@ -151,6 +163,15 @@ class TargetInterfaceController extends Controller
         $appointment->delete();
 
         return back();
+    }
+
+    /**
+     * Отображение назначений по списку пользователей
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View
+     */
+    public function students(Request $request)
+    {
+        return $this->show($request, 'user');
     }
 
 
