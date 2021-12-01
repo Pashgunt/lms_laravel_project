@@ -10,7 +10,7 @@
     {{ DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs::render('target') }}
     <h1>Список назначений по курсам</h1>
 
-    <a href="/target-interface/1/1" class="btn btn-primary">
+    <a href="/target-interface" class="btn btn-primary">
         Создать назначение
     </a>
 
