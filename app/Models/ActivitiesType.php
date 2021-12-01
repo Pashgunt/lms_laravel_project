@@ -9,8 +9,11 @@ class ActivitiesType extends Authenticatable
 {
     use HasFactory;
 
+    protected $table = 'activities_type';
+
     protected $fillable = [
         'id',
-        'name'
+        'name',
+        'name_rus'
     ];
 }

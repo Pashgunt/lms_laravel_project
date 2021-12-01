@@ -10,27 +10,24 @@
         @csrf
         <label>
             Тип -
-            <select name="type_id" style="margin-bottom: 20px">
-                @foreach($activitiesType as $type => $id)
-                    <option value="{{$id}}">{{$type}}</option>
+            <select name="type_id" style="margin-bottom: 20px" class="activity_add_form">
+                @foreach($activitiesType as $type)
+                    <option value="{{$type->id}}">{{$type->name_rus}}</option>
                 @endforeach
             </select>
+            <button class="accept_form" type="button">Применить</button>
         </label> <br>
-        <label>
-            Заголовок -
-            @error('activity_title')
-            <div class="alert-danger">{{ $message }}</div>
-            @enderror
-            <input type="text" name="title" placeholder="Заголовок" style="margin-bottom: 20px" value="{{ old('activity_title') }}">
-            @error('activity_text')
-            <div class="alert-danger">{{ $message }}</div>
-            @enderror
-            <textarea name="content" id="basic-wysiwyg" value="{{ old('activity_text') }}">
-            </textarea>
-        </label> <br>
+        <div class="activity_form">
+            @include('forms/activities/addTextActivity')
+            @include('forms/activities/addTestActivity')
+            @include('forms/activities/addVideoActivity')
+            @include('forms/activities/addImageActivity')
+        </div>
+        <br>
         <a href="/courses/{{$courseId}}" class="btn btn-primary" style="margin-top: 20px">Назад</a>
         <input type="submit" name="add_activity" value="Добавить" class="btn btn-success" style="margin-top: 20px">
     </form>
+    <script src="/assets/js/ActivitiesAddForm.js"></script>
 @endsection
 
 @section('script')

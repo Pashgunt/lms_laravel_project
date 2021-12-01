@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ValidateRequest\ActivityAddRequest;
 use App\LMS\Repositories\ActivitiesTextRepository;
+use App\LMS\Repositories\ActivitiesTypeRepository;
 use App\LMS\Repositories\ActivityRepository;
 use App\Models\Activities;
 use App\Models\ActivitiesText;
+use App\Models\ActivitiesType;
 use App\Models\Courses;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
-/** Контроллер для CRUD вложенных элементов курса (Activities)  */
+/** Контроллер для CRUD операции по вложенным элементам курса (Activities)  */
 class ActivitiesController extends Controller
 {
     protected ActivityRepository $repository;
@@ -45,9 +47,7 @@ class ActivitiesController extends Controller
     {
         return view('forms/addActivity', [
             'courseId' => $course->getKey(),
-            'activitiesType' => [
-                'Текст' => 1
-            ]
+            'activitiesType' => (new ActivitiesTypeRepository(new ActivitiesType()))->all()
         ]);
     }
 
@@ -57,12 +57,8 @@ class ActivitiesController extends Controller
     public function addActivity(Request $request, Courses $course)
     {
         $repository = $this->getRepository($request->input('type_id'));
-        $repository->create([
-            'title' => $request->input('title'),
-            'content' => $request->input('content')
-        ]);
+        $repository->createActivity($request);
         $contentId = $repository->getLastId();
-
         $this->repository->createActivity($request->all(), $course, $contentId[0]['id']);
 
         return redirect("/courses/$course->id");
@@ -136,6 +132,12 @@ class ActivitiesController extends Controller
         switch ($type_id) {
             case 1:
                 return new ActivitiesTextRepository(new ActivitiesText());
+            case 2:
+                return new ActivitiesTestRepository(new ActivitiesTest());
+            case 3:
+                return new ActivitiesVideoRepository(new ActivitiesVideo());
+            case 4:
+                return new ActivitiesImageRepository(new ActivitiesImage());
         }
     }
 

@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\DB;
 class ActivitiesTypeSeeder extends Seeder
 {
     public array $types = [
-      'text', 'test', 'video', 'image'
+        'name' => ['text', 'test', 'video', 'image'],
+        'name_rus' => ['Текст', 'Тест', 'Видео', 'Изображение']
     ];
 
     /**
@@ -18,9 +19,10 @@ class ActivitiesTypeSeeder extends Seeder
      */
     public function run()
     {
-        foreach ($this->types as $type) {
+        for ($i = 0; $i < count($this->types['name']); $i++) {
             DB::table('activities_type')->insert([
-                'name' => $type
+                'name' => $this->types['name'][$i],
+                'name_rus' => $this->types['name_rus'][$i]
             ]);
         }
     }

@@ -6,8 +6,23 @@ use App\LMS\Abstracts\Repositories;
 use App\Models\Activities;
 use Illuminate\Http\Request;
 
+/**
+ * Репозиторий для вложенных элементов курса типа - Текст
+ */
 class ActivitiesTextRepository extends Repositories
 {
+    /**
+     * Добавление элемента
+     */
+    public function createActivity(Request $request){
+        $this->create([
+            [
+                'title' => $request->input('title'),
+                'content' => $request->input('content')
+            ]
+        ]);
+    }
+
     /**
      * Редактирование информации вложенного элемента курса
      */
@@ -21,6 +36,9 @@ class ActivitiesTextRepository extends Repositories
             ]);
     }
 
+    /**
+     * Получение id последнего элемента
+     */
     public function getLastId()
     {
         return $this->model
@@ -30,6 +48,9 @@ class ActivitiesTextRepository extends Repositories
             ->get();
     }
 
+    /**
+     * Получение информации по id элемента
+     */
     public function getActivityInfo (string $id)
     {
         return $this->model->where('id', '=', "$id")->get();
