@@ -17,14 +17,14 @@
                     @error('nameCourse')
                     <div class="alert-danger">{{ $message }}</div>
                     @enderror
-                    <input type="text" value="{{old('nameCourse', isset($course->name)?:'')}}"
+                    <input type="text" value="{{isset($course->name)? $course->name : old('nameCourse')}}"
                            class="form-control form-control-lg"
                            name="nameCourse">
                     @error('descCourse')
                     <div class="alert-danger">{{ $message }}</div>
                     @enderror
                     <textarea id="basic-wysiwyg"
-                              name="descCourse">{{old('descCourse', isset($course->description)?:'')}}</textarea>
+                              name="descCourse">{{isset($course->description)? $course->description : old('descCourse')}}</textarea>
                     <br/>
                     <input type="submit" value="Сохранить изменения" class="btn btn-success">
                 </form>
