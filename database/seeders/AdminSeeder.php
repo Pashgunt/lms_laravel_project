@@ -28,7 +28,6 @@ class AdminSeeder extends Seeder
             'role_id' => 3,
             'created_at' => date('Y-m-d h:m:s'),
             'updated_at' => date('Y-m-d h:m:s'),
-            'email_verified_at' => '' . getdate()['mday'] . '.' . getdate()['mon'] . '.' . getdate()['year'],
         ]);
 
         foreach ($this->admins as $admin) {
@@ -40,7 +39,6 @@ class AdminSeeder extends Seeder
                 'role_id' => 3,
                 'created_at' => date('Y-m-d h:m:s'),
                 'updated_at' => date('Y-m-d h:m:s'),
-                'email_verified_at' => '' . getdate()['mday'] . '.' . getdate()['mon'] . '.' . getdate()['year'],
             ]);
         }
     }

@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-use App\Models\User;
+use App\Models\UsersTemporary;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -16,7 +16,7 @@ class UserRegistered extends Mailable
 
     public $user;
 
-    public function __construct(User $user)
+    public function __construct(UsersTemporary $user)
     {
         $this->user = $user;
     }

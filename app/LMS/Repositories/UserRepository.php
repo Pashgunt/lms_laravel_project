@@ -8,8 +8,6 @@ use App\Models\User;
 use App\Models\UsersTemporary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
-
 
 /**
  * Репозиторий для работы с методами для предназначенных для пользователей
@@ -20,18 +18,17 @@ class UserRepository extends Repositories
     /** Добавление пользователя */
     public function updateOrCreate($request)
     {
-        $user = $this->model->where('email', $request->input('email'))->first();
+        $user = UsersTemporary::where('email', $request->input('email'))->first();
 
         if ($user !== null) {
             return $user;
         } else {
-            return User::create([
+            return UsersTemporary::create([
                 'username' => $request->input('username'),
                 'email' => $request->input('email'),
                 'password' => Hash::make($request->input('password')),
                 'date_birth' => $request->input('date_birth'),
                 'role_id' => 1,
-                'email_verify_token' => Str::random(30)
             ]);
         }
     }
@@ -81,13 +78,40 @@ class UserRepository extends Repositories
      */
     public function whereToken($token)
     {
-        $this->model
-            ->where('email_verify_token', '=', $token)
-            ->update([
+        $user = UsersTemporary::query()->where('email_verify_token', '=', $token)->first();
+
+        if ($user !== null) {
+            User::create([
+                'username' => $user['username'],
+                'email' => $user['email'],
+                'password' => $user['password'],
+                'date_birth' => $user['date_birth'],
+                'role_id' => 1,
                 'email_verified_at' => '' . getdate()['mday'] . '.' . getdate()['mon'] . '.' . getdate()['year'],
-                'email_verify_token' => null,
             ]);
+            UsersTemporary::query()->where('email_verify_token', '=', $token)->delete();
+        }
 
         return redirect('/login');
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
