@@ -129,9 +129,12 @@ class ActivityController extends Controller
      */
     public function delete(Activities $activities)
     {
-        $this->getRepository($activities->type_id)->delete($activities->content_id);
+        $table = (new CoursesActivitiesRepository(new CoursesActivitiesModel()));
+        $strokeId = $table->getIdByActivityId($activities);
+        $table->delete($strokeId);
+        $this->repository->delete($activities->getKey());
 
-        return redirect("/courses/$activities->course_id");
+        return redirect()->back();
     }
 
     /**

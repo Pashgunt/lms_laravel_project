@@ -15,7 +15,7 @@ class CoursesActivitiesRepository extends Repositories
     public function getActivitiesList(Course $courses)
     {
         return $this->model
-            ->select(['courses_activities.priority', 'courses_activities.id', 'activities.name'])
+            ->select(['courses_activities.priority', 'activities.id', 'activities.name'])
             ->orderBy('courses_activities.priority', 'asc')
             ->where('courses_activities.course_id', '=', $courses->getKey())
             ->join('activities', 'activities.id', '=', 'courses_activities.activity_id')
@@ -28,7 +28,7 @@ class CoursesActivitiesRepository extends Repositories
     public function getSortedList(Course $course, string $column, string $sort_type)
     {
         return $this->model
-            ->select(['courses_activities.priority', 'courses_activities.id', 'activities.name'])
+            ->select(['courses_activities.priority', 'activities.id', 'activities.name'])
             ->orderBy('courses_activities.' . $column, $sort_type)
             ->where('courses_activities.course_id', '=', $course->getKey())
             ->join('activities', 'activities.id', '=', 'courses_activities.activity_id')
@@ -89,5 +89,18 @@ class CoursesActivitiesRepository extends Repositories
         }
 
         return 1;
+    }
+
+    /**
+     * Получение ID записи по ID активити
+     */
+    public function getIdByActivityId(Activities $activity): int
+    {
+        $stroke = $this->model
+            ->select('id')
+            ->where('activity_id', '=', $activity->getKey())
+            ->get();
+
+        return $stroke[0]['id'];
     }
 }
