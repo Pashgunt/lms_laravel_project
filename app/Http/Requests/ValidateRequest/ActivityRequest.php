@@ -3,8 +3,9 @@
 namespace App\Http\Requests\ValidateRequest;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class ActivityAddRequest extends FormRequest
+class ActivityRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -19,15 +20,8 @@ class ActivityAddRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'activity_title' => 'required|
-                            string|
-                            min:10|
-                            max:50|
-                            not_regex:/(?=.*[!@#$%^&*"])/',
-            'activity_text' => 'required|
-                             string|
-                             min:50|
-                             max:255',
+            'activity_type_id' => Rule::requiredIf(function () {
+            }),
         ];
     }
 
@@ -59,5 +53,11 @@ class ActivityAddRequest extends FormRequest
             'activity_title.max' => 'Максимум 50 символов',
             'activity_text.max' => 'Максимум 255 символов',
         ];
+    }
+
+    public function makeDTO()
+    {
+
+        return new nameDTO($this->validated());
     }
 }
