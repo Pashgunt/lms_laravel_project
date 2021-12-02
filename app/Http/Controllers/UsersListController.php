@@ -6,6 +6,7 @@ use App\Http\Requests\ValidateRequest\EditUserRequest;
 use App\LMS\Repositories\UserRepository;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -69,6 +70,7 @@ class UsersListController extends Controller
     public function delete(User $user): View
     {
         $appoinments = $user->appointments;
+
         foreach ($appoinments as $appoinment) {
             $appoinment->delete();
         }
