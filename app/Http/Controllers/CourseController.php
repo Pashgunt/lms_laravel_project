@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ValidateRequest\CourseRequest;
+use App\LMS\Repositories\ActivitiesTypeRepository;
 use App\LMS\Repositories\ActivityRepository;
 use App\LMS\Repositories\CoursesActivitiesRepository;
 use App\Models\Activities;
@@ -65,7 +66,8 @@ class CourseController extends Controller
     {
         return view('courseDetail', [
             'course' => $course,
-            'activities' => (new CoursesActivitiesRepository(new CoursesActivitiesModel()))->getActivitiesList($course)
+            'activities' => (new CoursesActivitiesRepository(new CoursesActivitiesModel()))->getActivitiesList($course),
+            'types' => (new ActivitiesTypeRepository(new ActivitiesType()))->all()
         ]);
     }
 

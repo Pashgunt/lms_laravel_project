@@ -23,7 +23,7 @@
     transition: 500ms;
 }
 
-.test_activity, .video_activity, .image_activity, .questions_list{
-    display: none;
+.head_menu {
+    display: flex;
+    justify-content: space-between;
 }
-
