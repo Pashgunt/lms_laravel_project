@@ -17,7 +17,7 @@ class CoursesActivitiesRepository extends Repositories
         return $this->model
             ->select(['courses_activities.priority', 'courses_activities.id', 'activities.name'])
             ->orderBy('courses_activities.priority', 'asc')
-            ->where('courses_activities.courses_id', '=', $courses->getKey())
+            ->where('courses_activities.course_id', '=', $courses->getKey())
             ->join('activities', 'activities.id', '=', 'courses_activities.activity_id')
             ->get();
     }
@@ -30,7 +30,7 @@ class CoursesActivitiesRepository extends Repositories
         return $this->model
             ->select(['courses_activities.priority', 'courses_activities.id', 'activities.name'])
             ->orderBy('courses_activities.' . $column, $sort_type)
-            ->where('courses_activities.courses_id', '=', $course->getKey())
+            ->where('courses_activities.course_id', '=', $course->getKey())
             ->join('activities', 'activities.id', '=', 'courses_activities.activity_id')
             ->get();
     }
@@ -41,7 +41,7 @@ class CoursesActivitiesRepository extends Repositories
     public function getCourseId(Activities $activity)
     {
         return $this->model
-            ->select('courses_id')
+            ->select('course_id')
             ->where('activity_id', '=', $activity->getKey())
             ->get();
     }

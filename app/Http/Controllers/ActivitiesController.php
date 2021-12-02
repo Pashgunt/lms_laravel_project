@@ -30,7 +30,7 @@ class ActivitiesController extends Controller
             ->getCourseId($activities);
 
         foreach ($courseInfo as $course) {
-            $courseId = $course->courses_id;
+            $courseId = $course->course_id;
         }
 
         return view('activityInfo', [
@@ -108,7 +108,11 @@ class ActivitiesController extends Controller
 
         return view('courseDetail', [
             'course' => $course,
-            'activities' => (new CoursesActivitiesRepository(new CoursesActivitiesModel()))->getSortedList($course, $column, $sort_type)
+            'activities' => (new CoursesActivitiesRepository(new CoursesActivitiesModel()))->getSortedList(
+                $course,
+                $column,
+                $sort_type
+            )
         ]);
     }
 
@@ -120,6 +124,6 @@ class ActivitiesController extends Controller
         (new CoursesActivitiesRepository(new CoursesActivitiesModel()))
             ->changePriority($activity, $eventType);
 
-        return redirect("/courses/$activity->courses_id");
+        return redirect("/courses/$activity->course_id");
     }
 }

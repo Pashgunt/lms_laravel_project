@@ -14,7 +14,7 @@ class CoursesActivitiesModel extends Model
      * Поля для заполнения
      */
     protected $fillable = [
-        'courses_id',
+        'course_id',
         'activity_id',
         'priority'
     ];
