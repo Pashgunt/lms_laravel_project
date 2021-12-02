@@ -4,11 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ValidateRequest\CourseRequest;
 use App\LMS\Repositories\ActivitiesTypeRepository;
-use App\LMS\Repositories\ActivityRepository;
 use App\LMS\Repositories\CoursesActivitiesRepository;
-use App\Models\Activities;
 use App\Models\ActivitiesType;
-use App\Models\Courses;
+use App\Models\Course;
 use App\Models\CoursesActivitiesModel;
 use Illuminate\Http\RedirectResponse;
 use App\LMS\Repositories\CourseRepository;
@@ -62,7 +60,7 @@ class CourseController extends Controller
     /**
      * Отображает детальную страницу для курса
      */
-    public function show(Courses $course): View
+    public function show(Course $course): View
     {
         return view('courseDetail', [
             'course' => $course,
@@ -74,7 +72,7 @@ class CourseController extends Controller
     /**
      * Отображает форму изменения курса
      */
-    public function edit(Courses $course): View
+    public function edit(Course $course): View
     {
         return view('courseEdit', [
             'course' => $course,
@@ -85,11 +83,11 @@ class CourseController extends Controller
     /**
      * Валидирует данные для изменения курса
      */
-    public function editCourse(CourseRequest $request, Courses $course): RedirectResponse
+    public function editCourse(CourseRequest $request, Course $course): RedirectResponse
     {
-        $DTO = $request->makeDTO();
+        $courseDTO = $request->makeDTO();
 
-        $this->repository->editCourseInfo($DTO, $course);
+        $this->repository->editCourseInfo($courseDTO, $course);
 
         return redirect()->to('/courses/' . $course->id . '/edit');
     }
@@ -97,7 +95,7 @@ class CourseController extends Controller
     /**
      * Удаляет курс
      */
-    public function destroy(Courses $course): RedirectResponse
+    public function destroy(Course $course): RedirectResponse
     {
         $appoinments = $course->appointments;
         foreach ($appoinments as $appoinment) {

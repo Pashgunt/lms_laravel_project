@@ -13,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 /**
  * Общая модель для курсов
  */
-class Courses extends Authenticatable
+class Course extends Authenticatable
 {
     use HasApiTokens;
     use HasFactory;

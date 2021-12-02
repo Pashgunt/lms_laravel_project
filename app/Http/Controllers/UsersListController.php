@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ValidateRequest\EditUserRequest;
+use App\Http\Requests\ValidateRequest\UserRequest;
 use App\LMS\Repositories\UserRepository;
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 /**
@@ -55,7 +53,7 @@ class UsersListController extends Controller
     /**
      * Обработка POST на редактирование информации о пользователе
      */
-    public function editInfo(EditUserRequest $request, User $user): View
+    public function editInfo(UserRequest $request, User $user): View
     {
         $request->validated();
 

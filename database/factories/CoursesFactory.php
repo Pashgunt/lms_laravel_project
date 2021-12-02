@@ -2,12 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\Courses;
+use App\Models\Course;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CoursesFactory extends Factory
 {
-    protected $model = Courses::class;
+    protected $model = Course::class;
 
     public function definition(): array
     {

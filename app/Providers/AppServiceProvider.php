@@ -8,7 +8,7 @@ use App\LMS\Repositories\CourseRepository;
 use App\LMS\Repositories\UserRepository;
 use App\Models\Activities;
 use App\Models\Appointment;
-use App\Models\Courses;
+use App\Models\Course;
 use App\Models\User;
 use Illuminate\Support\ServiceProvider;
 
@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton(CourseRepository::class, function ($app) {
-            return new CourseRepository(new Courses());
+            return new CourseRepository(new Course());
         });
 
         $this->app->singleton(ActivityRepository::class, function ($app) {

@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -38,23 +37,15 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
-     */
-//    protected $hidden = [
-//        'password',
-//        'role_id'
-//    ];
-
-    /**
-     * "У автора может быть много курсов"
+     * У автора может быть много курсов
      */
     public function courses(): HasMany
     {
-        return $this->hasMany(Courses::class, 'author_id');
+        return $this->hasMany(Course::class, 'author_id');
     }
 
     /**
-     * "У пользователя одна роль"
+     * У пользователя одна роль
      */
     public function role(): HasOne
     {
@@ -72,7 +63,7 @@ class User extends Authenticatable
     }
 
     /**
-     * "У студента может быть много назначений"
+     * У студента может быть много назначений
      */
     public function appointments(): HasMany
     {

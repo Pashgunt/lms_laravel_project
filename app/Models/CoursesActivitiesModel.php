@@ -25,7 +25,7 @@ class CoursesActivitiesModel extends Model
      */
     public function course(): HasOne
     {
-        return $this->hasOne(Courses::class, 'id', 'course_id');
+        return $this->hasOne(Course::class, 'id', 'course_id');
     }
 
     /*

@@ -20,15 +20,8 @@ class CourseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|
-                            string|
-                            min:4|
-                            max:255|
-                            not_regex:/(=[@#$%^&*])/',
-            'description' => 'required|
-                             string|
-                             min:10|
-                             max:5000',
+            'name' => 'required|string|min:4|max:255|not_regex:/(=[@#$%^&*])/',
+            'description' => 'required|string|min:10|max:5000',
         ];
     }
 
@@ -72,9 +65,6 @@ class CourseRequest extends FormRequest
     {
         $validated = $this->validated();
 
-        $name = $validated['name'];
-        $description = $validated['description'];
-
-        return new CourseDTO($name, $description);
+        return new CourseDTO($validated['name'], $validated['description']);
     }
 }

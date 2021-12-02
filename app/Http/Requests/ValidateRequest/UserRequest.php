@@ -5,7 +5,7 @@ namespace App\Http\Requests\ValidateRequest;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Carbon;
 
-class EditUserRequest extends FormRequest
+class UserRequest extends FormRequest
 {
 
     public function authorize(): bool
@@ -20,18 +20,12 @@ class EditUserRequest extends FormRequest
      */
     public function rules(): array
     {
-
         $date = Carbon::now()->subYears(5);
 
         return [
-            'email' => 'required|
-                        email',
-            'username' => 'required|
-                           string|
-                           min:10',
-            'date_birth' => 'required|
-                             date|
-                             before_or_equal:' . $date
+            'email' => 'required| email',
+            'username' => 'required|string|min:10',
+            'date_birth' => 'required|date|before_or_equal:' . $date
         ];
     }
 
