@@ -103,10 +103,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('users')->group(function () {
  * Маршруты назначений
  */
 Route::middleware(['auth', 'role:admin|manager'])->prefix('target')->group(function () {
-    Route::get('', [TargetInterfaceController::class, 'show'])->name('target');
-    Route::get('/courses/{courseId}', [TargetInterfaceController::class, 'showCourseDetail'])->name('target.course');
-    Route::get('/students/{userId}', [TargetInterfaceController::class, 'showStudentDetail'])->name('target.student');
     Route::get('/students', [TargetInterfaceController::class, 'students'])->name('students');
+    Route::get('', [TargetInterfaceController::class, 'show'])->name('target');
+    Route::get('/students/{userId}', [TargetInterfaceController::class, 'showAppointmentsBySubject'])
+        ->name('target.student');
+    Route::get('/courses/{courseId}', [TargetInterfaceController::class, 'showAppointmentsBySubject'])
+        ->name('target.course');
     Route::get('/{target_id}/destroy', [TargetInterfaceController::class, 'destroy']);
 });
 
@@ -141,6 +143,6 @@ Route::prefix('video')->group(function () {
 /**
  * Маршруты прохождения курса
  */
-Route::middleware('auth')->prefix('course')->group(function () {
-    Route::get('', [PassingCourseController::class, 'index']);
+Route::middleware('auth')->prefix('learning')->group(function () {
+    Route::get('/{courseId}', [PassingCourseController::class, 'index']);
 });

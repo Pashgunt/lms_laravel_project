@@ -8,6 +8,7 @@ use App\LMS\Repositories\UserRepository;
 use App\Models\Appointment;
 use App\Models\Courses;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -108,18 +109,18 @@ class TargetInterfaceController extends Controller
     /**
      * Отображает перечень всех назначений
      */
-    public function show(Request $request, string $filter = 'course'): View
+    public function show(Request $request, string $subject = 'course'): View
     {
-        $searchParam = $request->input('search_' . $filter . '_field');
+        $searchParam = $request->input('search_' . $subject . '_field');
         $searchResult = [];
         $appointments = [];
 
         if ($searchParam) {
-            $repository = $filter . 'Repository';
-            $method = 'search' . ucfirst($filter);
+            $repository = $subject . 'Repository';
+            $method = 'search' . ucfirst($subject);
             $searchResult = $this->$repository->$method($searchParam);
         } else {
-            $appointments = $this->repository->orderByRaw($filter . '_id')
+            $appointments = $this->repository->orderByRaw($subject . '_id')
                 ->paginate(config('pagination.appointment'));
 
             if ($appointments->lastPage() < $appointments->currentPage()) {
@@ -127,8 +128,9 @@ class TargetInterfaceController extends Controller
             }
         }
 
-        return view('appointments' . ucfirst($filter) . 'sList', [
+        return view('appointments.appointmentsList', [
             'appointments' => $appointments,
+            'subject' => $subject,
             'searchResult' => $searchResult,
             'searchParam' => $searchParam,
             'url' => URL::previous()
@@ -157,21 +159,31 @@ class TargetInterfaceController extends Controller
     /*
      * Детальный перечень назначений для курса
      */
-    public function showCourseDetail(Courses $course, string $filter = 'course'): View
+//    public function showCourseDetail(Courses $course, string $filter = 'course'): View
+//    {
+//        return view('appointments' . ucfirst($filter) . 'ListDetail', [
+//            'course' => $course,
+//            'url' => URL::previous()
+//        ]);
+//    }
+//
+//    public function showStudentDetail(User $user, string $filter = 'user'): View
+//    {
+//        return view('appointments' . ucfirst($filter) . 'ListDetail', [
+//            'user' => $user,
+//            'url' => URL::previous()
+//        ]);
+//    }
+
+    /*
+     * Вывод детальной информации по субъету (курс\студент)
+     */
+    public function showAppointmentsBySubject(Courses $course = null, User $user = null): View
     {
-        return view('appointments' . ucfirst($filter) . 'ListDetail', [
+        return view('appointments.appointmentsBySubject', [
+            'user' => $user,
             'course' => $course,
             'url' => URL::previous()
         ]);
     }
-
-    public function showStudentDetail(User $user, string $filter = 'user'): View
-    {
-        return view('appointments' . ucfirst($filter) . 'ListDetail', [
-            'user' => $user,
-            'url' => URL::previous()
-        ]);
-    }
-
-
 }

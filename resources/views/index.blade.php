@@ -8,21 +8,27 @@
                 <img src="/img/rabbit.png" alt="" width="80%">
             </div>
         @elseif (!empty($appointments))
-
             <table class="table table-striped table-modify">
                 <tr>
                     <th>Название курса</th>
                     <th>Описание</th>
-                    <th></th>
+                    <th class="center">Дата назначения</th>
+                    <th class="center">Статус</th>
                 </tr>
                 @foreach($appointments as $appointment)
                     <tr>
                         <td>{{$appointment->course->name}}</td>
-                        <td>{!! $appointment->course->description !!}</td>
-                        <td><a href="/course/{{$appointment->course->id}}" class="btn btn-primary">Перейти к обучению</a></td>
+                        <td>{!!$appointment->course->description!!}</td>
+                        <td class="center">{{$appointment->created_at}}</td>
+                        @if ($appointment->passed_at === '0000-00-00 00:00:00')
+                            <td class="center"><a href="/course/{{$appointment->course->id}}" class="btn btn-danger">Перейти</a></td>
+                        @else
+                            <td class="center"><a class="btn btn-success">Пройден</a></td>
+                        @endif
                     </tr>
                 @endforeach
             </table>
+            {{ $appointments->links('vendor.pagination.bootstrap-4') }}
         @endif
     </div>
 @endsection

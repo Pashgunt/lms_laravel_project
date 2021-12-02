@@ -2,6 +2,7 @@
 
 namespace App\LMS\Repositories;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\LMS\Abstracts\Repositories;
 
@@ -28,5 +29,14 @@ class AppointmentRepository extends Repositories
     public function orderByRaw(string $string)
     {
         return $this->model->orderByRaw($string);
+    }
+
+    /**
+     * Возвращает список назначений по студенту
+     * @return mixed
+     */
+    public function getByUser(User $user)
+    {
+        return $this->model->where('user_id', '=',  $user->id);
     }
 }
