@@ -14,7 +14,7 @@ class CreateCoursesActivitiesTable extends Migration
         Schema::create('courses_activities', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('courses_id');
-            $table->integer('activity_id');
+            $table->unsignedBigInteger('activity_id');
             $table->integer('priority');
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();

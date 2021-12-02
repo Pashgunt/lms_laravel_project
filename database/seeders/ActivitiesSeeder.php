@@ -9,10 +9,22 @@ class ActivitiesSeeder extends Seeder
 {
     public int $countActivities = 9;
     public array $properties = [
-        'course_id' => [1, 1, 1, 2, 2, 2, 3, 3, 3],
-        'type_id' => 1,
-        'priority' => [1, 2, 3, 1, 2, 3, 1, 2, 3],
-        'content_id' => [1, 2, 3, 4, 5, 6, 7, 8, 9],
+        'name' => [
+            'Element1',
+            'Element2',
+            'Element3',
+            'Element4',
+            'Element5',
+            'Element6',
+            'Element7',
+            'Element8',
+            'Element9'
+        ],
+        'activity_type_id' => 1,
+        'additional' => [
+            'title' => 'Example title',
+            'content' => 'Example content',
+        ]
     ];
 
 
@@ -20,12 +32,11 @@ class ActivitiesSeeder extends Seeder
     {
         for ($i = 0; $i < $this->countActivities; $i++) {
             Activities::query()->insert([
-                'course_id' => $this->properties['course_id'][$i],
-                'type_id' => $this->properties['type_id'],
-                'content_id' => $this->properties['content_id'][$i],
-                'priority' => $this->properties['priority'][$i],
-                'created_at' => '2021-11-30 11:02:20',
-                'updated_at' => '2021-11-30 11:02:20'
+                'name' => $this->properties['name'][$i],
+                'activity_type_id' => $this->properties['activity_type_id'],
+                'additional' => json_encode(serialize($this->properties['additional'])),
+                'created_at' => date('Y-m-d h:m:s'),
+                'updated_at' => date('Y-m-d h:m:s'),
             ]);
         }
     }

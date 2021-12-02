@@ -20,10 +20,9 @@ class DatabaseSeeder extends Seeder
             ManagerSeeder::class,
             UserSeeder::class,
             CoursesSeeder::class,
-            ActivitiesSeeder::class,
             ActivitiesTypeSeeder::class,
+            ActivitiesSeeder::class,
             AppointmentSeeder::class,
-            ActivitiesTextSeeder::class
         ]);
     }
 }
