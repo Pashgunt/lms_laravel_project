@@ -50,9 +50,9 @@ class CourseController extends Controller
      */
     public function store(CourseEditRequest $request): RedirectResponse
     {
-        $request->validated();
+        $DTO = $request->makeDTO();
 
-        return redirect('/courses/' . $this->repository->createNewCourse($request));
+        return redirect('/courses/' . $this->repository->createNewCourse($DTO));
     }
 
     /**

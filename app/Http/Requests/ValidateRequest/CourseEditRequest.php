@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\ValidateRequest;
 
+use App\LMS\DTO\CourseDTO;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CourseEditRequest extends FormRequest
@@ -19,15 +20,15 @@ class CourseEditRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nameCourse' => 'required|
+            'name' => 'required|
                             string|
                             min:4|
-                            max:50|
+                            max:255|
                             not_regex:/(=[@#$%^&*])/',
-            'descCourse' => 'required|
+            'description' => 'required|
                              string|
-                             min:50|
-                             max:255',
+                             min:10|
+                             max:5000',
         ];
     }
 
@@ -37,8 +38,8 @@ class CourseEditRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'nameCourse' => 'Название курса',
-            'descCourse' => 'Описание курса',
+            'name' => 'название',
+            'description' => 'описание',
         ];
     }
 
@@ -49,15 +50,31 @@ class CourseEditRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'nameCourse.required' => 'Поле обязательно к заполнению',
-            'nameCourse.not_regex' => 'Не должно быть спецсимволов',
-            'descCourse.required' => 'Поле обязательно к заполнению',
-            'nameCourse.regex' => 'Проверьте введенные данные ',
-            'descCourse.regex' => 'Проверьте введенные данные',
-            'nameCourse.min' => 'Минимум 10 символов в названии курса',
-            'descCourse.min' => 'Минимум 50 символов в описании курса',
-            'nameCourse.max' => 'Максимум 50 символов в названии курса',
-            'descCourse.max' => 'Максимум 255 символов в описании курса',
+            'name.required' => 'Поле обязательно к заполнению',
+            'name.not_regex' => 'Не должно быть спецсимволов',
+            'description.required' => 'Поле обязательно к заполнению',
+            'name.regex' => 'Проверьте введенные данные ',
+            'description.regex' => 'Проверьте введенные данные',
+            'name.min' => 'Минимум 4 символов в названии курса',
+            'description.min' => 'Минимум 10 символов в описании курса',
+            'name.max' => 'Максимум 50 символов в названии курса',
+            'description.max' => 'Максимум 5000 символов в описании курса',
         ];
+    }
+
+    /**
+     * DTO Курсов
+     *
+     * Передаем в DTO валидированные параметры
+     *
+     */
+    public function makeDTO(): CourseDTO
+    {
+        $validated = $this->validated();
+
+        $name = $validated['name'];
+        $description = $validated['description'];
+
+        return new CourseDTO($name, $description);
     }
 }

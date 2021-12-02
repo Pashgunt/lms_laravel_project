@@ -3,6 +3,7 @@
 namespace App\LMS\Repositories;
 
 use App\LMS\Abstracts\Repositories;
+use App\LMS\DTO\CourseDTO;
 use App\Models\Courses;
 use Illuminate\Http\Request;
 use App\LMS\Assignments\Services\Paginate;
@@ -26,13 +27,12 @@ class CourseRepository extends Repositories
     /**
      * Метод для создания новго курса
      */
-    public function createNewCourse(Request $request): int
+    public function createNewCourse(CourseDTO $courseDTO): int
     {
         $course = $this->model->create([
             'author_id' => Auth::id(),
-            'censorship_id' => 1,
-            'name' => $request->nameCourse,
-            'description' => $request->descCourse,
+            'name' => $courseDTO->getName(),
+            'description' => $courseDTO->getDescription(),
         ]);
 
         return $course->id;

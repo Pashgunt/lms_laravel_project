@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ValidateRequest\ActivityRequest;
 use App\LMS\Repositories\ActivitiesTestRepository;
 use App\LMS\Repositories\ActivitiesTextRepository;
 use App\LMS\Repositories\ActivitiesTypeRepository;
 use App\LMS\Repositories\ActivityRepository;
 use App\Models\Activities;
-use App\Models\ActivitiesTest;
-use App\Models\ActivitiesText;
 use App\Models\ActivitiesType;
 use App\Models\Courses;
 use Illuminate\Http\Request;
@@ -26,18 +25,9 @@ class ActivitiesController extends Controller
     /**
      * Отображение страницы с информацией об элементе
      */
-    public function info(Activities $activities)
+    public function info(ActivityRequest $request)
     {
-        $activity_type = $activities->type_id;
-
-        return view('activityInfo', [
-                'activities' => $this
-                    ->getRepository($activity_type)
-                    ->getActivityInfo($activities->content_id),
-                'courseId' => $activities->course_id,
-                'activityTypeId' => $activity_type
-            ]
-        );
+        $makeDTO = $request->validated();
     }
 
     /**
@@ -127,18 +117,9 @@ class ActivitiesController extends Controller
     /**
      * Получение нужного репозитория по type_id
      */
-    private function getRepository(int $type_id)
+    private function getRepository(ActivityRequest $request)
     {
-        switch ($type_id) {
-            case 1:
-                return new ActivitiesTextRepository(new ActivitiesText());
-            case 2:
-                return new ActivitiesTestRepository(new ActivitiesTest());
-            case 3:
-                return new ActivitiesVideoRepository(new ActivitiesVideo());
-            case 4:
-                return new ActivitiesImageRepository(new ActivitiesImage());
-        }
+        $makeDTO = $request->makeDTO();
     }
 
 }
