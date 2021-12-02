@@ -83,9 +83,9 @@ Route::middleware(['auth', 'role:admin|manager'])->prefix('courses')->group(func
     Route::post('/activity/{activityId}/edit', [ActivitiesController::class, 'editActivity']);
     Route::get('/{courseId}/sort/{column}/{sort_type}', [ActivitiesController::class, 'getSortedList']);
     Route::get('/activity/{activityId}/delete', [ActivitiesController::class, 'delete']);
-    Route::get('/{courseId}/activity/add', [ActivitiesController::class, 'addPage']);
-    Route::post('/{courseId}/activity/add', [ActivitiesController::class, 'addActivity']);
-    Route::get('/{courseId}/activity/add', [ActivitiesController::class, 'addPage']);
+    Route::post('/{courseId}/activity/add', [ActivitiesController::class, 'addPage']);
+    Route::post('/activity/{courseId}/add', [ActivitiesController::class, 'addActivity']);
+    Route::post('/{courseId}/activity/add', [ActivitiesController::class, 'addPage']);
     Route::get('/activity/{course_activity_id}/{event}', [ActivitiesController::class, 'changePriority']);
 });
 

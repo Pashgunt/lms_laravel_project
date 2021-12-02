@@ -44,11 +44,28 @@ class ActivitiesController extends Controller
     /**
      * Отображение формы добавление элемента
      */
-    public function addPage(Courses $course)
+    public function addPage(Courses $course, Request $request)
     {
+        $type = $request->input('activity_type');
+        switch ($type) {
+            case 1:
+                $formName = 'addTextActivity';
+                break;
+            case 2:
+                $formName = 'addTestActivity';
+                break;
+            case 3:
+                $formName = 'addVideoActivity';
+                break;
+            case 4:
+                $formName = 'addImageActivity';
+                break;
+        }
+
         return view('forms/addActivity', [
             'courseId' => $course->getKey(),
-            'activitiesType' => (new ActivitiesTypeRepository(new ActivitiesType()))->all()
+            'activityType' => $type,
+            'addForm' => "forms/activities/$formName"
         ]);
     }
 
@@ -57,10 +74,7 @@ class ActivitiesController extends Controller
      */
     public function addActivity(Request $request, Courses $course)
     {
-        $repository = $this->getRepository($request->input('type_id'));
-        $repository->createActivity($request);
-        $contentId = $repository->getLastId();
-        $this->repository->createActivity($request->all(), $course, $contentId[0]['id']);
+        dd($request);
 
         return redirect("/courses/$course->id");
     }
