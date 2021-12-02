@@ -5,7 +5,7 @@ namespace App\Http\Requests\ValidateRequest;
 use App\LMS\DTO\CourseDTO;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CourseEditRequest extends FormRequest
+class CourseRequest extends FormRequest
 {
     public function authorize(): bool
     {
