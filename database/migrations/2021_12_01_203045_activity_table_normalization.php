@@ -12,15 +12,14 @@ class ActivityTableNormalization extends Migration
     public function up(): void
     {
         Schema::table('activities', function (Blueprint $table) {
-            $table->integer('id')->change();
+            $table->unsignedBigInteger('type_id')->change();
+        });
+        Schema::table('activities', function (Blueprint $table) {
             $table->renameColumn('type_id', 'activity_type_id');
             $table->dropColumn('course_id', 'content_id', 'priority');
             $table->after('id', function ($table) {
                 $table->string('name');
             });
-        });
-        Schema::table('activities_type', function (Blueprint $table) {
-            $table->integer('id')->change();
         });
         Schema::table('activities', function (Blueprint $table) {
             $table->after('activity_type_id', function ($table) {
