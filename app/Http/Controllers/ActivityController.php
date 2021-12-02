@@ -164,6 +164,17 @@ class ActivityController extends Controller
      */
     public function changePriority(CoursesActivitiesModel $activity, string $eventType)
     {
+        if ($activity->priority === 1 && $eventType === 'up') {
+            return redirect("/courses/$activity->course_id");
+        }
+
+        $lastPriority = (new CoursesActivitiesRepository(new CoursesActivitiesModel()))
+            ->getLastPriorityByActivityId($activity);
+
+        if($activity->priority === $lastPriority && $eventType === 'down') {
+            return redirect("/courses/$activity->course_id");
+        }
+
         (new CoursesActivitiesRepository(new CoursesActivitiesModel()))
             ->changePriority($activity, $eventType);
 
