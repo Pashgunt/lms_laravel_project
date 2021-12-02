@@ -19,10 +19,27 @@
     <div><b>Описание: </b> {!!$course->description!!}</div>
     <br>
     <div>
-        <b>Содержание курса: </b><br>
-        Приоритетность:
-        <a href="/courses/{{$course->id}}/sort/priority/asc" style="color: blue">По возрастанию</a> /
-        <a href="/courses/{{$course->id}}/sort/priority/desc" style="color: blue">По убыванию</a>
+        <div class="head_menu">
+            <div>
+                <b>Содержание курса: </b><br>
+                Приоритетность:
+                <a href="/courses/{{$course->id}}/sort/priority/asc" style="color: blue">По возрастанию</a> /
+                <a href="/courses/{{$course->id}}/sort/priority/desc" style="color: blue">По убыванию</a>
+            </div>
+
+            <form action="/courses/{{$course->id}}/activity/add" method="post">
+                @csrf
+                <label>
+                    Добавление элемента -
+                    <select name="activity_type">
+                        @foreach($types as $type)
+                            <option value="{{$type->id}}">{{$type->name_rus}}</option>
+                        @endforeach
+                    </select>
+                </label>
+                <input type="submit" class="btn btn-success" value="Добавить">
+            </form>
+        </div>
         <table class="table">
             <tr>
                 <td></td>
@@ -55,7 +72,6 @@
             @endforeach
         </table>
         <a href="/courses" class="btn btn-primary">Вернуться к списку курсов</a>
-        <a href="/courses/{{$course->id}}/activity/add" class="btn btn-success">Добавить</a>
     </div>
     <br/>
     <script src="/assets/js/delete-confirm.js"></script>
