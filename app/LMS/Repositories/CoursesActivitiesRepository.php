@@ -76,7 +76,7 @@ class CoursesActivitiesRepository extends Repositories
     /**
      * Получение последнего, по приоритетности, элемента курса
      */
-    public function getLastPriority(Courses $course): int
+    public function getLastPriority(Course $course): int
     {
         $activity = $this->model
             ->where('course_id', '=', $course->getKey())

@@ -151,7 +151,8 @@ class ActivityController extends Controller
                 $course,
                 $column,
                 $sort_type
-            )
+            ),
+            'types' => (new ActivitiesTypeRepository(new ActivitiesType()))->all()
         ]);
     }
 
