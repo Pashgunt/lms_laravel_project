@@ -4,7 +4,7 @@ namespace App\LMS\Repositories;
 
 use App\LMS\Abstracts\Repositories;
 use App\LMS\DTO\CourseDTO;
-use App\Models\Courses;
+use App\Models\Course;
 use Illuminate\Http\Request;
 use App\LMS\Assignments\Services\Paginate;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +17,7 @@ class CourseRepository extends Repositories
     /**
      * Метод редактирования данных курса
      */
-    public function editCourseInfo(CourseDTO $courseDTO, Courses $course): void
+    public function editCourseInfo(CourseDTO $courseDTO, Course $course): void
     {
         $course->update(["name" => $courseDTO->getName(),
             "description" => $courseDTO->getDescription(),

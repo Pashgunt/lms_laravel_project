@@ -35,7 +35,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::model('userId', \App\Models\User::class);
         Route::model('activityId', \App\Models\Activities::class);
-        Route::model('courseId', \App\Models\Courses::class);
+        Route::model('courseId', \App\Models\Course::class);
         Route::model('target_id', Appointment::class);
         Route::model('course_activity_id', CoursesActivitiesModel::class);
 

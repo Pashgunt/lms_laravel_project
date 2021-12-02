@@ -4,7 +4,7 @@ namespace App\LMS\Repositories;
 
 use App\LMS\Abstracts\Repositories;
 use App\Models\Activities;
-use App\Models\Courses;
+use App\Models\Course;
 use App\Models\CoursesActivitiesModel;
 
 class CoursesActivitiesRepository extends Repositories
@@ -12,7 +12,7 @@ class CoursesActivitiesRepository extends Repositories
     /**
      * Получение списка активити элементов по ID курса
      */
-    public function getActivitiesList(Courses $courses)
+    public function getActivitiesList(Course $courses)
     {
         return $this->model
             ->select(['courses_activities.priority', 'courses_activities.id', 'activities.name'])
@@ -25,7 +25,7 @@ class CoursesActivitiesRepository extends Repositories
     /**
      * Метод получения отсортированного списка активити
      */
-    public function getSortedList(Courses $course, string $column, string $sort_type)
+    public function getSortedList(Course $course, string $column, string $sort_type)
     {
         return $this->model
             ->select(['courses_activities.priority', 'courses_activities.id', 'activities.name'])

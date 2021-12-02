@@ -2,6 +2,7 @@
 
 namespace App\LMS\Repositories;
 
+use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\LMS\Abstracts\Repositories;
@@ -38,5 +39,10 @@ class AppointmentRepository extends Repositories
     public function getByUser(User $user)
     {
         return $this->model->where('user_id', '=',  $user->id);
+    }
+
+    public function getBySubjects(User $user, Course $course)
+    {
+        return $this->model->where('user_id', '=',  $user->id)->where('course_id', '=', $course->id);
     }
 }
