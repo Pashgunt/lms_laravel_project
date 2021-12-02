@@ -74,7 +74,27 @@ class ActivitiesController extends Controller
      */
     public function addActivity(Request $request, Courses $course)
     {
-        dd($request);
+        $type = $request->input('activity_type');
+        switch ($type) {
+            case 1:
+                $this->repository->create([
+                                 'name' => $request->input('title'),
+                                 'activity_type_id' => $request->input('content'),
+                                 'additional' => json_encode(
+                                     serialize([
+                                                   'content' => $request->input('content')
+                                               ])
+                                 )
+                             ]);
+                (new CoursesActivitiesRepository(new CoursesActivitiesModel()))
+                    ->create([
+                        'course_id' => $course->getKey(),
+                        'activity_id' => $this->repository->getLastId(),
+                        'priority' => (new CoursesActivitiesRepository(new CoursesActivitiesModel()))
+                            ->getLastPriority($course->getKey())
+                             ]);
+                break;
+        }
 
         return redirect("/courses/$course->id");
     }
