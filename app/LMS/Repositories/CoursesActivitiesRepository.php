@@ -91,6 +91,21 @@ class CoursesActivitiesRepository extends Repositories
         return 1;
     }
 
+    public function getLastPriorityByActivityId (CoursesActivitiesModel $activity)
+    {
+        $activity = $this->model
+            ->where('course_id', '=', $activity->course_id)
+            ->orderBy('priority', 'desc')
+            ->limit(1)
+            ->get();
+
+        foreach ($activity as $data) {
+            return $data->priority;
+        }
+
+        return 1;
+    }
+
     /**
      * Получение ID записи по ID активити
      */

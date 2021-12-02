@@ -6,6 +6,7 @@ use App\Http\Requests\ValidateRequest\UserRequest;
 use App\LMS\Repositories\UserRepository;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 /**
@@ -23,11 +24,11 @@ class UsersListController extends Controller
     /**
      * Отображение страницы со списком пользователей
      */
-    public function main(): View
+    public function main(Request $request): View
     {
         $usersList = $this->repository->getUsersList(config('pagination.user'));
 
-        $page = $_GET['page'] ?? 1;
+        $page = $request->input('page') ?? 1;
 
         if ($usersList->lastPage() < $usersList->currentPage()) {
             return view('errors.404');
