@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\PassingCourseController;
 use App\Http\Controllers\TargetInterfaceController;
 use App\Http\Controllers\UsersListController;
 use App\Http\Controllers\VideoController;
@@ -102,8 +103,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('users')->group(function () {
  * Маршруты назначений
  */
 Route::middleware(['auth', 'role:admin|manager'])->prefix('target')->group(function () {
-    Route::get('', [TargetInterfaceController::class, 'show'])->name('target');
     Route::get('/students', [TargetInterfaceController::class, 'students'])->name('students');
+    Route::get('', [TargetInterfaceController::class, 'show'])->name('target');
+    Route::get('/students/{userId}', [TargetInterfaceController::class, 'showAppointmentsBySubject'])
+        ->name('target.student');
+    Route::get('/courses/{courseId}', [TargetInterfaceController::class, 'showAppointmentsBySubject'])
+        ->name('target.course');
     Route::get('/{target_id}/destroy', [TargetInterfaceController::class, 'destroy']);
 });
 
@@ -134,3 +139,13 @@ Route::prefix('video')->group(function () {
     Route::post('/add', [VideoController::class, 'store'])
         ->middleware('auth')->middleware(['auth', 'role:admin|manager']);
 });
+
+/**
+ * Маршруты прохождения курса
+ */
+
+Route::get('course/{courseId}', [PassingCourseController::class, 'index'])->middleware(['auth', 'appointment']);
+
+//Route::middleware(['auth'])->prefix('course')->group(function () {
+//    Route::get('/{courseId}', [PassingCourseController::class, 'index']);
+//});
