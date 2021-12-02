@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Appointment;
-use App\Models\Courses;
+use App\Models\Course;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,7 +20,7 @@ class AppointmentFactory extends Factory
     public function definition(): array
     {
         return [
-            'course_id' => Courses::factory(),
+            'course_id' => Course::factory(),
             'user_id' => User::factory(),
         ];
     }

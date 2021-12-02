@@ -27,7 +27,7 @@
                         <td>{{$user->date_birth}}</td>
                         <td><a href="/users/edit/{{$user->id}}" class="btn btn-primary">Информация</a></td>
                         <td>
-                            <form action="/users/list/{{$user->id}}" method="get">
+                            <form action="/users/list/{{$user->id}}/delete" method="post">
                                 @csrf
                                 <input type="hidden" name="userId" value="{{$user->id}}">
                                 <input type="submit" name="deleteUser" value="Удалить"

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Notifications\ResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -18,8 +19,7 @@ class User extends Authenticatable
     use HasApiTokens;
     use HasFactory;
     use Notifiable;
-
-//    public $timestamps = false;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -36,23 +36,15 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
-     */
-//    protected $hidden = [
-//        'password',
-//        'role_id'
-//    ];
-
-    /**
-     * "У автора может быть много курсов"
+     * У автора может быть много курсов
      */
     public function courses(): HasMany
     {
-        return $this->hasMany(Courses::class, 'author_id');
+        return $this->hasMany(Course::class, 'author_id');
     }
 
     /**
-     * "У пользователя одна роль"
+     * У пользователя одна роль
      */
     public function role(): HasOne
     {
@@ -70,7 +62,7 @@ class User extends Authenticatable
     }
 
     /**
-     * "У студента может быть много назначений"
+     * У студента может быть много назначений
      */
     public function appointments(): HasMany
     {

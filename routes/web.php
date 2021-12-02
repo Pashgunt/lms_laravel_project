@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ActivitiesController;
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
@@ -8,10 +8,9 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\PassingCourseController;
 use App\Http\Controllers\TargetInterfaceController;
 use App\Http\Controllers\UsersListController;
-use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainPageController;
-use \App\Http\Controllers\CourseController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\Auth\PageRegisterUserController;
 
 /*
@@ -78,15 +77,15 @@ Route::middleware(['auth', 'role:admin|manager'])->prefix('courses')->group(func
     Route::get('/{courseId}/destroy', [CourseController::class, 'destroy']);
     Route::get('/{courseId}/edit', [CourseController::class, 'edit'])->name('editCourse');
     Route::post('/{courseId}/edit', [CourseController::class, 'editCourse']);
-    Route::get('/activity/{contentId}/edit-page', [ActivitiesController::class, 'editPage']);
-    Route::get('/activity/{activityId}', [ActivitiesController::class, 'info']);
-    Route::post('/activity/{activityId}/edit', [ActivitiesController::class, 'editActivity']);
-    Route::get('/{courseId}/sort/{column}/{sort_type}', [ActivitiesController::class, 'getSortedList']);
-    Route::get('/activity/{activityId}/delete', [ActivitiesController::class, 'delete']);
-    Route::post('/{courseId}/activity/add', [ActivitiesController::class, 'addPage']);
-    Route::post('/activity/{courseId}/add', [ActivitiesController::class, 'addActivity']);
-    Route::post('/{courseId}/activity/add', [ActivitiesController::class, 'addPage']);
-    Route::get('/activity/{course_activity_id}/{event}', [ActivitiesController::class, 'changePriority']);
+    Route::get('/activity/{contentId}/edit-page', [ActivityController::class, 'editPage']);
+    Route::get('/activity/{activityId}', [ActivityController::class, 'info']);
+    Route::post('/activity/{activityId}/edit', [ActivityController::class, 'editActivity']);
+    Route::get('/{courseId}/sort/{column}/{sort_type}', [ActivityController::class, 'getSortedList']);
+    Route::get('/activity/{activityId}/delete', [ActivityController::class, 'delete']);
+    Route::post('/{courseId}/activity/add', [ActivityController::class, 'addPage']);
+    Route::post('/activity/{courseId}/add', [ActivityController::class, 'addActivity']);
+    Route::post('/{courseId}/activity/add', [ActivityController::class, 'addPage']);
+    Route::get('/activity/{course_activity_id}/{event}', [ActivityController::class, 'changePriority']);
 });
 
 /**
@@ -94,7 +93,7 @@ Route::middleware(['auth', 'role:admin|manager'])->prefix('courses')->group(func
  */
 Route::middleware(['auth', 'role:admin'])->prefix('users')->group(function () {
     Route::get('/list', [UsersListController::class, 'main'])->name('users');
-    Route::post('/list', [UsersListController::class, 'delete']);
+    Route::post('/list/{userId}/delete', [UsersListController::class, 'delete']);
     Route::get('/edit/{userId}', [UsersListController::class, 'editPage'])->name('userDetail');
     Route::post('/edit/{userId}', [UsersListController::class, 'editInfo'])->name('userDetail');
 });
@@ -125,27 +124,8 @@ Route::middleware(['auth', 'role:admin|manager'])->prefix('target-interface')->g
 });
 
 /**
- * Маршруты видео
- */
-Route::prefix('video')->group(function () {
-    // Тестовое видео
-    Route::get('', [VideoController::class, 'play']);
-    // Список загруженных видео
-    Route::get('/list', [VideoController::class, 'list']);
-    // Удаление видео по id
-    Route::post('/delete/{id}', [VideoController::class, 'destroy'])
-        ->middleware('auth')->middleware(['auth', 'role:admin|manager']);
-    // Добавление видео
-    Route::post('/add', [VideoController::class, 'store'])
-        ->middleware('auth')->middleware(['auth', 'role:admin|manager']);
-});
-
-/**
  * Маршруты прохождения курса
  */
-
 Route::get('course/{courseId}', [PassingCourseController::class, 'index'])->middleware(['auth', 'appointment']);
+Route::post('course/{courseId}/pass', [PassingCourseController::class, 'pass'])->middleware(['auth', 'appointment']);
 
-//Route::middleware(['auth'])->prefix('course')->group(function () {
-//    Route::get('/{courseId}', [PassingCourseController::class, 'index']);
-//});

@@ -3,7 +3,7 @@
 namespace App\LMS\Repositories;
 
 use App\LMS\Abstracts\Repositories;
-use App\Models\Courses;
+use App\Models\Course;
 use App\Models\Activities;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -31,7 +31,7 @@ class ActivityRepository extends Repositories
     /**
      * Получение сортированной коллекции
      */
-    public function getSortedList(Courses $course, string $param, string $type): Collection
+    public function getSortedList(Course $course, string $param, string $type): Collection
     {
         return $this->model
             ->select(['activities.id', 'activities.course_id', 'activities.content_id', 'activities.type_id', 'activities.priority', 'activities_text.title', 'activities_text.content'])
@@ -42,27 +42,23 @@ class ActivityRepository extends Repositories
     }
 
     /**
-     * Получение последнего, по приоритетности, элемента курса
+     * Получение ID последнего элемента
      */
-    public function getLastPriority(Courses $course): ?int
+    public function getLastId(): int
     {
-        $activity = $this->model
-            ->where('course_id', '=', $course->getKey())
-            ->orderBy('priority', 'desc')
+        $elem = $this->model
+            ->select('id')
+            ->orderBy('id', 'desc')
             ->limit(1)
             ->get();
 
-        foreach ($activity as $data) {
-            return $data->priority;
-        }
-
-        return null;
+        return $elem[0]->id;
     }
 
     /**
      * Формирование массива на добавление элемента
      */
-    public function createActivity(array $data, Courses $course, int $contentId): Activities
+    public function createActivity(array $data, Course $course, int $contentId): Activities
     {
         return $this->model->create([
             'course_id' => $course->getKey(),

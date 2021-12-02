@@ -6,13 +6,10 @@ use App\LMS\Repositories\AppointmentRepository;
 use App\LMS\Repositories\CourseRepository;
 use App\LMS\Repositories\UserRepository;
 use App\Models\Appointment;
-use App\Models\Courses;
+use App\Models\Course;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\View\View;
 
@@ -25,10 +22,11 @@ class TargetInterfaceController extends Controller
     protected CourseRepository $courseRepository;
     protected AppointmentRepository $repository;
 
-    public function __construct(UserRepository        $userRepository,
-                                CourseRepository      $courseRepository,
-                                AppointmentRepository $repository)
-    {
+    public function __construct(
+        UserRepository $userRepository,
+        CourseRepository $courseRepository,
+        AppointmentRepository $repository
+    ) {
         $this->userRepository = $userRepository;
         $this->courseRepository = $courseRepository;
         $this->repository = $repository;
@@ -65,10 +63,10 @@ class TargetInterfaceController extends Controller
     /**
      * Метод для поиска по пользователям
      */
-    public function searchUser(Request $request)
+    public function searchUser(Request $request): string
     {
+        $output = [];
         if ($request->ajax()) {
-            $output = [];
             $products = $this->userRepository->searchUser($request->search);
             if ($products) {
                 foreach ($products as $key => $product) {
@@ -76,17 +74,17 @@ class TargetInterfaceController extends Controller
                 }
             }
         }
-        $output_json = json_encode($output);
-        return $output_json;
+
+        return json_encode($output);
     }
 
     /**
      * Метод для поиска по курсам
      */
-    public function searchCourses(Request $request)
+    public function searchCourses(Request $request): string
     {
+        $output = [];
         if ($request->ajax()) {
-            $output = [];
             $products = $this->courseRepository->searchCourse($request->search);
             if ($products) {
                 foreach ($products as $key => $product) {
@@ -94,8 +92,8 @@ class TargetInterfaceController extends Controller
                 }
             }
         }
-        $output_json = json_encode($output);
-        return $output_json;
+
+        return json_encode($output);
     }
 
     /**
@@ -149,36 +147,16 @@ class TargetInterfaceController extends Controller
 
     /**
      * Отображение назначений по списку пользователей
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View
      */
-    public function students(Request $request)
+    public function students(Request $request): View
     {
         return $this->show($request, 'user');
     }
 
-    /*
-     * Детальный перечень назначений для курса
-     */
-//    public function showCourseDetail(Courses $course, string $filter = 'course'): View
-//    {
-//        return view('appointments' . ucfirst($filter) . 'ListDetail', [
-//            'course' => $course,
-//            'url' => URL::previous()
-//        ]);
-//    }
-//
-//    public function showStudentDetail(User $user, string $filter = 'user'): View
-//    {
-//        return view('appointments' . ucfirst($filter) . 'ListDetail', [
-//            'user' => $user,
-//            'url' => URL::previous()
-//        ]);
-//    }
-
-    /*
+    /**
      * Вывод детальной информации по субъету (курс\студент)
      */
-    public function showAppointmentsBySubject(Courses $course = null, User $user = null): View
+    public function showAppointmentsBySubject(Course $course = null, User $user = null): View
     {
         return view('appointments.appointmentsBySubject', [
             'user' => $user,

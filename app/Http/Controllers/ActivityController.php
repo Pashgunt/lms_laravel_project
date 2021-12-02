@@ -7,12 +7,12 @@ use App\LMS\Repositories\ActivityRepository;
 use App\LMS\Repositories\CoursesActivitiesRepository;
 use App\Models\Activities;
 use App\Models\ActivitiesType;
-use App\Models\Courses;
+use App\Models\Course;
 use App\Models\CoursesActivitiesModel;
 use Illuminate\Http\Request;
 
 /** Контроллер для CRUD операции по вложенным элементам курса (Activities)  */
-class ActivitiesController extends Controller
+class ActivityController extends Controller
 {
     protected ActivityRepository $repository;
 
@@ -44,7 +44,7 @@ class ActivitiesController extends Controller
     /**
      * Отображение формы добавление элемента
      */
-    public function addPage(Courses $course, Request $request)
+    public function addPage(Course $course, Request $request)
     {
         $type = $request->input('activity_type');
         switch ($type) {
@@ -72,9 +72,34 @@ class ActivitiesController extends Controller
     /**
      * Добавление элемента
      */
-    public function addActivity(Request $request, Courses $course)
+    public function addActivity(Request $request, Course $course)
     {
-        dd($request);
+        $type = $request->input('activity_type');
+
+        /** В свиче добавляем элемент в таблицу - activities */
+        switch ($type) {
+            case 1:
+                $this->repository->create([
+                                              'name' => $request->input('title'),
+                                              'activity_type_id' => $request->input('activity_type'),
+                                              'additional' => json_encode(
+                                                  serialize([
+                                                                'title' => $request->input('title'),
+                                                                'content' => $request->input('content')
+                                                            ])
+                                              )
+                                          ]);
+                break;
+        }
+
+        /** Тут добавляем запись в таблицу - courses_activities в не зависимости от типа элемента */
+        (new CoursesActivitiesRepository(new CoursesActivitiesModel()))
+            ->create([
+                         'course_id' => $course->getKey(),
+                         'activity_id' => $this->repository->getLastId(),
+                         'priority' => (new CoursesActivitiesRepository(new CoursesActivitiesModel()))
+                             ->getLastPriority($course)
+                     ]);
 
         return redirect("/courses/$course->id");
     }
@@ -104,15 +129,18 @@ class ActivitiesController extends Controller
      */
     public function delete(Activities $activities)
     {
-        $this->getRepository($activities->type_id)->delete($activities->content_id);
+        $table = (new CoursesActivitiesRepository(new CoursesActivitiesModel()));
+        $strokeId = $table->getIdByActivityId($activities);
+        $table->delete($strokeId);
+        $this->repository->delete($activities->getKey());
 
-        return redirect("/courses/$activities->course_id");
+        return redirect()->back();
     }
 
     /**
      * Сортировка списка по столбцу (param(столбец)) и типу (type(asc/desc))
      */
-    public function getSortedList(Courses $course, string $column, string $sort_type)
+    public function getSortedList(Course $course, string $column, string $sort_type)
     {
         $sortTypes = ['asc', 'desc'];
 
@@ -126,7 +154,8 @@ class ActivitiesController extends Controller
                 $course,
                 $column,
                 $sort_type
-            )
+            ),
+            'types' => (new ActivitiesTypeRepository(new ActivitiesType()))->all()
         ]);
     }
 

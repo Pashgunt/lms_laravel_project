@@ -13,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 /**
  * Общая модель для курсов
  */
-class Courses extends Authenticatable
+class Course extends Authenticatable
 {
     use HasApiTokens;
     use HasFactory;
@@ -47,8 +47,11 @@ class Courses extends Authenticatable
         return $this->hasMany(Appointment::class, 'course_id');
     }
 
+    /**
+     * "У курса много активити"
+     */
     public function activities(): HasMany
     {
-        return $this->hasMany(Activities::class, 'course_id');
+        return $this->hasMany(CoursesActivitiesModel::class, 'course_id');
     }
 }
