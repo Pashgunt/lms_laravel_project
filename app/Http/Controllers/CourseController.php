@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ValidateRequest\CourseEditRequest;
+use App\Http\Requests\ValidateRequest\CourseRequest;
 use App\LMS\Repositories\ActivityRepository;
+use App\LMS\Repositories\CoursesActivitiesRepository;
 use App\Models\Activities;
+use App\Models\ActivitiesType;
 use App\Models\Courses;
+use App\Models\CoursesActivitiesModel;
 use Illuminate\Http\RedirectResponse;
 use App\LMS\Repositories\CourseRepository;
 use Illuminate\Contracts\View\View;
@@ -48,11 +51,11 @@ class CourseController extends Controller
     /**
      * Сохраняет провалидированные данные в базу после метода create
      */
-    public function store(CourseEditRequest $request): RedirectResponse
+    public function store(CourseRequest $request): RedirectResponse
     {
-        $request->validated();
+        $DTO = $request->makeDTO();
 
-        return redirect('/courses/' . $this->repository->createNewCourse($request));
+        return redirect('/courses/' . $this->repository->createNewCourse($DTO));
     }
 
     /**
@@ -62,7 +65,7 @@ class CourseController extends Controller
     {
         return view('courseDetail', [
             'course' => $course,
-            'activities' => (new ActivityRepository(new Activities()))->getCourseActivities($course),
+            'activities' => (new CoursesActivitiesRepository(new CoursesActivitiesModel()))->getActivitiesList($course)
         ]);
     }
 
@@ -80,13 +83,13 @@ class CourseController extends Controller
     /**
      * Валидирует данные для изменения курса
      */
-    public function editCourse(CourseEditRequest $request, Courses $course): RedirectResponse
+    public function editCourse(CourseRequest $request, Courses $course): RedirectResponse
     {
-        $request->validated();
+        $DTO = $request->makeDTO();
 
-        $this->repository->editCourseInfo($request, $course);
+        $this->repository->editCourseInfo($DTO, $course);
 
-        return redirect()->to('/courses/' . $course->id);
+        return redirect()->to('/courses/' . $course->id . '/edit');
     }
 
     /**

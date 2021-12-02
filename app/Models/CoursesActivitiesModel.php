@@ -5,19 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ActivitiesText extends Model
+class CoursesActivitiesModel extends Model
 {
     use HasFactory;
 
-    public $table = 'activities_text';
-
-    public $timestamps = false;
-
+    public $table = 'courses_activities';
     /**
      * Поля для заполнения
      */
     protected $fillable = [
-        'title',
-        'content'
+        'course_id',
+        'activity_id',
+        'priority'
     ];
+
 }

@@ -23,7 +23,7 @@
 
                 @if ($errors->any())
                     <div class="alert alert-danger">
-                        Неправильное имя пользователя или пароль
+                        Неправильная почта или пароль
                     </div>
                 @endif
                 <br>

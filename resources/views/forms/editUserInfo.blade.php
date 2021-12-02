@@ -16,7 +16,7 @@
                 @error('username')
                 <div class="alert-danger">{{ $message }}</div>
                 @enderror
-                Логин - <input type="text" name="username" value="{{$user->username}}">
+                ФИО - <input type="text" name="username" value="{{$user->username}}">
             </label><br>
             <label>
                 @error('email')

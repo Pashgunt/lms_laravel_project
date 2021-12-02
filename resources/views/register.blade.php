@@ -37,7 +37,7 @@
             <form action="/register" method="post">
                 @csrf
                 <div class="registration__title _title">Регистрация</div>
-                <label class="registration__label _title">Имя пользователя
+                <label class="registration__label _title">ФИО
                     @error('username')
                     <div class="alert-danger">{{ $message }}</div>
                     @enderror

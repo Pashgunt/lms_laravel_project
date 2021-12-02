@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ValidateRequest\ActivityAddRequest;
-use App\LMS\Repositories\ActivitiesTextRepository;
 use App\LMS\Repositories\ActivitiesTypeRepository;
 use App\LMS\Repositories\ActivityRepository;
+use App\LMS\Repositories\CoursesActivitiesRepository;
 use App\Models\Activities;
-use App\Models\ActivitiesText;
 use App\Models\ActivitiesType;
 use App\Models\Courses;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\CoursesActivitiesModel;
 use Illuminate\Http\Request;
 
 /** Контроллер для CRUD операции по вложенным элементам курса (Activities)  */
@@ -28,15 +26,18 @@ class ActivitiesController extends Controller
      */
     public function info(Activities $activities)
     {
-        $activity_type = $activities->type_id;
+        $courseInfo = (new CoursesActivitiesRepository(new CoursesActivitiesModel()))
+            ->getCourseId($activities);
+
+        foreach ($courseInfo as $course) {
+            $courseId = $course->course_id;
+        }
 
         return view('activityInfo', [
-                'activities' => $this
-                    ->getRepository($activity_type)
-                    ->getActivityInfo($activities->content_id),
-                'courseId' => $activities->course_id,
-                'activityTypeId' => $activity_type
-            ]
+                                      'activities' => $activities,
+                                      'data' => unserialize(json_decode($activities->additional)),
+                                      'courseId' => $courseId
+                                  ]
         );
     }
 
@@ -100,45 +101,29 @@ class ActivitiesController extends Controller
     public function getSortedList(Courses $course, string $column, string $sort_type)
     {
         $sortTypes = ['asc', 'desc'];
-        if (!in_array($sort_type, $sortTypes)) {
-            return redirect("/courses/$course->id");
-        }
-        $columns = $this->repository->getColumnNames();
-        if (!in_array($column, $columns)) {
+
+        if (!in_array($sort_type, $sortTypes) && $column !== 'priority') {
             return redirect("/courses/$course->id");
         }
 
         return view('courseDetail', [
             'course' => $course,
-            'activities' => $this->repository->getSortedList($course, $column, $sort_type)
+            'activities' => (new CoursesActivitiesRepository(new CoursesActivitiesModel()))->getSortedList(
+                $course,
+                $column,
+                $sort_type
+            )
         ]);
     }
 
     /**
      * Смена приоритетности вложенных элементов курса
      */
-    public function changePriority(Activities $activity, string $eventType)
+    public function changePriority(CoursesActivitiesModel $activity, string $eventType)
     {
-        $this->repository->changePriority($activity, $eventType);
+        (new CoursesActivitiesRepository(new CoursesActivitiesModel()))
+            ->changePriority($activity, $eventType);
 
         return redirect("/courses/$activity->course_id");
     }
-
-    /**
-     * Получение нужного репозитория по type_id
-     */
-    private function getRepository(int $type_id)
-    {
-        switch ($type_id) {
-            case 1:
-                return new ActivitiesTextRepository(new ActivitiesText());
-            case 2:
-                return new ActivitiesTestRepository(new ActivitiesTest());
-            case 3:
-                return new ActivitiesVideoRepository(new ActivitiesVideo());
-            case 4:
-                return new ActivitiesImageRepository(new ActivitiesImage());
-        }
-    }
-
 }

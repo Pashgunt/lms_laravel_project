@@ -16,9 +16,9 @@ class Activities extends Model
      * Поля для заполнения
      */
     protected $fillable = [
-        'course_id',
-        'type_id',
-        'priority',
-        'content_id'
+        'name',
+        'activity_type_id',
+        'additional',
     ];
 }
+
