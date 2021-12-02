@@ -17,10 +17,10 @@ class CourseRepository extends Repositories
     /**
      * Метод редактирования данных курса
      */
-    public function editCourseInfo($request, Courses $course): void
+    public function editCourseInfo(CourseDTO $courseDTO, Courses $course): void
     {
-        $course->update(["name" => $request->nameCourse,
-            "description" => $request->descCourse,
+        $course->update(["name" => $courseDTO->getName(),
+            "description" => $courseDTO->getDescription(),
         ]);
     }
 
