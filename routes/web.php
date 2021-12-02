@@ -145,7 +145,5 @@ Route::prefix('video')->group(function () {
  */
 
 Route::get('course/{courseId}', [PassingCourseController::class, 'index'])->middleware(['auth', 'appointment']);
+Route::post('course/{courseId}/pass', [PassingCourseController::class, 'pass'])->middleware(['auth', 'appointment']);
 
-//Route::middleware(['auth'])->prefix('course')->group(function () {
-//    Route::get('/{courseId}', [PassingCourseController::class, 'index']);
-//});
