@@ -12,6 +12,11 @@ class Activities extends Model
 {
     use HasFactory;
 
+    public const ACTIVITY_TEXT = 1;
+    public const ACTIVITY_TEST = 2;
+    public const ACTIVITY_VIDEO = 3;
+    public const ACTIVITY_IMAGE = 4;
+
     /**
      * Поля для заполнения
      */
