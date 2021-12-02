@@ -42,21 +42,17 @@ class ActivityRepository extends Repositories
     }
 
     /**
-     * Получение последнего, по приоритетности, элемента курса
+     * Получение ID последнего элемента
      */
-    public function getLastPriority(Courses $course): ?int
+    public function getLastId(): int
     {
-        $activity = $this->model
-            ->where('course_id', '=', $course->getKey())
-            ->orderBy('priority', 'desc')
+        $elem = $this->model
+            ->select('id')
+            ->orderBy('id', 'desc')
             ->limit(1)
             ->get();
 
-        foreach ($activity as $data) {
-            return $data->priority;
-        }
-
-        return null;
+        return $elem[0]->id;
     }
 
     /**

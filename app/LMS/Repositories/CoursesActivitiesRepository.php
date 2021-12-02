@@ -72,4 +72,22 @@ class CoursesActivitiesRepository extends Repositories
                          'priority' => $param
                      ]);
     }
+
+    /**
+     * Получение последнего, по приоритетности, элемента курса
+     */
+    public function getLastPriority(Courses $course): int
+    {
+        $activity = $this->model
+            ->where('course_id', '=', $course->getKey())
+            ->orderBy('priority', 'desc')
+            ->limit(1)
+            ->get();
+
+        foreach ($activity as $data) {
+            return $data->priority + 1;
+        }
+
+        return 1;
+    }
 }

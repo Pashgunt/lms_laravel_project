@@ -75,26 +75,31 @@ class ActivitiesController extends Controller
     public function addActivity(Request $request, Courses $course)
     {
         $type = $request->input('activity_type');
+
+        /** В свиче добавляем элемент в таблицу - activities */
         switch ($type) {
             case 1:
                 $this->repository->create([
-                                 'name' => $request->input('title'),
-                                 'activity_type_id' => $request->input('content'),
-                                 'additional' => json_encode(
-                                     serialize([
-                                                   'content' => $request->input('content')
-                                               ])
-                                 )
-                             ]);
-                (new CoursesActivitiesRepository(new CoursesActivitiesModel()))
-                    ->create([
-                        'course_id' => $course->getKey(),
-                        'activity_id' => $this->repository->getLastId(),
-                        'priority' => (new CoursesActivitiesRepository(new CoursesActivitiesModel()))
-                            ->getLastPriority($course->getKey())
-                             ]);
+                                              'name' => $request->input('title'),
+                                              'activity_type_id' => $request->input('activity_type'),
+                                              'additional' => json_encode(
+                                                  serialize([
+                                                                'title' => $request->input('title'),
+                                                                'content' => $request->input('content')
+                                                            ])
+                                              )
+                                          ]);
                 break;
         }
+
+        /** Тут добавляем запись в таблицу - courses_activities в не зависимости от типа элемента */
+        (new CoursesActivitiesRepository(new CoursesActivitiesModel()))
+            ->create([
+                         'course_id' => $course->getKey(),
+                         'activity_id' => $this->repository->getLastId(),
+                         'priority' => (new CoursesActivitiesRepository(new CoursesActivitiesModel()))
+                             ->getLastPriority($course)
+                     ]);
 
         return redirect("/courses/$course->id");
     }
