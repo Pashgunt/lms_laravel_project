@@ -143,6 +143,9 @@ Route::prefix('video')->group(function () {
 /**
  * Маршруты прохождения курса
  */
-Route::middleware('auth')->prefix('learning')->group(function () {
-    Route::get('/{courseId}', [PassingCourseController::class, 'index']);
-});
+
+Route::get('course/{courseId}', [PassingCourseController::class, 'index'])->middleware(['auth', 'appointment']);
+
+//Route::middleware(['auth'])->prefix('course')->group(function () {
+//    Route::get('/{courseId}', [PassingCourseController::class, 'index']);
+//});

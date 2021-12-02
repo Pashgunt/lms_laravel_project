@@ -20,7 +20,7 @@
                         <td>{{$appointment->course->name}}</td>
                         <td>{!!$appointment->course->description!!}</td>
                         <td class="center">{{$appointment->created_at}}</td>
-                        @if ($appointment->passed_at === '0000-00-00 00:00:00')
+                        @if ($appointment->passed_at === null)
                             <td class="center"><a href="/course/{{$appointment->course->id}}" class="btn btn-danger">Перейти</a></td>
                         @else
                             <td class="center"><a class="btn btn-success">Пройден</a></td>

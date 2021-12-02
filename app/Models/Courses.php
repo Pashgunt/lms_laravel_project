@@ -46,4 +46,9 @@ class Courses extends Authenticatable
     {
         return $this->hasMany(Appointment::class, 'course_id');
     }
+
+    public function activities(): HasMany
+    {
+        return $this->hasMany(Activities::class, 'course_id');
+    }
 }
