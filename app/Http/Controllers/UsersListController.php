@@ -27,6 +27,7 @@ class UsersListController extends Controller
     public function main(): View
     {
         $usersList = $this->repository->getUsersList(config('pagination.user'));
+
         $page = $_GET['page'] ?? 1;
 
         if ($usersList->lastPage() < $usersList->currentPage()) {

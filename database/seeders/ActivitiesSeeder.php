@@ -36,7 +36,7 @@ class ActivitiesSeeder extends Seeder
                 'activity_type_id' => $this->properties['activity_type_id'],
                 'additional' => json_encode(serialize($this->properties['additional'])),
                 'created_at' => date('Y-m-d h:m:s'),
-                'updated_at' => date('Y-m-d h:m:s'),
+                'updated_at' => date('Y-m-d h:m:s')
             ]);
         }
     }

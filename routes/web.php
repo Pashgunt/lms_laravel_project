@@ -85,7 +85,7 @@ Route::middleware(['auth', 'role:admin|manager'])->prefix('courses')->group(func
     Route::get('/{courseId}/activity/add', [ActivitiesController::class, 'addPage']);
     Route::post('/{courseId}/activity/add', [ActivitiesController::class, 'addActivity']);
     Route::get('/{courseId}/activity/add', [ActivitiesController::class, 'addPage']);
-    Route::get('/activity/{activityId}/{event}', [ActivitiesController::class, 'changePriority']);
+    Route::get('/activity/{course_activity_id}/{event}', [ActivitiesController::class, 'changePriority']);
 });
 
 /**

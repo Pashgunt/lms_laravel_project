@@ -33,8 +33,9 @@
             @foreach ($activities as $activity)
                 <tr>
                     <td>{{$activity->priority}}</td>
-                    <td><a href="/courses/activity/{{$activity->id}}">
-                            {{$activity->title}}
+                    <td>
+                        <a href="/courses/activity/{{$activity->id}}">
+                            {{$activity->name}}
                         </a>
                     </td>
                     <td class="priority-change">
