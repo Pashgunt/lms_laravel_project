@@ -13,7 +13,7 @@
     <div class="usersTable">
         <table class="table table-striped table-modify">
             <tr>
-                <th>Логин</th>
+                <th>ФИО</th>
                 <th>Почта</th>
                 <th>Дата рождения</th>
                 <th></th>

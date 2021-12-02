@@ -50,7 +50,12 @@ class UserRepository extends Repositories
     {
         return $this->model
             ->where('id', '=', "$user->id")
-            ->update(['username' => $request->input('username'), 'email' => $request->input('email'), 'date_birth' => $request->input('date_birth')]);
+            ->update([
+                'username' => $request->input('username'),
+                'email' => $request->input('email'),
+                'date_birth' => $request->input('date_birth'),
+                'role_id' => $request->input('role_id')
+            ]);
     }
 
     /**
