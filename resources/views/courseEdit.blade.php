@@ -5,7 +5,7 @@
     @include('admin')
 
     @if(isset($course))
-        {{ DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs::render('editCourse', $course) }}
+        {{ DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs::render('editCourse', $course ?? '') }}
         <h1>Редактирование курса</h1>
         <form action="/courses/{{$course->id}}/edit" method="post">
             @else
@@ -14,17 +14,17 @@
                 <form action="/courses" method="post">
                     @endif
                     @csrf
-                    @error('nameCourse')
+                    @error('name')
                     <div class="alert-danger">{{ $message }}</div>
                     @enderror
-                    <input type="text" value="{{old('nameCourse', $course->name)}}"
+                    <input type="text" value="{{old('name', isset($course) ? $course->name : '')}}"
                            class="form-control form-control-lg"
-                           name="nameCourse">
-                    @error('descCourse')
+                           name="name">
+                    @error('description')
                     <div class="alert-danger">{{ $message }}</div>
                     @enderror
                     <textarea id="basic-wysiwyg"
-                              name="descCourse">{{old('descCourse', $course->description)}}</textarea>
+                              name="description">{{old('description', isset($course) ? $course->description : '')}}</textarea>
                     <br/>
                     <input type="submit" value="Сохранить изменения" class="btn btn-success">
                 </form>
